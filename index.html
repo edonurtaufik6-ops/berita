@@ -3,225 +3,196 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Berita Trending Indonesia Hari Ini</title>
+  <title>Trending Indonesia Hari Ini</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <meta name="description" content="Portal berita modern yang merangkum 5 berita paling trending di Indonesia hari ini." />
-  <style>
-    html { scroll-behavior: smooth; }
-  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: "#0f172a",
+            primary: "#2563eb",
+            accent: "#f97316"
+          },
+          boxShadow: {
+            soft: "0 10px 30px rgba(15, 23, 42, 0.08)"
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-slate-950 text-slate-100 antialiased">
-  <div class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-    <header class="border-b border-white/10 backdrop-blur supports-[backdrop-filter]:bg-slate-950/70 sticky top-0 z-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between py-4">
-          <div class="flex items-center gap-3">
-            <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-red-500 via-fuchsia-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-fuchsia-500/20">
-              <span class="font-black text-white">ID</span>
-            </div>
-            <div>
-              <p class="text-xs uppercase tracking-[0.25em] text-slate-400">Portal Berita AI</p>
-              <h1 class="text-lg sm:text-xl font-bold">Trending Indonesia Hari Ini</h1>
-            </div>
+<body class="bg-slate-50 text-slate-800">
+  <div class="min-h-screen">
+    <header class="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 text-white">
+      <div class="max-w-7xl mx-auto px-6 py-10">
+        <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="inline-flex items-center rounded-full bg-white/10 px-4 py-1 text-sm font-medium backdrop-blur">
+              Portal Berita AI • Update Hari Ini
+            </p>
+            <h1 class="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">5 Berita Paling Trending di Indonesia</h1>
+            <p class="mt-4 max-w-3xl text-slate-200 text-lg">
+              Ringkasan cepat dari topik yang paling banyak diperbincangkan hari ini, disusun dalam tampilan modern dan responsif.
+            </p>
           </div>
-          <div class="hidden sm:flex items-center gap-2 text-xs text-slate-400">
-            <span class="px-3 py-1 rounded-full border border-white/10 bg-white/5">Live Update</span>
-            <span class="px-3 py-1 rounded-full border border-white/10 bg-white/5">Responsif</span>
+          <div class="bg-white/10 rounded-2xl px-5 py-4 backdrop-blur border border-white/10">
+            <p class="text-sm text-slate-200">Tanggal pembaruan</p>
+            <p class="text-xl font-semibold">22 November 2026</p>
           </div>
         </div>
       </div>
     </header>
 
-    <main>
-      <section class="relative overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.18),transparent_28%),radial-gradient(circle_at_top_left,rgba(239,68,68,0.18),transparent_26%)]"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
-          <div class="grid lg:grid-cols-2 gap-10 items-center">
+    <main class="max-w-7xl mx-auto px-6 py-10">
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <article class="lg:col-span-2 rounded-3xl bg-white shadow-soft border border-slate-200 overflow-hidden">
+          <div class="p-8">
+            <div class="flex flex-wrap items-center gap-3 mb-5">
+              <span class="rounded-full bg-red-100 text-red-700 px-3 py-1 text-sm font-semibold">Breaking</span>
+              <span class="rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-sm">Nasional</span>
+              <span class="text-sm text-slate-500">22 Nov 2026 • 07:46 GMT</span>
+            </div>
+            <h2 class="text-3xl font-bold leading-tight text-slate-900">
+              Kebakaran Pabrik Permen di Banten Tewaskan 3 Orang, 36 Pekerja Masih Hilang
+            </h2>
+            <p class="mt-5 text-lg leading-8 text-slate-600">
+              Tim penyelamat masih melakukan pencarian setelah kebakaran hebat melanda pabrik makanan ringan di Banten, dekat Jakarta. Sedikitnya tiga orang dilaporkan meninggal, 15 orang berhasil diselamatkan, dan puluhan pekerja lainnya masih belum ditemukan. Otoritas menyatakan penyebab kebakaran masih dalam penyelidikan.
+            </p>
+          </div>
+        </article>
+
+        <aside class="rounded-3xl bg-slate-900 text-white p-8 shadow-soft">
+          <p class="text-sm uppercase tracking-[0.2em] text-slate-300">Sorotan</p>
+          <h3 class="mt-3 text-2xl font-bold">Ringkasan Cepat</h3>
+          <ul class="mt-6 space-y-4 text-slate-200">
+            <li class="border-b border-white/10 pb-4">Insiden kebakaran pabrik di Banten menjadi berita paling menonjol hari ini.</li>
+            <li class="border-b border-white/10 pb-4">Isu ekonomi didominasi oleh ekspor dan penghentian layanan transportasi online tertentu.</li>
+            <li class="border-b border-white/10 pb-4">Peta politik nasional kembali ramai membahas figur calon wakil presiden.</li>
+            <li class="border-b border-white/10 pb-4">Pemerintah menyoroti pengetatan sistem imigrasi di tengah dinamika global.</li>
+            <li>Hoaks tsunami viral dibantah melalui verifikasi fakta media.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <article class="rounded-2xl bg-white border border-slate-200 shadow-soft p-6 hover:-translate-y-1 transition duration-300">
+          <div class="flex items-center justify-between gap-3">
+            <span class="rounded-full bg-emerald-100 text-emerald-700 px-3 py-1 text-xs font-bold">Ekonomi</span>
+            <span class="text-sm text-slate-500">22 Nov 2026 • 08:00 GMT</span>
+          </div>
+          <h3 class="mt-4 text-xl font-bold text-slate-900 leading-snug">
+            Eksportir Berpeluang Hemat Tarif Bea Masuk dari IEU-CEPA
+          </h3>
+          <p class="mt-3 text-slate-600 leading-7">
+            Kanal ekonomi menyoroti peluang penghematan tarif bea masuk bagi eksportir Indonesia melalui skema IEU-CEPA. Topik ini menjadi perhatian karena dinilai dapat mendorong daya saing produk ekspor nasional di pasar internasional.
+          </p>
+        </article>
+
+        <article class="rounded-2xl bg-white border border-slate-200 shadow-soft p-6 hover:-translate-y-1 transition duration-300">
+          <div class="flex items-center justify-between gap-3">
+            <span class="rounded-full bg-violet-100 text-violet-700 px-3 py-1 text-xs font-bold">Politik</span>
+            <span class="text-sm text-slate-500">22 Nov 2026 • 09:00 GMT</span>
+          </div>
+          <h3 class="mt-4 text-xl font-bold text-slate-900 leading-snug">
+            Bursa Wakil Presiden Menghangat, Kader Gerindra Disebut Paling Berpeluang
+          </h3>
+          <p class="mt-3 text-slate-600 leading-7">
+            Berita politik hari ini ramai membahas dinamika koalisi Prabowo dan figur yang dinilai berpeluang kuat menjadi calon wakil presiden. Isu ini memancing perhatian publik karena menyangkut arah peta kekuatan politik nasional.
+          </p>
+        </article>
+
+        <article class="rounded-2xl bg-white border border-slate-200 shadow-soft p-6 hover:-translate-y-1 transition duration-300">
+          <div class="flex items-center justify-between gap-3">
+            <span class="rounded-full bg-amber-100 text-amber-700 px-3 py-1 text-xs font-bold">Pemerintahan</span>
+            <span class="text-sm text-slate-500">22 Nov 2026 • 06:28 GMT</span>
+          </div>
+          <h3 class="mt-4 text-xl font-bold text-slate-900 leading-snug">
+            Indonesia Siapkan Pengetatan Aturan Imigrasi di Tengah Ketidakpastian Global
+          </h3>
+          <p class="mt-3 text-slate-600 leading-7">
+            Direktorat Jenderal Imigrasi menyatakan aturan keimigrasian akan diperkuat untuk merespons perubahan global dan potensi peningkatan arus perpindahan manusia lintas negara. Langkah ini dibahas melalui forum konsultasi publik dan FGD.
+          </p>
+        </article>
+
+        <article class="rounded-2xl bg-white border border-slate-200 shadow-soft p-6 hover:-translate-y-1 transition duration-300">
+          <div class="flex items-center justify-between gap-3">
+            <span class="rounded-full bg-sky-100 text-sky-700 px-3 py-1 text-xs font-bold">Cek Fakta</span>
+            <span class="text-sm text-slate-500">22 Nov 2026 • 06:55 GMT</span>
+          </div>
+          <h3 class="mt-4 text-xl font-bold text-slate-900 leading-snug">
+            Video Tsunami yang Viral di Indonesia Dipastikan Hoaks dan Konten Lama/AI
+          </h3>
+          <p class="mt-3 text-slate-600 leading-7">
+            Sejumlah video yang diklaim menunjukkan tsunami di berbagai wilayah Indonesia pada November 2026 dipastikan tidak benar. Hasil verifikasi menunjukkan materi tersebut merupakan kompilasi kejadian lama dan sebagian konten buatan AI.
+          </p>
+        </article>
+      </section>
+
+      <section class="mt-12">
+        <div class="rounded-3xl bg-white border border-slate-200 shadow-soft p-8">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <span class="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-300">
-                Ringkasan 5 berita paling trending
-              </span>
-              <h2 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
-                Sorotan utama
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-fuchsia-400 to-cyan-300">Indonesia hari ini</span>
-              </h2>
-              <p class="mt-5 text-slate-300 text-base sm:text-lg leading-8 max-w-2xl">
-                Halaman ini merangkum lima topik berita yang sedang ramai dibicarakan, mulai dari politik, ekonomi, iklim, keamanan warga negara, hingga keselamatan industri.
-              </p>
-              <div class="mt-8 flex flex-wrap gap-3">
-                <a href="#berita" class="inline-flex items-center justify-center rounded-2xl bg-white text-slate-950 px-5 py-3 font-semibold hover:bg-slate-200 transition">
-                  Lihat Ringkasan
-                </a>
-                <a href="#sumber" class="inline-flex items-center justify-center rounded-2xl border border-white/15 bg-white/5 px-5 py-3 font-semibold text-white hover:bg-white/10 transition">
-                  Lihat Sumber
-                </a>
-              </div>
+              <h2 class="text-2xl font-bold text-slate-900">Daftar Lengkap Berita Trending</h2>
+              <p class="text-slate-600 mt-2">Lima topik utama yang paling ramai dibicarakan hari ini di Indonesia.</p>
             </div>
-
-            <div class="grid grid-cols-2 gap-4">
-              <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-2xl shadow-black/20">
-                <p class="text-slate-400 text-sm">Total Berita</p>
-                <p class="mt-2 text-4xl font-black">5</p>
-                <p class="mt-2 text-sm text-slate-300">Pilihan topik yang paling menonjol hari ini</p>
-              </div>
-              <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-2xl shadow-black/20">
-                <p class="text-slate-400 text-sm">Kategori</p>
-                <p class="mt-2 text-4xl font-black">5</p>
-                <p class="mt-2 text-sm text-slate-300">Politik, ekonomi, iklim, keamanan, industri</p>
-              </div>
-              <div class="rounded-3xl border border-white/10 bg-white/5 p-5 col-span-2 shadow-2xl shadow-black/20">
-                <p class="text-slate-400 text-sm">Highlight utama</p>
-                <p class="mt-2 text-xl font-bold text-white">Kebakaran pabrik di Banten, rupiah tembus Rp18.000, dan bantuan asing untuk kebakaran hutan mendominasi perhatian.</p>
-              </div>
+            <div class="text-sm text-slate-500">
+              Sumber ringkasan: hasil pencarian berita hari ini
             </div>
           </div>
-        </div>
-      </section>
 
-      <section id="berita" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div class="flex items-end justify-between gap-4 mb-8">
-          <div>
-            <p class="text-sm uppercase tracking-[0.2em] text-slate-400">Top Stories</p>
-            <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">5 Berita Trending Hari Ini</h3>
+          <div class="mt-8 overflow-x-auto">
+            <table class="w-full text-left border-separate border-spacing-y-3">
+              <thead>
+                <tr class="text-slate-500 text-sm">
+                  <th class="px-4 py-2">No</th>
+                  <th class="px-4 py-2">Judul</th>
+                  <th class="px-4 py-2">Kategori</th>
+                  <th class="px-4 py-2">Waktu Terbit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-slate-50">
+                  <td class="px-4 py-4 font-semibold rounded-l-xl">1</td>
+                  <td class="px-4 py-4">Kebakaran pabrik permen di Banten tewaskan 3 orang, 36 pekerja hilang</td>
+                  <td class="px-4 py-4">Nasional</td>
+                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 07:46 GMT</td>
+                </tr>
+                <tr class="bg-slate-50">
+                  <td class="px-4 py-4 font-semibold rounded-l-xl">2</td>
+                  <td class="px-4 py-4">Eksportir bisa hemat tarif bea masuk dari IEU-CEPA</td>
+                  <td class="px-4 py-4">Ekonomi</td>
+                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 08:00 GMT</td>
+                </tr>
+                <tr class="bg-slate-50">
+                  <td class="px-4 py-4 font-semibold rounded-l-xl">3</td>
+                  <td class="px-4 py-4">Bursa wakil presiden menghangat, kader Gerindra paling berpeluang</td>
+                  <td class="px-4 py-4">Politik</td>
+                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 09:00 GMT</td>
+                </tr>
+                <tr class="bg-slate-50">
+                  <td class="px-4 py-4 font-semibold rounded-l-xl">4</td>
+                  <td class="px-4 py-4">Indonesia akan memperketat aturan imigrasi di tengah perubahan global</td>
+                  <td class="px-4 py-4">Pemerintahan</td>
+                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 06:28 GMT</td>
+                </tr>
+                <tr class="bg-slate-50">
+                  <td class="px-4 py-4 font-semibold rounded-l-xl">5</td>
+                  <td class="px-4 py-4">Klaim tsunami di berbagai wilayah Indonesia terbukti hoaks</td>
+                  <td class="px-4 py-4">Cek Fakta</td>
+                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 06:55 GMT</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div class="text-sm text-slate-400">Desain modern • Tailwind CSS</div>
-        </div>
-
-        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/[0.08] transition duration-300 shadow-xl shadow-black/10">
-            <div class="flex items-center justify-between gap-3">
-              <span class="inline-flex rounded-full bg-red-500/15 text-red-300 px-3 py-1 text-xs font-semibold border border-red-400/20">Politik</span>
-              <span class="text-xs text-slate-400">6 jam lalu</span>
-            </div>
-            <h4 class="mt-4 text-xl font-bold leading-snug group-hover:text-fuchsia-300 transition">
-              VP Gibran Seeks to Prove Diploma Validity, Minister Yusril: No Legal Path Left
-            </h4>
-            <p class="mt-3 text-slate-300 leading-7">
-              Isu terkait validitas ijazah Wakil Presiden Gibran kembali menjadi sorotan publik. Pernyataan Menteri Yusril bahwa tidak ada lagi jalur hukum tersisa membuat perdebatan politik dan opini publik semakin memanas.
-            </p>
-          </article>
-
-          <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/[0.08] transition duration-300 shadow-xl shadow-black/10">
-            <div class="flex items-center justify-between gap-3">
-              <span class="inline-flex rounded-full bg-amber-500/15 text-amber-300 px-3 py-1 text-xs font-semibold border border-amber-400/20">Ekonomi</span>
-              <span class="text-xs text-slate-400">2 jam lalu</span>
-            </div>
-            <h4 class="mt-4 text-xl font-bold leading-snug group-hover:text-fuchsia-300 transition">
-              US Dollar Breaches IDR 18,000 Mark Again
-            </h4>
-            <p class="mt-3 text-slate-300 leading-7">
-              Nilai tukar dolar AS kembali menembus level Rp18.000. Pergerakan ini menjadi perhatian pelaku pasar dan masyarakat karena berpotensi memengaruhi inflasi, harga impor, serta sentimen ekonomi nasional.
-            </p>
-          </article>
-
-          <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/[0.08] transition duration-300 shadow-xl shadow-black/10">
-            <div class="flex items-center justify-between gap-3">
-              <span class="inline-flex rounded-full bg-emerald-500/15 text-emerald-300 px-3 py-1 text-xs font-semibold border border-emerald-400/20">Iklim</span>
-              <span class="text-xs text-slate-400">14 jam lalu</span>
-            </div>
-            <h4 class="mt-4 text-xl font-bold leading-snug group-hover:text-fuchsia-300 transition">
-              Indonesian Foreign Minister Says Prabowo Approves Foreign Help on Forest Fires
-            </h4>
-            <p class="mt-3 text-slate-300 leading-7">
-              Pemerintah Indonesia dikabarkan menyetujui bantuan asing untuk menangani kebakaran hutan yang sedang berlangsung. Keputusan ini menandai urgensi situasi dan pentingnya kolaborasi internasional dalam penanggulangan bencana lingkungan.
-            </p>
-          </article>
-
-          <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/[0.08] transition duration-300 shadow-xl shadow-black/10">
-            <div class="flex items-center justify-between gap-3">
-              <span class="inline-flex rounded-full bg-cyan-500/15 text-cyan-300 px-3 py-1 text-xs font-semibold border border-cyan-400/20">Keamanan</span>
-              <span class="text-xs text-slate-400">1 jam lalu</span>
-            </div>
-            <h4 class="mt-4 text-xl font-bold leading-snug group-hover:text-fuchsia-300 transition">
-              Foreign Ministry of Indonesia Urges Indonesians in Saudi Arabia to Stay Alert
-            </h4>
-            <p class="mt-3 text-slate-300 leading-7">
-              Kementerian Luar Negeri mengimbau warga negara Indonesia di Arab Saudi untuk tetap waspada menyusul meningkatnya ketegangan regional. Imbauan ini penting bagi keselamatan WNI di luar negeri dan menjadi perhatian luas di dalam negeri.
-            </p>
-          </article>
-
-          <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/[0.08] transition duration-300 shadow-xl shadow-black/10 md:col-span-2 xl:col-span-2">
-            <div class="flex items-center justify-between gap-3">
-              <span class="inline-flex rounded-full bg-rose-500/15 text-rose-300 px-3 py-1 text-xs font-semibold border border-rose-400/20">Industri</span>
-              <span class="text-xs text-slate-400">dipublikasikan hari ini</span>
-            </div>
-            <h4 class="mt-4 text-xl font-bold leading-snug group-hover:text-fuchsia-300 transition">
-              Indonesia Factory Fire Kills Three, 36 Missing
-            </h4>
-            <p class="mt-3 text-slate-300 leading-7">
-              Kebakaran besar di pabrik makanan di Banten menewaskan sedikitnya tiga orang dan menyebabkan puluhan pekerja hilang. Tragedi ini menjadi salah satu berita paling menyita perhatian karena menyangkut keselamatan kerja, proses evakuasi, dan investigasi penyebab insiden.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="border-y border-white/10 bg-white/[0.03]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-          <div class="grid lg:grid-cols-3 gap-6">
-            <div class="rounded-3xl border border-white/10 bg-slate-900/60 p-6">
-              <p class="text-sm text-slate-400">Tema terbesar hari ini</p>
-              <h4 class="mt-2 text-xl font-bold">Krisis & Respons Pemerintah</h4>
-              <p class="mt-3 text-slate-300 leading-7">Berita yang dominan berkaitan dengan langkah pemerintah, situasi darurat, dan dampak langsung terhadap masyarakat.</p>
-            </div>
-            <div class="rounded-3xl border border-white/10 bg-slate-900/60 p-6">
-              <p class="text-sm text-slate-400">Perhatian publik</p>
-              <h4 class="mt-2 text-xl font-bold">Ekonomi & Keselamatan</h4>
-              <p class="mt-3 text-slate-300 leading-7">Pergerakan rupiah dan insiden kebakaran pabrik menjadi topik yang paling mudah memicu percakapan luas.</p>
-            </div>
-            <div class="rounded-3xl border border-white/10 bg-slate-900/60 p-6">
-              <p class="text-sm text-slate-400">Nada pemberitaan</p>
-              <h4 class="mt-2 text-xl font-bold">Cepat, serius, dan berdampak</h4>
-              <p class="mt-3 text-slate-300 leading-7">Sebagian besar berita hari ini menyorot perkembangan mendesak yang membutuhkan perhatian lanjutan.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="sumber" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="flex items-center justify-between gap-4 mb-8">
-          <div>
-            <p class="text-sm uppercase tracking-[0.2em] text-slate-400">Sumber</p>
-            <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">Referensi Pencarian</h3>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-4">
-          <a href="https://www.indonesianow.co" target="_blank" class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/[0.08] transition block">
-            <p class="text-sm text-cyan-300 font-semibold">IndonesiaNow</p>
-            <p class="mt-2 font-bold">Halaman utama & daftar berita terbaru</p>
-            <p class="mt-2 text-sm text-slate-400">Sumber beberapa topik trending seperti isu Gibran, nilai tukar rupiah, dan bantuan asing untuk kebakaran hutan.</p>
-          </a>
-
-          <a href="https://www.indonesianow.co/latest" target="_blank" class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/[0.08] transition block">
-            <p class="text-sm text-cyan-300 font-semibold">IndonesiaNow Latest</p>
-            <p class="mt-2 font-bold">Kanal berita terbaru IndonesiaNow</p>
-            <p class="mt-2 text-sm text-slate-400">Digunakan untuk mengidentifikasi artikel yang paling baru terbit hari ini.</p>
-          </a>
-
-          <a href="https://www.aljazeera.com/news/2026/11/22/indonesia-factory-fire-kills-three-36-missing" target="_blank" class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/[0.08] transition block">
-            <p class="text-sm text-cyan-300 font-semibold">Al Jazeera</p>
-            <p class="mt-2 font-bold">Indonesia factory fire kills three, 36 missing</p>
-            <p class="mt-2 text-sm text-slate-400">Rujukan utama untuk tragedi kebakaran pabrik di Banten.</p>
-          </a>
-
-          <a href="https://www.bbc.com/news/articles/cw8dvg5pgm0eo" target="_blank" class="rounded-2xl border border-white/10 bg-white/5 p-5 hover:bg-white/[0.08] transition block">
-            <p class="text-sm text-cyan-300 font-semibold">BBC News</p>
-            <p class="mt-2 font-bold">Dozens missing after fire at Indonesian factory</p>
-            <p class="mt-2 text-sm text-slate-400">Sumber tambahan untuk memverifikasi detail kebakaran pabrik yang ramai dibahas.</p>
-          </a>
         </div>
       </section>
     </main>
 
-    <footer class="border-t border-white/10">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <p class="font-semibold">Trending Indonesia Hari Ini</p>
-          <p class="text-sm text-slate-400">Portal ringkasan berita modern yang siap di-hosting.</p>
-        </div>
-        <div class="text-sm text-slate-500">
-          Dibuat otomatis dengan AI • Tailwind CSS CDN
-        </div>
+    <footer class="border-t border-slate-200 bg-white">
+      <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-3">
+        <p class="text-slate-500 text-sm">© 2026 Trending Indonesia Hari Ini. Dibuat otomatis dengan AI.</p>
+        <p class="text-slate-400 text-sm">Desain modern • Responsif • Tailwind CSS</p>
       </div>
     </footer>
   </div>
