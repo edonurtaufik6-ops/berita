@@ -3,198 +3,156 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trending Indonesia Hari Ini</title>
+  <title>Berita Trending Indonesia Hari Ini</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            dark: "#0f172a",
-            primary: "#2563eb",
-            accent: "#f97316"
-          },
-          boxShadow: {
-            soft: "0 10px 30px rgba(15, 23, 42, 0.08)"
-          }
-        }
-      }
-    }
-  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
-  <div class="min-h-screen">
-    <header class="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 text-white">
-      <div class="max-w-7xl mx-auto px-6 py-10">
-        <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p class="inline-flex items-center rounded-full bg-white/10 px-4 py-1 text-sm font-medium backdrop-blur">
-              Portal Berita AI • Update Hari Ini
-            </p>
-            <h1 class="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight">5 Berita Paling Trending di Indonesia</h1>
-            <p class="mt-4 max-w-3xl text-slate-200 text-lg">
-              Ringkasan cepat dari topik yang paling banyak diperbincangkan hari ini, disusun dalam tampilan modern dan responsif.
-            </p>
-          </div>
-          <div class="bg-white/10 rounded-2xl px-5 py-4 backdrop-blur border border-white/10">
-            <p class="text-sm text-slate-200">Tanggal pembaruan</p>
-            <p class="text-xl font-semibold">22 November 2026</p>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-6 py-10">
-      <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <article class="lg:col-span-2 rounded-3xl bg-white shadow-soft border border-slate-200 overflow-hidden">
-          <div class="p-8">
-            <div class="flex flex-wrap items-center gap-3 mb-5">
-              <span class="rounded-full bg-red-100 text-red-700 px-3 py-1 text-sm font-semibold">Breaking</span>
-              <span class="rounded-full bg-slate-100 text-slate-700 px-3 py-1 text-sm">Nasional</span>
-              <span class="text-sm text-slate-500">22 Nov 2026 • 07:46 GMT</span>
-            </div>
-            <h2 class="text-3xl font-bold leading-tight text-slate-900">
-              Kebakaran Pabrik Permen di Banten Tewaskan 3 Orang, 36 Pekerja Masih Hilang
-            </h2>
-            <p class="mt-5 text-lg leading-8 text-slate-600">
-              Tim penyelamat masih melakukan pencarian setelah kebakaran hebat melanda pabrik makanan ringan di Banten, dekat Jakarta. Sedikitnya tiga orang dilaporkan meninggal, 15 orang berhasil diselamatkan, dan puluhan pekerja lainnya masih belum ditemukan. Otoritas menyatakan penyebab kebakaran masih dalam penyelidikan.
-            </p>
-          </div>
-        </article>
-
-        <aside class="rounded-3xl bg-slate-900 text-white p-8 shadow-soft">
-          <p class="text-sm uppercase tracking-[0.2em] text-slate-300">Sorotan</p>
-          <h3 class="mt-3 text-2xl font-bold">Ringkasan Cepat</h3>
-          <ul class="mt-6 space-y-4 text-slate-200">
-            <li class="border-b border-white/10 pb-4">Insiden kebakaran pabrik di Banten menjadi berita paling menonjol hari ini.</li>
-            <li class="border-b border-white/10 pb-4">Isu ekonomi didominasi oleh ekspor dan penghentian layanan transportasi online tertentu.</li>
-            <li class="border-b border-white/10 pb-4">Peta politik nasional kembali ramai membahas figur calon wakil presiden.</li>
-            <li class="border-b border-white/10 pb-4">Pemerintah menyoroti pengetatan sistem imigrasi di tengah dinamika global.</li>
-            <li>Hoaks tsunami viral dibantah melalui verifikasi fakta media.</li>
-          </ul>
-        </aside>
-      </section>
-
-      <section class="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        <article class="rounded-2xl bg-white border border-slate-200 shadow-soft p-6 hover:-translate-y-1 transition duration-300">
-          <div class="flex items-center justify-between gap-3">
-            <span class="rounded-full bg-emerald-100 text-emerald-700 px-3 py-1 text-xs font-bold">Ekonomi</span>
-            <span class="text-sm text-slate-500">22 Nov 2026 • 08:00 GMT</span>
-          </div>
-          <h3 class="mt-4 text-xl font-bold text-slate-900 leading-snug">
-            Eksportir Berpeluang Hemat Tarif Bea Masuk dari IEU-CEPA
-          </h3>
-          <p class="mt-3 text-slate-600 leading-7">
-            Kanal ekonomi menyoroti peluang penghematan tarif bea masuk bagi eksportir Indonesia melalui skema IEU-CEPA. Topik ini menjadi perhatian karena dinilai dapat mendorong daya saing produk ekspor nasional di pasar internasional.
-          </p>
-        </article>
-
-        <article class="rounded-2xl bg-white border border-slate-200 shadow-soft p-6 hover:-translate-y-1 transition duration-300">
-          <div class="flex items-center justify-between gap-3">
-            <span class="rounded-full bg-violet-100 text-violet-700 px-3 py-1 text-xs font-bold">Politik</span>
-            <span class="text-sm text-slate-500">22 Nov 2026 • 09:00 GMT</span>
-          </div>
-          <h3 class="mt-4 text-xl font-bold text-slate-900 leading-snug">
-            Bursa Wakil Presiden Menghangat, Kader Gerindra Disebut Paling Berpeluang
-          </h3>
-          <p class="mt-3 text-slate-600 leading-7">
-            Berita politik hari ini ramai membahas dinamika koalisi Prabowo dan figur yang dinilai berpeluang kuat menjadi calon wakil presiden. Isu ini memancing perhatian publik karena menyangkut arah peta kekuatan politik nasional.
-          </p>
-        </article>
-
-        <article class="rounded-2xl bg-white border border-slate-200 shadow-soft p-6 hover:-translate-y-1 transition duration-300">
-          <div class="flex items-center justify-between gap-3">
-            <span class="rounded-full bg-amber-100 text-amber-700 px-3 py-1 text-xs font-bold">Pemerintahan</span>
-            <span class="text-sm text-slate-500">22 Nov 2026 • 06:28 GMT</span>
-          </div>
-          <h3 class="mt-4 text-xl font-bold text-slate-900 leading-snug">
-            Indonesia Siapkan Pengetatan Aturan Imigrasi di Tengah Ketidakpastian Global
-          </h3>
-          <p class="mt-3 text-slate-600 leading-7">
-            Direktorat Jenderal Imigrasi menyatakan aturan keimigrasian akan diperkuat untuk merespons perubahan global dan potensi peningkatan arus perpindahan manusia lintas negara. Langkah ini dibahas melalui forum konsultasi publik dan FGD.
-          </p>
-        </article>
-
-        <article class="rounded-2xl bg-white border border-slate-200 shadow-soft p-6 hover:-translate-y-1 transition duration-300">
-          <div class="flex items-center justify-between gap-3">
-            <span class="rounded-full bg-sky-100 text-sky-700 px-3 py-1 text-xs font-bold">Cek Fakta</span>
-            <span class="text-sm text-slate-500">22 Nov 2026 • 06:55 GMT</span>
-          </div>
-          <h3 class="mt-4 text-xl font-bold text-slate-900 leading-snug">
-            Video Tsunami yang Viral di Indonesia Dipastikan Hoaks dan Konten Lama/AI
-          </h3>
-          <p class="mt-3 text-slate-600 leading-7">
-            Sejumlah video yang diklaim menunjukkan tsunami di berbagai wilayah Indonesia pada November 2026 dipastikan tidak benar. Hasil verifikasi menunjukkan materi tersebut merupakan kompilasi kejadian lama dan sebagian konten buatan AI.
-          </p>
-        </article>
-      </section>
-
-      <section class="mt-12">
-        <div class="rounded-3xl bg-white border border-slate-200 shadow-soft p-8">
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <h2 class="text-2xl font-bold text-slate-900">Daftar Lengkap Berita Trending</h2>
-              <p class="text-slate-600 mt-2">Lima topik utama yang paling ramai dibicarakan hari ini di Indonesia.</p>
-            </div>
-            <div class="text-sm text-slate-500">
-              Sumber ringkasan: hasil pencarian berita hari ini
-            </div>
-          </div>
-
-          <div class="mt-8 overflow-x-auto">
-            <table class="w-full text-left border-separate border-spacing-y-3">
-              <thead>
-                <tr class="text-slate-500 text-sm">
-                  <th class="px-4 py-2">No</th>
-                  <th class="px-4 py-2">Judul</th>
-                  <th class="px-4 py-2">Kategori</th>
-                  <th class="px-4 py-2">Waktu Terbit</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="bg-slate-50">
-                  <td class="px-4 py-4 font-semibold rounded-l-xl">1</td>
-                  <td class="px-4 py-4">Kebakaran pabrik permen di Banten tewaskan 3 orang, 36 pekerja hilang</td>
-                  <td class="px-4 py-4">Nasional</td>
-                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 07:46 GMT</td>
-                </tr>
-                <tr class="bg-slate-50">
-                  <td class="px-4 py-4 font-semibold rounded-l-xl">2</td>
-                  <td class="px-4 py-4">Eksportir bisa hemat tarif bea masuk dari IEU-CEPA</td>
-                  <td class="px-4 py-4">Ekonomi</td>
-                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 08:00 GMT</td>
-                </tr>
-                <tr class="bg-slate-50">
-                  <td class="px-4 py-4 font-semibold rounded-l-xl">3</td>
-                  <td class="px-4 py-4">Bursa wakil presiden menghangat, kader Gerindra paling berpeluang</td>
-                  <td class="px-4 py-4">Politik</td>
-                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 09:00 GMT</td>
-                </tr>
-                <tr class="bg-slate-50">
-                  <td class="px-4 py-4 font-semibold rounded-l-xl">4</td>
-                  <td class="px-4 py-4">Indonesia akan memperketat aturan imigrasi di tengah perubahan global</td>
-                  <td class="px-4 py-4">Pemerintahan</td>
-                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 06:28 GMT</td>
-                </tr>
-                <tr class="bg-slate-50">
-                  <td class="px-4 py-4 font-semibold rounded-l-xl">5</td>
-                  <td class="px-4 py-4">Klaim tsunami di berbagai wilayah Indonesia terbukti hoaks</td>
-                  <td class="px-4 py-4">Cek Fakta</td>
-                  <td class="px-4 py-4 rounded-r-xl">22 Nov 2026 • 06:55 GMT</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="border-t border-slate-200 bg-white">
-      <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-3">
-        <p class="text-slate-500 text-sm">© 2026 Trending Indonesia Hari Ini. Dibuat otomatis dengan AI.</p>
-        <p class="text-slate-400 text-sm">Desain modern • Responsif • Tailwind CSS</p>
-      </div>
-    </footer>
+<body class="bg-slate-950 text-white min-h-screen">
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="absolute top-0 left-0 w-72 h-72 bg-cyan-500/20 blur-3xl rounded-full"></div>
+    <div class="absolute top-32 right-0 w-80 h-80 bg-fuchsia-500/20 blur-3xl rounded-full"></div>
+    <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-emerald-500/10 blur-3xl rounded-full"></div>
   </div>
+
+  <header class="border-b border-white/10 backdrop-blur bg-slate-950/70 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div>
+        <p class="text-cyan-400 text-sm font-semibold tracking-[0.25em] uppercase">Portal AI News</p>
+        <h1 class="text-2xl md:text-3xl font-black">Trending Indonesia Hari Ini</h1>
+      </div>
+      <div class="hidden md:flex items-center gap-3 text-sm text-slate-300">
+        <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10">Live Update</span>
+        <span>22 November 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-10 md:py-14">
+    <section class="mb-10">
+      <div class="grid lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl">
+          <span class="inline-flex items-center rounded-full bg-red-500/20 text-red-300 px-3 py-1 text-xs font-bold uppercase tracking-wider">Top Trending</span>
+          <h2 class="mt-4 text-3xl md:text-5xl font-black leading-tight">5 Berita Paling Ramai Dibicarakan di Indonesia</h2>
+          <p class="mt-4 text-slate-300 text-base md:text-lg max-w-3xl">
+            Ringkasan cepat dari lima isu yang paling menonjol hari ini, mulai dari politik, ekonomi, kriminal, otomotif, hingga sains dan pendidikan.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <span class="px-4 py-2 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-400/20 text-sm">Politik</span>
+            <span class="px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-400/20 text-sm">Ekonomi</span>
+            <span class="px-4 py-2 rounded-full bg-amber-500/10 text-amber-300 border border-amber-400/20 text-sm">Kriminal</span>
+            <span class="px-4 py-2 rounded-full bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-400/20 text-sm">Otomotif</span>
+            <span class="px-4 py-2 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-400/20 text-sm">Sains & Edukasi</span>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-cyan-500/10 to-slate-900 p-6">
+          <h3 class="text-lg font-bold">Highlight Hari Ini</h3>
+          <ul class="mt-4 space-y-4 text-sm text-slate-300">
+            <li class="border-b border-white/10 pb-3">Koalisi Prabowo dan dinamika calon wakil presiden mulai ramai dibahas.</li>
+            <li class="border-b border-white/10 pb-3">Daftar orang terkaya Indonesia kembali berubah.</li>
+            <li class="border-b border-white/10 pb-3">Polri menindak kasus penipuan online lintas negara.</li>
+            <li class="border-b border-white/10 pb-3">Hyundai membuka pre-booking SUV listrik baru dengan harga agresif.</li>
+            <li>Riset dan pendidikan juga ramai lewat prediksi pekerjaan masa depan serta capaian teknologi.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+        <div class="flex items-center justify-between gap-3">
+          <span class="inline-flex rounded-full bg-cyan-500/15 text-cyan-300 px-3 py-1 text-xs font-semibold">Politik</span>
+          <span class="text-xs text-slate-400">22 Nov 2026 • 18:00 WIB</span>
+        </div>
+        <h3 class="mt-4 text-xl font-bold leading-snug group-hover:text-cyan-300 transition">
+          Mengapa Partai Koalisi Prabowo Tak Berebut Wakil Presiden
+        </h3>
+        <p class="mt-3 text-slate-300 text-sm leading-7">
+          Isu konfigurasi politik menuju kontestasi berikutnya kembali mencuri perhatian. Sorotan utama tertuju pada koalisi Prabowo, termasuk peluang kader Gerindra menjadi calon wakil presiden dan arah politik Jokowi-Gibran setelah masa pemerintahan berjalan.
+        </p>
+        <a href="https://www.tempo.co/politik" target="_blank" class="mt-5 inline-flex text-cyan-300 text-sm font-semibold hover:text-cyan-200">Baca sumber →</a>
+      </article>
+
+      <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+        <div class="flex items-center justify-between gap-3">
+          <span class="inline-flex rounded-full bg-emerald-500/15 text-emerald-300 px-3 py-1 text-xs font-semibold">Ekonomi</span>
+          <span class="text-xs text-slate-400">22 Nov 2026 • 17:00 WIB</span>
+        </div>
+        <h3 class="mt-4 text-xl font-bold leading-snug group-hover:text-emerald-300 transition">
+          Hartono Salip Prajogo, Daftar 10 Orang Terkaya di Indonesia Berubah
+        </h3>
+        <p class="mt-3 text-slate-300 text-sm leading-7">
+          Perubahan besar terjadi pada peta kekayaan konglomerat nasional. Robert Budi Hartono kembali disebut sebagai orang terkaya di Indonesia, disusul Low Tuck Kwong dan Prajogo Pangestu, sehingga memicu perhatian luas dari pembaca sektor bisnis dan pasar.
+        </p>
+        <a href="https://www.detik.com/bali/bisnis/d-8764690/hartono-salip-prajogo-ini-daftar-terbaru-10-orang-terkaya-di-indonesia" target="_blank" class="mt-5 inline-flex text-emerald-300 text-sm font-semibold hover:text-emerald-200">Baca sumber →</a>
+      </article>
+
+      <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+        <div class="flex items-center justify-between gap-3">
+          <span class="inline-flex rounded-full bg-amber-500/15 text-amber-300 px-3 py-1 text-xs font-semibold">Kriminal</span>
+          <span class="text-xs text-slate-400">22 Nov 2026 • 12:00 WIB</span>
+        </div>
+        <h3 class="mt-4 text-xl font-bold leading-snug group-hover:text-amber-300 transition">
+          WNI Menipu dari Filipina, Kapolri Tegaskan Pelaku Akan Digeret ke Indonesia
+        </h3>
+        <p class="mt-3 text-slate-300 text-sm leading-7">
+          Bareskrim Polri menangkap sejumlah WNI yang diduga melakukan penipuan online dari Filipina dengan korban sesama WNI. Pernyataan Kapolri yang menegaskan proses hukum tegas di Indonesia membuat kasus ini ramai disorot publik.
+        </p>
+        <a href="https://video.kompas.com/watch/1969385/wni-menipu-dari-filipina-kapolri-kami-geret-dan-hukum-seberat-beratnya-di-indonesia" target="_blank" class="mt-5 inline-flex text-amber-300 text-sm font-semibold hover:text-amber-200">Baca sumber →</a>
+      </article>
+
+      <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition">
+        <div class="flex items-center justify-between gap-3">
+          <span class="inline-flex rounded-full bg-fuchsia-500/15 text-fuchsia-300 px-3 py-1 text-xs font-semibold">Otomotif</span>
+          <span class="text-xs text-slate-400">22 Nov 2026 • 11:50 WIB</span>
+        </div>
+        <h3 class="mt-4 text-xl font-bold leading-snug group-hover:text-fuchsia-300 transition">
+          Hyundai Neira Dibuka Pre-Booking, Harga di Bawah Rp500 Juta dan Jarak Tempuh 434 Km
+        </h3>
+        <p class="mt-3 text-slate-300 text-sm leading-7">
+          PT Hyundai Motors Indonesia resmi membuka pre-booking Hyundai Neira pada ajang GAIKINDO Auto Week 2026. SUV listrik tiga baris ini dibanderol mulai Rp388 juta hingga Rp448 juta untuk 1.000 pelanggan pertama, dengan klaim jarak tempuh hingga 434 kilometer.
+        </p>
+        <a href="https://www.cnnindonesia.com/otomotif/20261122111315-603-1429998/harga-tak-sampai-rp500-juta-hyundai-neira-bisa-tempuh-434-km" target="_blank" class="mt-5 inline-flex text-fuchsia-300 text-sm font-semibold hover:text-fuchsia-200">Baca sumber →</a>
+      </article>
+
+      <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition md:col-span-2 xl:col-span-2">
+        <div class="flex items-center justify-between gap-3">
+          <span class="inline-flex rounded-full bg-indigo-500/15 text-indigo-300 px-3 py-1 text-xs font-semibold">Sains & Edukasi</span>
+          <span class="text-xs text-slate-400">22 Nov 2026 • 14:00 WIB</span>
+        </div>
+        <h3 class="mt-4 text-xl font-bold leading-snug group-hover:text-indigo-300 transition">
+          Dunia Pendidikan dan Sains Ramai: Prediksi Pekerjaan Menyusut hingga Pencapaian Teknologi Baru
+        </h3>
+        <p class="mt-3 text-slate-300 text-sm leading-7">
+          Kanal edukasi menjadi salah satu yang ramai dibaca hari ini. Topik yang mencuri perhatian meliputi prediksi 15 pekerjaan yang akan berkurang signifikan hingga 2030 versi kajian Kemdikti, serta kabar pencapaian teknologi luar angkasa yang disebut mencapai jarak satu hari cahaya dari Bumi.
+        </p>
+        <a href="https://www.detik.com/edu" target="_blank" class="mt-5 inline-flex text-indigo-300 text-sm font-semibold hover:text-indigo-200">Baca sumber →</a>
+      </article>
+    </section>
+
+    <section class="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold">Ringkasan Singkat</h2>
+          <p class="text-slate-300 mt-2">Lanskap berita Indonesia hari ini didominasi isu politik nasional, pergeseran kekuatan ekonomi, penegakan hukum lintas negara, inovasi kendaraan listrik, dan perkembangan dunia pendidikan serta sains.</p>
+        </div>
+        <div class="text-sm text-slate-400">
+          Sumber utama: Tempo, Detik, Kompas, CNN Indonesia
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 mt-12">
+    <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>
+        <p class="font-bold text-white">Berita Trending AI</p>
+        <p class="text-sm text-slate-400">Portal ringkasan berita harian modern dan responsif.</p>
+      </div>
+      <p class="text-sm text-slate-500">Diperbarui otomatis berdasarkan hasil pencarian berita hari ini.</p>
+    </div>
+  </footer>
 </body>
 </html>
