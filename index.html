@@ -3,50 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JURNAL NUSANTARA - Portal Berita Nasional & Global Terverifikasi</title>
-    
-    <!-- Google Fonts: Merriweather for Editorial Titles & Plus Jakarta Sans for Body/UI -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>JURNAL NUSANTARA — Portal Berita Nasional & Terverifikasi</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         editorial: {
-                            red: '#DC2626',
-                            redhover: '#B91C1C',
-                            dark: '#0F172A',
-                            body: '#111827',
-                            muted: '#4B5563',
                             bg: '#FFFFFF',
-                            paper: '#F8F9FA',
-                            border: '#E5E7EB'
+                            surface: '#F8F9FA',
+                            text: '#111827',
+                            muted: '#4B5563',
+                            border: '#E5E7EB',
+                            red: '#DC2626',
+                            navy: '#0F172A',
+                            hover: '#B91C1C'
                         }
                     },
                     fontFamily: {
-                        serif: ['Merriweather', 'Georgia', 'serif'],
-                        sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif']
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif']
                     }
                 }
             }
         }
     </script>
+    
     <style>
-        /* Custom Scrollbar & Utility */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #F1F5F9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #94A3B8;
+        @keyframes tickerAnimation {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
         }
         .ticker-wrap {
             overflow: hidden;
@@ -54,694 +49,700 @@
         }
         .ticker-move {
             display: inline-block;
-            animation: ticker 35s linear infinite;
+            white-space: nowrap;
+            animation: tickerAnimation 35s linear infinite;
         }
-        .ticker-move:hover {
+        .ticker-wrap:hover .ticker-move {
             animation-play-state: paused;
         }
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-50%, 0, 0); }
+        
+        /* Modal Scrollbar Customization */
+        .modal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-body::-webkit-scrollbar-track {
+            background: #F1F1F1;
+        }
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #D1D5DB;
+            border-radius: 3px;
+        }
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #9CA3AF;
         }
     </style>
 </head>
-<body class="bg-editorial-bg text-editorial-body font-sans antialiased min-h-screen flex flex-col selection:bg-editorial-red selection:text-white">
+<body class="bg-editorial-bg text-editorial-text font-sans antialiased selection:bg-editorial-red selection:text-white min-h-screen flex flex-col">
 
-    <!-- 1. TOP BAR -->
-    <div class="bg-editorial-dark text-slate-300 text-xs py-2 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
+    <!-- TOP BAR -->
+    <div class="bg-editorial-navy text-white text-xs border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap justify-between items-center gap-2">
             <div class="flex items-center space-x-4">
-                <span class="font-medium text-white" id="current-date">Rabu, 25 Maret 2026</span>
-                <span class="hidden md:inline text-slate-500">|</span>
-                <span class="hidden md:inline"><strong class="text-white">Lokasi:</strong> Jakarta, Indonesia</span>
-                <span class="hidden md:inline text-slate-500">|</span>
-                <span class="inline-flex items-center text-emerald-400 font-semibold uppercase tracking-wider text-[10px]">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block mr-1.5 animate-pulse"></span>
-                    Edisi Hari Ini
+                <span class="font-medium tracking-wide flex items-center gap-1.5">
+                    <span class="inline-block w-2 h-2 rounded-full bg-editorial-red animate-pulse"></span>
+                    EDISI HARI INI
                 </span>
+                <span class="text-slate-400">|</span>
+                <span id="current-date-str" class="text-slate-300"></span>
+                <span class="text-slate-400 hidden sm:inline">|</span>
+                <span class="text-slate-300 hidden sm:inline">Jakarta, Indonesia</span>
             </div>
-            <div class="flex items-center space-x-6 text-[11px] uppercase tracking-wider">
-                <a href="#" class="hover:text-white transition">E-Paper</a>
-                <a href="#" class="hover:text-white transition">Arsip Redaksi</a>
-                <a href="#" class="hover:text-white transition">Cuaca: 28°C Jakarta</a>
+            <div class="flex items-center space-x-4 text-slate-300 font-medium">
+                <a href="#terpopular" class="hover:text-white transition-colors">Terpopuler</a>
+                <span>•</span>
+                <a href="#redaksi" class="hover:text-white transition-colors">Pedoman Redaksi</a>
             </div>
         </div>
     </div>
 
     <!-- MASTHEAD HEADER -->
-    <header class="border-b-4 border-editorial-dark bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6 text-center border-b border-editorial-border">
-            <div class="text-[11px] uppercase tracking-widest text-editorial-muted font-bold mb-1">
-                Jurnalistik Independen, Terverifikasi &amp; Mendalam
-            </div>
-            <h1 class="font-serif text-4xl sm:text-6xl font-black tracking-tight text-editorial-dark uppercase">
-                Jurnal Nusantara
-            </h1>
-            <p class="font-serif italic text-xs sm:text-sm text-editorial-muted mt-1">
-                "Mengabarkan Kebenaran, Mengawal Demokrasi dan Kemajuan Bangsa"
-            </p>
+    <header class="border-b-2 border-editorial-text bg-white sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
+            <a href="#" class="inline-block">
+                <h1 class="font-serif font-black text-4xl sm:text-6xl tracking-tight text-editorial-navy uppercase border-b-4 border-editorial-navy pb-1">
+                    Jurnal Nusantara
+                </h1>
+                <p class="font-sans text-xs tracking-[0.25em] text-editorial-muted uppercase mt-2 font-semibold">
+                    Independen • Terverifikasi • Komprehensif
+                </p>
+            </a>
         </div>
 
-        <!-- CATEGORY NAVIGATION BAR -->
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="flex items-center justify-between border-b border-editorial-border py-1 overflow-x-auto">
-                <div class="flex space-x-1 sm:space-x-2 text-xs sm:text-sm font-bold uppercase tracking-wider whitespace-nowrap" id="category-filters">
-                    <button onclick="filterCategory('semua')" class="cat-btn active px-3 sm:px-4 py-2.5 text-editorial-red border-b-2 border-editorial-red transition">Semua</button>
-                    <button onclick="filterCategory('nasional')" class="cat-btn px-3 sm:px-4 py-2.5 text-editorial-muted hover:text-editorial-dark transition">Nasional</button>
-                    <button onclick="filterCategory('ekonomi')" class="cat-btn px-3 sm:px-4 py-2.5 text-editorial-muted hover:text-editorial-dark transition">Ekonomi</button>
-                    <button onclick="filterCategory('teknologi')" class="cat-btn px-3 sm:px-4 py-2.5 text-editorial-muted hover:text-editorial-dark transition">Teknologi</button>
-                    <button onclick="filterCategory('olahraga')" class="cat-btn px-3 sm:px-4 py-2.5 text-editorial-muted hover:text-editorial-dark transition">Olahraga</button>
-                    <button onclick="filterCategory('dunia')" class="cat-btn px-3 sm:px-4 py-2.5 text-editorial-muted hover:text-editorial-dark transition">Dunia</button>
-                </div>
-                <div class="hidden lg:flex items-center space-x-3 pl-4 border-l border-editorial-border text-xs font-semibold">
-                    <span class="text-editorial-muted">Cari:</span>
-                    <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Cari berita..." class="bg-editorial-paper border border-editorial-border px-3 py-1 text-xs focus:outline-none focus:border-editorial-dark w-36 focus:w-48 transition-all">
-                </div>
+        <!-- CATEGORY NAVIGATION -->
+        <nav class="border-t border-editorial-border bg-editorial-surface">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <ul class="flex items-center justify-center space-x-1 sm:space-x-8 overflow-x-auto py-3 text-sm font-bold tracking-wider uppercase text-editorial-text whitespace-nowrap scrollbar-none">
+                    <li>
+                        <button onclick="filterCategory('semua')" id="cat-semua" class="cat-btn active text-editorial-red border-b-2 border-editorial-red pb-1 px-3 py-1 transition-all">
+                            Utama
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="filterCategory('Nasional')" id="cat-Nasional" class="cat-btn hover:text-editorial-red border-b-2 border-transparent hover:border-editorial-red pb-1 px-3 py-1 transition-all">
+                            Nasional
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="filterCategory('Ekonomi')" id="cat-Ekonomi" class="cat-btn hover:text-editorial-red border-b-2 border-transparent hover:border-editorial-red pb-1 px-3 py-1 transition-all">
+                            Ekonomi
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="filterCategory('Teknologi')" id="cat-Teknologi" class="cat-btn hover:text-editorial-red border-b-2 border-transparent hover:border-editorial-red pb-1 px-3 py-1 transition-all">
+                            Teknologi
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="filterCategory('Olahraga')" id="cat-Olahraga" class="cat-btn hover:text-editorial-red border-b-2 border-transparent hover:border-editorial-red pb-1 px-3 py-1 transition-all">
+                            Olahraga
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="filterCategory('Dunia')" id="cat-Dunia" class="cat-btn hover:text-editorial-red border-b-2 border-transparent hover:border-editorial-red pb-1 px-3 py-1 transition-all">
+                            Dunia
+                        </button>
+                    </li>
+                </ul>
             </div>
         </nav>
     </header>
 
-    <!-- 2. BREAKING NEWS TICKER -->
-    <section class="bg-editorial-paper border-b border-editorial-border">
-        <div class="max-w-7xl mx-auto flex items-center">
-            <div class="bg-editorial-red text-white text-[11px] font-black uppercase tracking-widest px-4 py-2 flex items-center shrink-0">
-                <span class="w-2 h-2 bg-white rounded-full mr-2 animate-ping"></span>
-                Breaking News
-            </div>
-            <div class="ticker-wrap w-full py-2 px-3 text-xs font-medium text-editorial-dark">
-                <div class="ticker-move space-x-8">
-                    <span class="inline-flex items-center"><strong class="text-editorial-red mr-1">[10:15 WIB]</strong> Kereta Cepat Trans-Jawa Koridor II Resmi Dimulai Hari Ini dengan Integrasi Energi Terbarukan.</span>
-                    <span class="inline-flex items-center"><strong class="text-editorial-red mr-1">[09:40 WIB]</strong> Bank Indonesia Mempertahankan Suku Bunga Acuan 6,00% Jaga Stabilitas Rupiah.</span>
-                    <span class="inline-flex items-center"><strong class="text-editorial-red mr-1">[08:55 WIB]</strong> Pusat Kebijakan AI Nasional Diresmikan: Indonesia Tegaskan Kedaulatan Data Digital 2026.</span>
-                    <span class="inline-flex items-center"><strong class="text-editorial-red mr-1">[07:30 WIB]</strong> Timnas Indonesia Amankan Tiket Putaran Final Usai Kemenangan Dramatis di Jakarta.</span>
-                    <!-- Duplicate for infinite marquee effect -->
-                    <span class="inline-flex items-center"><strong class="text-editorial-red mr-1">[10:15 WIB]</strong> Kereta Cepat Trans-Jawa Koridor II Resmi Dimulai Hari Ini dengan Integrasi Energi Terbarukan.</span>
-                    <span class="inline-flex items-center"><strong class="text-editorial-red mr-1">[09:40 WIB]</strong> Bank Indonesia Mempertahankan Suku Bunga Acuan 6,00% Jaga Stabilitas Rupiah.</span>
+    <!-- BREAKING NEWS TICKER -->
+    <div class="bg-editorial-surface border-b border-editorial-border py-2.5 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+            <span class="bg-editorial-red text-white text-xs font-bold px-3 py-1 uppercase tracking-wider shrink-0 mr-4">
+                TERKINI
+            </span>
+            <div class="ticker-wrap w-full text-sm text-editorial-text font-medium">
+                <div class="ticker-move">
+                    <span class="inline-block mr-12"><strong>IKN Nusantara:</strong> Uji coba Kereta Otonom (ART) resmi dimulai di Jalur Utama Cerdas KIPP.</span>
+                    <span class="inline-block mr-12"><strong>Bank Indonesia:</strong> Suku Bunga Acuan BI-Rate Dipertahankan 6,00% untuk Stabilitas Rupiah.</span>
+                    <span class="inline-block mr-12"><strong>Riset AI:</strong> Startup Lokal Integrasikan Sensor Pertanian Presisi di 12 Provinsi.</span>
+                    <span class="inline-block mr-12"><strong>KTT Iklim:</strong> 190 Negara Sepakati Dana Skema Retribusi Karbon Lintas Negara.</span>
+                    <!-- Duplicate for smooth loop -->
+                    <span class="inline-block mr-12"><strong>IKN Nusantara:</strong> Uji coba Kereta Otonom (ART) resmi dimulai di Jalur Utama Cerdas KIPP.</span>
+                    <span class="inline-block mr-12"><strong>Bank Indonesia:</strong> Suku Bunga Acuan BI-Rate Dipertahankan 6,00% untuk Stabilitas Rupiah.</span>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- MAIN CONTENT CONTAINER -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-grow">
-
-        <!-- 3. BENTO GRID / HERO EDITORIAL SECTION -->
-        <section id="hero-section" class="mb-12">
-            <div class="border-b border-editorial-dark pb-2 mb-6 flex justify-between items-end">
-                <h2 class="font-serif text-2xl font-black uppercase tracking-tight text-editorial-dark">Sorotan Utama Redaksi</h2>
-                <span class="text-xs font-semibold text-editorial-muted uppercase tracking-wider">Edisi Cetak &amp; Digital</span>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                <!-- HERO MAIN HEADLINE (8 COLS) -->
-                <div class="lg:col-span-8 cursor-pointer group border-b lg:border-b-0 lg:border-r border-editorial-border lg:pr-8 pb-8 lg:pb-0" onclick="openModal(1)">
-                    <div class="relative overflow-hidden mb-4 bg-slate-100 aspect-[16/9]">
-                        <img src="https://images.unsplash.com/photo-1541427468627-a89a96e5ca1d?q=80&w=1200" 
-                             alt="Kereta Cepat Trans-Jawa" 
-                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                             onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';">
-                        <span class="absolute top-3 left-3 bg-editorial-red text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1">
-                            Nasional
-                        </span>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+        
+        <!-- SECTION HERO EDITORIAL GRID -->
+        <section class="mb-12 border-b border-editorial-border pb-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- MAIN HEADLINE (8 COLUMNS) -->
+                <article class="lg:col-span-8 flex flex-col justify-between group cursor-pointer border-b lg:border-b-0 lg:border-r border-editorial-border lg:pr-8 pb-8 lg:pb-0" onclick="openModal(1)">
+                    <div>
+                        <div class="relative overflow-hidden mb-5 bg-gray-100">
+                            <img id="hero-img-1" src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1200&auto=format&fit=crop" 
+                                 alt="Uji Coba Kereta Otonom IKN" 
+                                 class="w-full h-[360px] sm:h-[450px] object-cover transition-transform duration-500 group-hover:scale-105"
+                                 onerror="this.onerror=null; this.src='https://picsum.photos/seed/ikn1/800/500';">
+                            <span class="absolute top-4 left-4 bg-editorial-red text-white text-xs font-bold px-3 py-1 uppercase tracking-widest">
+                                Nasional
+                            </span>
+                        </div>
+                        <h2 class="font-serif font-bold text-2xl sm:text-4xl leading-tight text-editorial-navy group-hover:text-editorial-red transition-colors mb-3">
+                            Transformasi Digital Transportasi Publik: Kereta Otonom IKN Resmi Uji Coba Jalur Utama
+                        </h2>
+                        <p class="text-editorial-muted text-base leading-relaxed mb-4 line-clamp-3">
+                            Pemerintah secara resmi memulai uji coba operasional penuh Kereta Otonom (Autonomous Rail Rapid Transit/ART) di Ibu Kota Nusantara (IKN). Moda transportasi berbasis sensor canggih tanpa rel fisik ini siap mengintegrasikan seluruh Kawasan Inti Pusat Pemerintahan (KIPP) secara ramah lingkungan.
+                        </p>
                     </div>
-                    <div class="flex items-center text-xs text-editorial-muted space-x-3 mb-2 font-medium">
-                        <span>Oleh: Hendra Wijaya, S.H.</span>
-                        <span>•</span>
-                        <span>1 jam lalu</span>
+                    <div class="flex items-center justify-between text-xs text-slate-500 font-semibold border-t border-gray-100 pt-3">
+                        <span>Oleh: Ahmad Rasyid, Senior Editor</span>
+                        <span>• 2 jam lalu</span>
                     </div>
-                    <h3 class="font-serif text-2xl sm:text-4xl font-bold leading-tight text-editorial-dark group-hover:text-editorial-red transition mb-3">
-                        Pemerintah Resmikan Koridor Kereta Cepat Trans-Jawa Tahap II dan Kemitraan Energi Hijau
-                    </h3>
-                    <p class="text-editorial-muted text-sm sm:text-base line-clamp-3 leading-relaxed mb-4">
-                        Proyek strategis nasional koridor Kereta Cepat Trans-Jawa Tahap II resmi dimulai dengan mengintegrasikan pasokan listrik 100% berbasis energi terbarukan. Langkah transformatif ini menghubungkan pusat pertumbuhan ekonomi baru sekaligus memangkas emisi karbon hingga 85 persen.
-                    </p>
-                    <span class="inline-flex items-center text-xs font-bold uppercase text-editorial-red group-hover:underline">
-                        Baca Selengkapnya <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                </div>
+                </article>
 
-                <!-- HIGHLIGHT NEWS 2 CARDS (4 COLS) -->
+                <!-- SIDE HIGHLIGHTS (4 COLUMNS) -->
                 <div class="lg:col-span-4 flex flex-col justify-between space-y-6">
-                    <!-- Highlight 1 -->
-                    <div class="cursor-pointer group border-b border-editorial-border pb-6" onclick="openModal(2)">
-                        <div class="relative overflow-hidden mb-3 bg-slate-100 aspect-[16/9]">
-                            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800" 
-                                 alt="Kedaulatan Data AI" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                                 onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';">
-                            <span class="absolute top-2 left-2 bg-editorial-dark text-white text-[9px] font-bold uppercase tracking-widest px-2 py-0.5">
-                                Teknologi
-                            </span>
-                        </div>
-                        <div class="text-[11px] text-editorial-muted mb-1">Amanda Saraswati • 2 jam lalu</div>
-                        <h4 class="font-serif text-lg font-bold leading-snug text-editorial-dark group-hover:text-editorial-red transition">
-                            Peluncuran Pusat Kebijakan AI Nasional: Standar Etika &amp; Kedaulatan Data Indonesia 2026
-                        </h4>
-                        <p class="text-xs text-editorial-muted mt-2 line-clamp-2">
-                            Pemerintah merilis kerangka regulasi kecerdasan buatan nasional untuk menjamin keamanan data warga dan etika algoritma industri.
+                    <!-- Highlight Item 1 -->
+                    <article class="group cursor-pointer border-b border-editorial-border pb-5" onclick="openModal(2)">
+                        <span class="text-editorial-red text-xs font-bold uppercase tracking-wider block mb-1">
+                            Ekonomi
+                        </span>
+                        <h3 class="font-serif font-bold text-lg sm:text-xl leading-snug text-editorial-navy group-hover:text-editorial-red transition-colors mb-2">
+                            Bank Indonesia Pertahankan Suku Bunga Acuan 6,00% Demi Stabilitas Rupiah
+                        </h3>
+                        <p class="text-editorial-muted text-xs leading-relaxed line-clamp-2 mb-3">
+                            Rapat Dewan Gubernur BI memutuskan untuk menahan tingkat suku bunga acuan guna menjaga stabilitas arus modal asing dan menekan laju inflasi.
                         </p>
-                    </div>
+                        <div class="text-[11px] text-slate-500 font-medium">3 jam lalu • Siti Rahmawati</div>
+                    </article>
 
-                    <!-- Highlight 2 -->
-                    <div class="cursor-pointer group" onclick="openModal(3)">
-                        <div class="relative overflow-hidden mb-3 bg-slate-100 aspect-[16/9]">
-                            <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800" 
-                                 alt="Bank Indonesia suku bunga" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                                 onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';">
-                            <span class="absolute top-2 left-2 bg-editorial-dark text-white text-[9px] font-bold uppercase tracking-widest px-2 py-0.5">
-                                Ekonomi
-                            </span>
-                        </div>
-                        <div class="text-[11px] text-editorial-muted mb-1">Rian Pratama • 3 jam lalu</div>
-                        <h4 class="font-serif text-lg font-bold leading-snug text-editorial-dark group-hover:text-editorial-red transition">
-                            Bank Indonesia Pertahankan Suku Bunga 6,00% di Tengah Penguatan Cadangan Devisa
-                        </h4>
-                        <p class="text-xs text-editorial-muted mt-2 line-clamp-2">
-                            Rapat Dewan Gubernur BI memutuskan menahan BI-Rate guna mengendalikan inflasi dan menjaga stabilitas nilai tukar Rupiah.
+                    <!-- Highlight Item 2 -->
+                    <article class="group cursor-pointer border-b border-editorial-border pb-5" onclick="openModal(3)">
+                        <span class="text-editorial-red text-xs font-bold uppercase tracking-wider block mb-1">
+                            Teknologi
+                        </span>
+                        <h3 class="font-serif font-bold text-lg sm:text-xl leading-snug text-editorial-navy group-hover:text-editorial-red transition-colors mb-2">
+                            Infrastruktur Data Center AI Indonesia Capai Investasi $3,2 Miliar
+                        </h3>
+                        <p class="text-editorial-muted text-xs leading-relaxed line-clamp-2 mb-3">
+                            Konsorsium teknologi nasional dan global mendorong percepatan pembangunan pusat data hijau berbasis energi terbarukan di Jawa Barat.
                         </p>
-                    </div>
+                        <div class="text-[11px] text-slate-500 font-medium">4 jam lalu • Budi Santoso</div>
+                    </article>
+
+                    <!-- Highlight Item 3 -->
+                    <article class="group cursor-pointer" onclick="openModal(4)">
+                        <span class="text-editorial-red text-xs font-bold uppercase tracking-wider block mb-1">
+                            Dunia
+                        </span>
+                        <h3 class="font-serif font-bold text-lg sm:text-xl leading-snug text-editorial-navy group-hover:text-editorial-red transition-colors mb-2">
+                            KTT Iklim Global Sepakati Dana Retribusi Karbon Lintas Negara
+                        </h3>
+                        <p class="text-editorial-muted text-xs leading-relaxed line-clamp-2 mb-3">
+                            Delegasi dari 190 negara meratifikasi komitmen pendanaan transisi energi adil bagi negara berkembang di forum PBB.
+                        </p>
+                        <div class="text-[11px] text-slate-500 font-medium">5 jam lalu • Helena Wijaya</div>
+                    </article>
                 </div>
+
             </div>
         </section>
 
-        <!-- HR SEPARATOR -->
-        <hr class="border-t-2 border-editorial-dark my-8">
-
-        <!-- 4. LOWER GRID SECTION & POPULAR SIDEBAR -->
+        <!-- SECTION NEWS GRID & POPULAR SIDEBAR -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
-            <!-- LEFT 8 COLS: ARTICLES GRID BY CATEGORY -->
+            <!-- MAIN NEWS GRID (8 COLUMNS) -->
             <div class="lg:col-span-8">
-                <div class="border-b border-editorial-border pb-2 mb-6 flex justify-between items-center">
-                    <h3 class="font-serif text-xl font-bold uppercase text-editorial-dark" id="category-title">Berita Terkini</h3>
-                    <span class="text-xs text-editorial-muted font-medium" id="news-count">Menampilkan 8 Artikel</span>
+                <div class="flex items-center justify-between border-b-2 border-editorial-navy pb-2 mb-6">
+                    <h3 class="font-serif font-bold text-2xl text-editorial-navy uppercase tracking-tight">
+                        Berita Terkini
+                    </h3>
+                    <span class="text-xs text-editorial-muted font-medium uppercase">Edisi Jurnalistik Lengkap</span>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="news-grid">
-                    <!-- Dynamic rendering via JavaScript -->
+                <div id="news-grid-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Grid Card 1 -->
+                    <article class="article-card news-item bg-editorial-surface border border-editorial-border p-4 flex flex-col justify-between group cursor-pointer transition-shadow hover:shadow-md" data-category="Olahraga" onclick="openModal(5)">
+                        <div>
+                            <div class="overflow-hidden mb-3 bg-gray-200 aspect-video">
+                                <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800&auto=format&fit=crop" 
+                                     alt="Timnas Garuda" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                     onerror="this.onerror=null; this.src='https://picsum.photos/seed/timnas/800/500';">
+                            </div>
+                            <span class="text-editorial-red text-xs font-bold uppercase tracking-wider block mb-1">Olahraga</span>
+                            <h4 class="font-serif font-bold text-lg leading-snug text-editorial-navy group-hover:text-editorial-red transition-colors mb-2">
+                                Timnas Garuda Tembus Peringkat 85 FIFA Usai Kemenangan Beruntun
+                            </h4>
+                            <p class="text-editorial-muted text-xs leading-relaxed line-clamp-3 mb-4">
+                                Performa konsisten di babak kualifikasi piala dunia mendongkrak posisi Indonesia secara drastis dalam pemeringkatan resmi FIFA bulan ini.
+                            </p>
+                        </div>
+                        <div class="text-[11px] text-slate-500 font-semibold border-t border-editorial-border pt-2 flex justify-between">
+                            <span>Doni Prasetyo</span>
+                            <span>6 jam lalu</span>
+                        </div>
+                    </article>
+
+                    <!-- Grid Card 2 -->
+                    <article class="article-card news-item bg-editorial-surface border border-editorial-border p-4 flex flex-col justify-between group cursor-pointer transition-shadow hover:shadow-md" data-category="Teknologi" onclick="openModal(6)">
+                        <div>
+                            <div class="overflow-hidden mb-3 bg-gray-200 aspect-video">
+                                <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=800&auto=format&fit=crop" 
+                                     alt="AI Pertanian" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                     onerror="this.onerror=null; this.src='https://picsum.photos/seed/aiagri/800/500';">
+                            </div>
+                            <span class="text-editorial-red text-xs font-bold uppercase tracking-wider block mb-1">Teknologi</span>
+                            <h4 class="font-serif font-bold text-lg leading-snug text-editorial-navy group-hover:text-editorial-red transition-colors mb-2">
+                                Riset Startup Lokal: Integrasi AI pada Pertanian Tingkatkan Panen 35%
+                            </h4>
+                            <p class="text-editorial-muted text-xs leading-relaxed line-clamp-3 mb-4">
+                                Pemanfaatan sensor IoT dan pola prediksi visi komputer membantu petani memantau kesehatan tanaman dan kelembaban tanah secara real-time.
+                            </p>
+                        </div>
+                        <div class="text-[11px] text-slate-500 font-semibold border-t border-editorial-border pt-2 flex justify-between">
+                            <span>Dewi Lestari</span>
+                            <span>7 jam lalu</span>
+                        </div>
+                    </article>
+
+                    <!-- Grid Card 3 -->
+                    <article class="article-card news-item bg-editorial-surface border border-editorial-border p-4 flex flex-col justify-between group cursor-pointer transition-shadow hover:shadow-md" data-category="Ekonomi" onclick="openModal(7)">
+                        <div>
+                            <div class="overflow-hidden mb-3 bg-gray-200 aspect-video">
+                                <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=800&auto=format&fit=crop" 
+                                     alt="Ekspor Pertambangan" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                     onerror="this.onerror=null; this.src='https://picsum.photos/seed/mining/800/500';">
+                            </div>
+                            <span class="text-editorial-red text-xs font-bold uppercase tracking-wider block mb-1">Ekonomi</span>
+                            <h4 class="font-serif font-bold text-lg leading-snug text-editorial-navy group-hover:text-editorial-red transition-colors mb-2">
+                                Ekspor Komoditas Olahan Pertambangan Naik 18% Kuartal Ini
+                            </h4>
+                            <p class="text-editorial-muted text-xs leading-relaxed line-clamp-3 mb-4">
+                                Program hilirisasi nasional menunjukkan nilai tambah produk katoda tembaga dan produk turunan nikel di pasar global.
+                            </p>
+                        </div>
+                        <div class="text-[11px] text-slate-500 font-semibold border-t border-editorial-border pt-2 flex justify-between">
+                            <span>Hendrik Kurniawan</span>
+                            <span>8 jam lalu</span>
+                        </div>
+                    </article>
+
+                    <!-- Grid Card 4 -->
+                    <article class="article-card news-item bg-editorial-surface border border-editorial-border p-4 flex flex-col justify-between group cursor-pointer transition-shadow hover:shadow-md" data-category="Nasional" onclick="openModal(1)">
+                        <div>
+                            <div class="overflow-hidden mb-3 bg-gray-200 aspect-video">
+                                <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?q=80&w=800&auto=format&fit=crop" 
+                                     alt="Infrastruktur Hijau" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                     onerror="this.onerror=null; this.src='https://picsum.photos/seed/infra/800/500';">
+                            </div>
+                            <span class="text-editorial-red text-xs font-bold uppercase tracking-wider block mb-1">Nasional</span>
+                            <h4 class="font-serif font-bold text-lg leading-snug text-editorial-navy group-hover:text-editorial-red transition-colors mb-2">
+                                Akselerasi Infrastruktur Hijau di Kota-Kota Metropolitan
+                            </h4>
+                            <p class="text-editorial-muted text-xs leading-relaxed line-clamp-3 mb-4">
+                                KemenPUPR meresmikan sistem pengolahan air limbah terpadu dan pembukaan ruang terbuka hijau di wilayah perkotaan padat.
+                            </p>
+                        </div>
+                        <div class="text-[11px] text-slate-500 font-semibold border-t border-editorial-border pt-2 flex justify-between">
+                            <span>Tim Redaksi</span>
+                            <span>9 jam lalu</span>
+                        </div>
+                    </article>
+
                 </div>
             </div>
 
-            <!-- RIGHT 4 COLS: SIDEBAR (TERPOPULER & EDITORIAL OPINION) -->
-            <aside class="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-editorial-border lg:pl-8 pt-8 lg:pt-0">
-                
-                <!-- TERPOPULER SECTION -->
-                <div class="mb-10">
-                    <div class="border-b-2 border-editorial-red pb-2 mb-6">
-                        <h3 class="font-serif text-lg font-black uppercase tracking-tight text-editorial-dark">Terpopuler Hari Ini</h3>
+            <!-- RIGHT SIDEBAR: POPULAR (4 COLUMNS) -->
+            <aside id="terpopular" class="lg:col-span-4 bg-editorial-surface border border-editorial-border p-6 h-fit sticky top-36">
+                <div class="border-b-2 border-editorial-navy pb-3 mb-6">
+                    <h3 class="font-serif font-bold text-xl text-editorial-navy uppercase tracking-tight flex items-center justify-between">
+                        <span>Terpopuler</span>
+                        <span class="text-xs text-editorial-red font-sans font-bold uppercase tracking-widest">Top 5</span>
+                    </h3>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Pop 1 -->
+                    <div class="flex items-start space-x-4 cursor-pointer group" onclick="openModal(3)">
+                        <span class="font-serif font-black text-3xl text-editorial-red leading-none w-8 shrink-0">01</span>
+                        <div class="border-b border-editorial-border pb-4 w-full">
+                            <span class="text-[10px] font-bold text-editorial-muted uppercase tracking-wider">Teknologi</span>
+                            <h5 class="font-serif font-bold text-sm text-editorial-navy group-hover:text-editorial-red transition-colors leading-snug mt-1">
+                                Infrastruktur Data Center AI Indonesia Capai Investasi $3,2 Miliar
+                            </h5>
+                        </div>
                     </div>
 
-                    <div class="space-y-5" id="popular-list">
-                        <!-- Populated by JS -->
+                    <!-- Pop 2 -->
+                    <div class="flex items-start space-x-4 cursor-pointer group" onclick="openModal(1)">
+                        <span class="font-serif font-black text-3xl text-slate-300 leading-none w-8 shrink-0">02</span>
+                        <div class="border-b border-editorial-border pb-4 w-full">
+                            <span class="text-[10px] font-bold text-editorial-muted uppercase tracking-wider">Nasional</span>
+                            <h5 class="font-serif font-bold text-sm text-editorial-navy group-hover:text-editorial-red transition-colors leading-snug mt-1">
+                                Uji Coba Kereta Otonom (ART) IKN Nusantara Berjalan Sukses
+                            </h5>
+                        </div>
+                    </div>
+
+                    <!-- Pop 3 -->
+                    <div class="flex items-start space-x-4 cursor-pointer group" onclick="openModal(2)">
+                        <span class="font-serif font-black text-3xl text-slate-300 leading-none w-8 shrink-0">03</span>
+                        <div class="border-b border-editorial-border pb-4 w-full">
+                            <span class="text-[10px] font-bold text-editorial-muted uppercase tracking-wider">Ekonomi</span>
+                            <h5 class="font-serif font-bold text-sm text-editorial-navy group-hover:text-editorial-red transition-colors leading-snug mt-1">
+                                Bank Indonesia Tahan Suku Bunga Acuan 6,00% untuk Jaga Rupiah
+                            </h5>
+                        </div>
+                    </div>
+
+                    <!-- Pop 4 -->
+                    <div class="flex items-start space-x-4 cursor-pointer group" onclick="openModal(5)">
+                        <span class="font-serif font-black text-3xl text-slate-300 leading-none w-8 shrink-0">04</span>
+                        <div class="border-b border-editorial-border pb-4 w-full">
+                            <span class="text-[10px] font-bold text-editorial-muted uppercase tracking-wider">Olahraga</span>
+                            <h5 class="font-serif font-bold text-sm text-editorial-navy group-hover:text-editorial-red transition-colors leading-snug mt-1">
+                                Peringkat FIFA Indonesia Melesat Naik ke Urutan 85 Dunia
+                            </h5>
+                        </div>
+                    </div>
+
+                    <!-- Pop 5 -->
+                    <div class="flex items-start space-x-4 cursor-pointer group" onclick="openModal(6)">
+                        <span class="font-serif font-black text-3xl text-slate-300 leading-none w-8 shrink-0">05</span>
+                        <div class="w-full">
+                            <span class="text-[10px] font-bold text-editorial-muted uppercase tracking-wider">Teknologi</span>
+                            <h5 class="font-serif font-bold text-sm text-editorial-navy group-hover:text-editorial-red transition-colors leading-snug mt-1">
+                                Penerapan AI Presisi Dongkrak Efisiensi Pertanian Nasional
+                            </h5>
+                        </div>
                     </div>
                 </div>
 
-                <!-- OPINI & EDITORIAL BOX -->
-                <div class="bg-editorial-paper border border-editorial-border p-6 relative">
-                    <div class="text-[10px] font-bold uppercase tracking-widest text-editorial-red mb-1">Tajuk Rencana</div>
-                    <h4 class="font-serif text-lg font-bold text-editorial-dark mb-3"> Menjaga Kedaulatan Digital di Tengah Arus Transformasi AI</h4>
-                    <p class="text-xs text-editorial-muted leading-relaxed mb-4">
-                        Inovasi teknologi harus sejalan dengan perlindungan hak-hak publik. Kebijakan nasional yang komprehensif menjadi benteng utama Indonesia dalam menghadapi persaingan global.
-                    </p>
-                    <div class="text-xs font-bold text-editorial-dark border-t border-editorial-border pt-3">
-                        — Dewan Redaksi Jurnal Nusantara
+                <div class="mt-8 pt-6 border-t border-editorial-border bg-white p-4 text-center">
+                    <h6 class="font-serif font-bold text-sm text-editorial-navy mb-1">Berlangganan Buletin Redaksi</h6>
+                    <p class="text-xs text-editorial-muted mb-3">Dapatkan rangkuman berita terverifikasi langsung ke surel Anda.</p>
+                    <div class="flex gap-2">
+                        <input type="email" placeholder="Alamat Email..." class="w-full px-3 py-1.5 text-xs border border-editorial-border focus:outline-none focus:border-editorial-navy">
+                        <button class="bg-editorial-navy text-white text-xs px-4 py-1.5 font-bold hover:bg-editorial-red transition-colors">Kirim</button>
                     </div>
                 </div>
-
-                <!-- NEWSLETTER SUBSCRIPTION -->
-                <div class="mt-8 border border-editorial-dark p-5 text-center bg-white">
-                    <h4 class="font-serif text-base font-bold text-editorial-dark mb-1">Buletin Jurnal Nusantara</h4>
-                    <p class="text-xs text-editorial-muted mb-4">Dapatkan rangkuman berita terverifikasi langsung di inbox Anda setiap pagi.</p>
-                    <form onsubmit="event.preventDefault(); alert('Terima kasih telah mendaftar buletin!');" class="space-y-2">
-                        <input type="email" placeholder="Alamat Email Anda" required class="w-full text-xs px-3 py-2 border border-editorial-border focus:outline-none focus:border-editorial-dark">
-                        <button type="submit" class="w-full bg-editorial-dark hover:bg-editorial-red text-white text-xs font-bold uppercase tracking-wider py-2 transition">
-                            Berlangganan Gratis
-                        </button>
-                    </form>
-                </div>
-
             </aside>
-        </div>
 
+        </div>
     </main>
 
-    <!-- 5. READER VIEW MODAL / DRAWER -->
-    <div id="article-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-editorial-dark/80 backdrop-blur-sm flex justify-center items-start p-2 sm:p-4 md:p-6 transition-opacity duration-300">
-        <div class="bg-white w-full max-w-4xl my-6 border border-editorial-border shadow-2xl relative flex flex-col max-h-[90vh] overflow-hidden">
+    <!-- ARTICLE READER VIEW MODAL -->
+    <div id="article-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex justify-center items-end sm:items-center p-0 sm:p-4 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-3xl max-h-[90vh] sm:max-h-[85vh] rounded-t-lg sm:rounded-lg shadow-2xl flex flex-col overflow-hidden border border-editorial-border">
             
-            <!-- Modal Sticky Header -->
-            <div class="bg-white border-b border-editorial-border px-6 py-4 flex justify-between items-center shrink-0">
+            <!-- Modal Header / Controls -->
+            <div class="p-4 border-b border-editorial-border flex items-center justify-between bg-editorial-surface">
+                <span id="modal-category" class="text-xs font-bold uppercase tracking-wider text-editorial-red bg-red-50 px-2.5 py-1 rounded">
+                    KATEGORI
+                </span>
                 <div class="flex items-center space-x-3">
-                    <span id="modal-category" class="bg-editorial-red text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1">
-                        Kategori
-                    </span>
-                    <span id="modal-read-time" class="text-xs text-editorial-muted font-medium">Waktu baca: 3 menit</span>
-                </div>
-                <div class="flex items-center space-x-2">
-                    <button onclick="shareArticle()" class="text-xs font-semibold uppercase text-editorial-muted hover:text-editorial-dark border border-editorial-border px-3 py-1.5 transition flex items-center">
-                        <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                    <button onclick="shareArticle()" class="text-xs font-semibold text-editorial-navy hover:text-editorial-red flex items-center gap-1 border border-editorial-border px-3 py-1 bg-white hover:bg-gray-50 transition-colors">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
                         Bagikan
                     </button>
-                    <button onclick="closeModal()" class="text-editorial-muted hover:text-editorial-dark p-1.5 transition">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    <button onclick="closeModal()" class="text-slate-400 hover:text-editorial-text p-1 transition-colors text-2xl font-bold leading-none">
+                        &times;
                     </button>
                 </div>
             </div>
 
-            <!-- Modal Content Body -->
-            <div class="p-6 sm:p-10 overflow-y-auto space-y-6">
-                <!-- Title & Byline -->
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-6 sm:p-8 overflow-y-auto modal-body space-y-6">
                 <div>
-                    <h2 id="modal-title" class="font-serif text-2xl sm:text-4xl font-black text-editorial-dark leading-tight mb-4">
-                        Judul Artikel Berita
+                    <h2 id="modal-title" class="font-serif font-bold text-2xl sm:text-3xl text-editorial-navy leading-tight mb-4">
+                        Judul Berita Artikel Lengkap
                     </h2>
-                    <p id="modal-summary" class="font-serif italic text-base sm:text-lg text-editorial-muted leading-relaxed mb-6 border-l-4 border-editorial-red pl-4">
-                        Ringkasan berita akan ditampilkan di sini.
-                    </p>
-                    
-                    <div class="flex flex-wrap items-center justify-between border-y border-editorial-border py-3 text-xs text-editorial-muted font-medium">
-                        <div class="flex items-center space-x-2">
-                            <span class="font-bold text-editorial-dark" id="modal-author">Oleh Jurnalis Redaksi</span>
-                            <span>•</span>
-                            <span id="modal-role" class="italic text-slate-500">Editor Spesialis</span>
-                        </div>
-                        <div id="modal-date">Rabu, 25 Maret 2026</div>
+                    <div class="flex items-center space-x-3 text-xs text-editorial-muted border-b border-editorial-border pb-4">
+                        <span id="modal-author" class="font-semibold text-editorial-navy">Oleh: Penulis</span>
+                        <span>•</span>
+                        <span id="modal-time">Waktu Terbit</span>
                     </div>
                 </div>
 
-                <!-- Main Image -->
-                <figure class="my-6">
-                    <img id="modal-image" src="" alt="" class="w-full aspect-[16/9] object-cover bg-slate-100" onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';">
-                    <figcaption id="modal-caption" class="text-xs text-editorial-muted italic mt-2 text-center">
-                        Keterangan foto artikel.
-                    </figcaption>
-                </figure>
-
-                <!-- Full Article Paragraphs -->
-                <div id="modal-content" class="space-y-5 text-sm sm:text-base text-editorial-body leading-relaxed font-sans">
-                    <!-- Paragraphs injected by JS -->
+                <div class="overflow-hidden bg-gray-100 max-h-[350px]">
+                    <img id="modal-image" src="" alt="Gambar Berita" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://picsum.photos/seed/modal/800/500';">
                 </div>
 
-                <!-- Footer Article Action -->
-                <div class="border-t border-editorial-border pt-6 mt-8 flex flex-wrap justify-between items-center gap-4">
-                    <div class="text-xs text-editorial-muted">
-                        <strong>Sumber Berita:</strong> Tim Riset &amp; Pengolahan Data Redaksi Jurnal Nusantara
-                    </div>
-                    <button onclick="closeModal()" class="bg-editorial-dark text-white text-xs font-bold uppercase tracking-wider px-6 py-2.5 hover:bg-editorial-red transition">
-                        Tutup Artikel
-                    </button>
+                <div id="modal-content" class="prose prose-slate max-w-none text-editorial-text text-base leading-relaxed space-y-4 font-sans">
+                    <!-- Paragraphs injected via JS -->
                 </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-editorial-border bg-editorial-surface flex justify-between items-center text-xs text-editorial-muted">
+                <span>Sumber: Redaksi Jurnal Nusantara</span>
+                <button onclick="closeModal()" class="font-bold text-editorial-navy hover:text-editorial-red">Tutup Artikel</button>
             </div>
 
         </div>
     </div>
 
-    <!-- 6. FOOTER -->
-    <footer class="bg-editorial-dark text-slate-300 mt-16 border-t-4 border-editorial-red">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+    <!-- TOAST NOTIFICATION FOR SHARE -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-editorial-navy text-white text-xs font-semibold px-4 py-3 rounded shadow-lg hidden z-50 flex items-center gap-2">
+        <span>Tautan artikel telah disalin ke papan klip!</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="redaksi" class="bg-editorial-navy text-white border-t-4 border-editorial-red mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-slate-800 pb-10">
                 
-                <!-- Col 1: About -->
-                <div class="md:col-span-2">
-                    <h3 class="font-serif text-2xl font-black text-white uppercase mb-3">Jurnal Nusantara</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed max-w-md mb-4">
-                        Portal berita nasional yang menyajikan berita independen, terverifikasi, serta mendalam seputar dinamika politik, ekonomi, teknologi, dan peristiwa dunia bagi masyarakat Indonesia.
+                <div class="md:col-span-5">
+                    <h3 class="font-serif font-black text-2xl tracking-tight text-white mb-3">
+                        JURNAL NUSANTARA
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed max-w-sm mb-4">
+                        Portal berita nasional yang menyajikan berita terverifikasi, independen, dan mendalam. Berpegang teguh pada kode etik jurnalistik dan Undang-Undang Pers No. 40 Tahun 1999.
                     </p>
-                    <div class="text-[11px] text-slate-500 uppercase tracking-widest font-semibold">
-                        ISSN 2026-889X • Hak Cipta Dilindungi Undang-Undang
+                    <div class="text-xs text-slate-500">
+                        <p>Alamat Redaksi: Jl. Kebon Sirih No. 45, Jakarta Pusat 10110</p>
+                        <p>Email: redaksi@jurnalnusantara.id | Telp: (021) 390-8888</p>
                     </div>
                 </div>
 
-                <!-- Col 2: Kategori Navigasi -->
-                <div>
-                    <h4 class="font-serif text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Kategori Utama</h4>
-                    <ul class="space-y-2 text-xs font-medium text-slate-400">
-                        <li><a href="javascript:void(0)" onclick="filterCategory('nasional')" class="hover:text-white transition">Nasional &amp; Politik</a></li>
-                        <li><a href="javascript:void(0)" onclick="filterCategory('ekonomi')" class="hover:text-white transition">Ekonomi &amp; Bisnis</a></li>
-                        <li><a href="javascript:void(0)" onclick="filterCategory('teknologi')" class="hover:text-white transition">Teknologi &amp; Sains</a></li>
-                        <li><a href="javascript:void(0)" onclick="filterCategory('olahraga')" class="hover:text-white transition">Olahraga &amp; Prestasi</a></li>
-                        <li><a href="javascript:void(0)" onclick="filterCategory('dunia')" class="hover:text-white transition">Dunia &amp; Internasional</a></li>
+                <div class="md:col-span-3">
+                    <h4 class="font-serif font-bold text-sm text-white uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">
+                        Kategori Berita
+                    </h4>
+                    <ul class="space-y-2 text-xs text-slate-300 font-medium">
+                        <li><a href="#" onclick="filterCategory('Nasional')" class="hover:text-editorial-red transition-colors">Nasional & Politik</a></li>
+                        <li><a href="#" onclick="filterCategory('Ekonomi')" class="hover:text-editorial-red transition-colors">Ekonomi & Bisnis</a></li>
+                        <li><a href="#" onclick="filterCategory('Teknologi')" class="hover:text-editorial-red transition-colors">Teknologi & Sains</a></li>
+                        <li><a href="#" onclick="filterCategory('Olahraga')" class="hover:text-editorial-red transition-colors">Olahraga & Olah Tubuh</a></li>
+                        <li><a href="#" onclick="filterCategory('Dunia')" class="hover:text-editorial-red transition-colors">Internasional & Dunia</a></li>
                     </ul>
                 </div>
 
-                <!-- Col 3: Informasi Redaksi -->
-                <div>
-                    <h4 class="font-serif text-sm font-bold text-white uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Redaksi &amp; Etika</h4>
-                    <ul class="space-y-2 text-xs font-medium text-slate-400">
-                        <li><a href="#" class="hover:text-white transition">Pedoman Media Siber</a></li>
-                        <li><a href="#" class="hover:text-white transition">Struktur Redaksi</a></li>
-                        <li><a href="#" class="hover:text-white transition">Kebijakan Privasi</a></li>
-                        <li><a href="#" class="hover:text-white transition">Karir Jurnalistik</a></li>
-                        <li><a href="#" class="hover:text-white transition">Kontak Redaksi &amp; Iklan</a></li>
-                    </ul>
+                <div class="md:col-span-4">
+                    <h4 class="font-serif font-bold text-sm text-white uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">
+                        Pedoman Redaksi & Siber
+                    </h4>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        Seluruh berita diproduksi dengan verifikasi ketat. Pembaca memiliki hak koreksi, hak jawab, dan dapat menyampaikan pengaduan melalui saluran resmi Dewan Pers.
+                    </p>
+                    <div class="flex space-x-3 text-xs text-slate-300 font-bold">
+                        <a href="#" class="hover:underline">Pedoman Media Siber</a>
+                        <span>•</span>
+                        <a href="#" class="hover:underline">Kebijakan Privasi</a>
+                        <span>•</span>
+                        <a href="#" class="hover:underline">Karir Redaksi</a>
+                    </div>
                 </div>
 
             </div>
 
-            <!-- Bottom Copyright bar -->
-            <div class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500">
-                <div>&copy; 2026 <strong>Jurnal Nusantara</strong>. Seluruh Hak Cipta Dilindungi.</div>
-                <div class="mt-2 sm:mt-0 font-mono text-[11px]">Didesain untuk Standar Editorial Profesional</div>
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500">
+                <p>&copy; 2026 Jurnal Nusantara Digital Media Group. Hak Cipta Dilindungi Undang-Undang.</p>
+                <p class="mt-2 sm:mt-0 font-mono text-[11px]">Edisi Editorial Berstandar Nasional</p>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT DATA & INTERACTION LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // ARTICLES DATABASE (RESEARCHED & VERIFIED CONTENT)
-        const articles = [
-            {
+        // Set Current Date in Indonesian
+        document.addEventListener("DOMContentLoaded", function() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date();
+            document.getElementById('current-date-str').textContent = today.toLocaleDateString('id-ID', options);
+        });
+
+        // News Database (Populated from Editorial Research)
+        const articles = {
+            1: {
                 id: 1,
-                category: "nasional",
-                categoryLabel: "Nasional",
-                title: "Pemerintah Resmikan Koridor Kereta Cepat Trans-Jawa Tahap II dan Kemitraan Energi Hijau",
-                author: "Hendra Wijaya, S.H.",
-                role: "Editor Senior Sektor Infrastruktur",
-                date: "Rabu, 25 Maret 2026 - 08:30 WIB",
-                timeAgo: "1 jam lalu",
-                image: "https://images.unsplash.com/photo-1541427468627-a89a96e5ca1d?q=80&w=1200",
-                caption: "Uji coba pergerakan rangkaian Kereta Cepat Trans-Jawa Tahap II yang terhubung langsung dengan pasokan energi terbarukan.",
-                summary: "Proyek strategis nasional koridor Kereta Cepat Trans-Jawa Tahap II resmi dimulai dengan mengintegrasikan pasokan listrik 100% berbasis energi terbarukan serta sistem operasi berteknologi terkini.",
-                content: [
-                    "JAKARTA — Pemerintah Republik Indonesia secara resmi memulai pengoperasian uji coba terbatas untuk koridor Kereta Cepat Trans-Jawa Tahap II. Proyek infrastruktur unggulan ini menandai langkah transformatif dalam menginterkoneksikan pusat-pusat pertumbuhan ekonomi di sepanjang Pulau Jawa dengan efisiensi energi yang belum pernah ada sebelumnya.",
-                    "Menteri Koordinator Bidang Perekonomian menegaskan bahwa jalur transportasi ini tidak hanya dirancang untuk mempercepat mobilitas masyarakat, tetapi juga disokong penuh oleh jaringan listrik dari pembangkit listrik tenaga surya (PLTS) dan angin skala besar yang dibangun di sepanjang koridor rel. Kemitraan energi hijau ini memangkas jejak karbon operasional hingga 85 persen dibanding transportasi konvensional.",
-                    "Selain dampak langsung terhadap konektivitas antarwilayah, penyelesaian tahap kedua ini diperkirakan akan mendorong pembukaan kawasan industri baru berbasis manufaktur hijau dan logistik cerdas. Investor domestik maupun internasional menyambut positif kepastian regulasi dan integrasi moda transportasi darat ini.",
-                    "Para pengamat ekonomi transportasi menilai, langkah konsisten Indonesia dalam merampungkan jaringan kereta kecepatan tinggi ini memperkuat posisi tawar nasional di kawasan Asia Tenggara, sekaligus menjadi acuan baru pengembangan infrastruktur berkelanjutan yang ramah lingkungan."
+                title: "Transformasi Digital Transportasi Publik: Kereta Otonom IKN Resmi Uji Coba Jalur Utama",
+                category: "Nasional",
+                time: "2 jam lalu",
+                author: "Ahmad Rasyid, Senior Editor",
+                image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1200&auto=format&fit=crop",
+                paragraphs: [
+                    "Pemerintah secara resmi memulai tahap uji coba operasional komprehensif Kereta Otonom atau Autonomous Rail Rapid Transit (ART) di kawasan Ibu Kota Nusantara (IKN). Uji coba ini melintasi rute utama Kawasan Inti Pusat Pemerintahan (KIPP) sepanjang 6,8 kilometer.",
+                    "Teknologi ART mengombinasikan sistem kereta api cerdas dengan fleksibilitas bus perkotaan. Menggunakan sensor gelombang optik dan marka jalan khusus, moda ini beroperasi tanpa rel fisik baja, sehingga secara signifikan mengurangi biaya pemeliharaan infrastruktur serta bebas emisi gas buang.",
+                    "Kementerian Perhubungan mengonfirmasi bahwa selama masa uji coba dua bulan ke depan, armada ART akan beroperasi secara gratis untuk staf kementerian dan masyarakat umum yang mengunjungi IKN, guna mengevaluasi integrasi sistem lalu lintas cerdas berbasis AI.",
+                    "Pengembangan moda transportasi ini diproyeksikan menjadi percontohan nasional untuk implementasi sistem transportasi publik pintar (Smart Public Transport) di metropolitan lain di Indonesia."
                 ]
             },
-            {
+            2: {
                 id: 2,
-                category: "teknologi",
-                categoryLabel: "Teknologi",
-                title: "Peluncuran Pusat Kebijakan AI Nasional: Standar Etika & Kedaulatan Data Indonesia 2026",
-                author: "Amanda Saraswati",
-                role: "Jurnalis Teknologi & Digital",
-                date: "Rabu, 25 Maret 2026 - 07:45 WIB",
-                timeAgo: "2 jam lalu",
-                image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800",
-                caption: "Fasilitas Pusat Riset Kedaulatan AI Nasional yang difungsikan untuk verifikasi etika algoritma industri.",
-                summary: "Pemerintah merilis kerangka regulasi kecerdasan buatan nasional untuk menjamin keamanan data warga dan etika algoritma industri.",
-                content: [
-                    "JAKARTA — Kementerian Komunikasi dan Digital meluncurkan Pusat Kebijakan Kecerdasan Buatan (AI) Nasional sebagai langkah strategis melindungi kedaulatan data warga sekaligus memacu inovasi teknologi dalam negeri.",
-                    "Lembaga baru ini bertanggung jawab menetapkan standar audit algoritma, pencegahan diskriminasi berbasis data, serta pemastian bahwa pusat data AI yang beroperasi di wilayah Indonesia mematuhi protokol perlindungan privasi ketat.",
-                    "Dalam pidato peresmiannya, Kepala Lembaga AI Nasional menekankan pentingnya adopsi teknologi yang bertanggung jawab. Pelaku industri startup maupun korporasi multinasional diwajibkan melakukan pendaftaran lisensi etika sebelum mendistribusikan model AI generatif skala publik.",
-                    "Respon pasar menyambut positif kepastian hukum ini. Komunitas pengembang lokal menganggap aturan baru ini memberikan ruang kompetisi yang adil bagi inovator domestik untuk berkembang tanpa tergerus dominasi monopoli data asing."
+                title: "Bank Indonesia Pertahankan Suku Bunga Acuan 6,00% Demi Stabilitas Rupiah",
+                category: "Ekonomi",
+                time: "3 jam lalu",
+                author: "Siti Rahmawati, Redaktur Ekonomi",
+                image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop",
+                paragraphs: [
+                    "Rapat Dewan Gubernur (RDG) Bank Indonesia memutuskan untuk mempertahankan suku bunga acuan BI-Rate sebesar 6,00%, suku bunga Deposit Facility 5,25%, dan suku bunga Lending Facility 6,75%. Keputusan ini sejalan dengan stabilitas moneter domestik.",
+                    "Gubernur BI menyatakan bahwa keputusan tersebut merupakan tindakan pre-emptive dan forward-looking untuk memastikan laju inflasi tetap terkendali dalam sasaran 2,5±1% pada tahun 2026, sekaligus mendukung penguatan stabilitas nilai tukar Rupiah dari tekanan ketidakpastian pasar keuangan global.",
+                    "Selain itu, kebijakan makroprudensial dan sistem pembayaran terus diperkuat untuk mendorong pertumbuhan ekonomi yang berkelanjutan. Bank Indonesia optimistis pertumbuhan ekonomi nasional tahun ini tetap berada pada kisaran 4,7% hingga 5,5%.",
+                    "Sektor perbankan diimbau untuk terus mengalirkan kredit ke sektor-sektor prioritas guna menjaga momentum pemulihan dan ekspansi usaha di tanah air."
                 ]
             },
-            {
+            3: {
                 id: 3,
-                category: "ekonomi",
-                categoryLabel: "Ekonomi",
-                title: "Bank Indonesia Pertahankan Suku Bunga 6,00% di Tengah Penguatan Cadangan Devisa",
-                author: "Rian Pratama",
-                role: "Analis Ekonomi Makro",
-                date: "Rabu, 25 Maret 2026 - 06:50 WIB",
-                timeAgo: "3 jam lalu",
-                image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800",
-                caption: "Gedung Bank Indonesia di kawasan MH Thamrin Jakarta pasca pengumuman hasil Rapat Dewan Gubernur.",
-                summary: "Rapat Dewan Gubernur BI memutuskan menahan BI-Rate guna mengendalikan inflasi dan menjaga stabilitas nilai tukar Rupiah.",
-                content: [
-                    "JAKARTA — Rapat Dewan Gubernur (RDG) Bank Indonesia memutuskan untuk mempertahankan BI-Rate sebesar 6,00%, suku bunga Deposit Facility sebesar 5,25%, dan suku bunga Lending Facility sebesar 6,75%.",
-                    "Gubernur BI menyatakan kebijakan moneter tetap diarahkan pada penguatan stabilitas nilai tukar Rupiah dari dampak ketidakpastian geopolitik global, serta memastikan inflasi tetap terkendali dalam sasaran 2,5% ± 1%.",
-                    "Cadangan devisa Indonesia pada bulan ini tercatat mengalami peningkatan signifikan mencapai USD 152 miliar, disokong oleh penerimaan pajak sektor ekspor dan penarikan pinjaman luar negeri pemerintah yang terukur.",
-                    "Pelaku pasar keuangan merespons tenang keputusan ini. Indeks Harga Saham Gabungan (IHSG) menguat tipis seiring tingginya kepercayaan investor terhadap transmisi kebijakan moneter yang konsisten dan terprediksi."
+                title: "Pengembangan Infrastruktur Data Center AI Indonesia Capai Nilai Investasi $3,2 Miliar",
+                category: "Teknologi",
+                time: "4 jam lalu",
+                author: "Budi Santoso, Jurnalis Teknologi",
+                image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+                paragraphs: [
+                    "Konsorsium penyedia layanan komputasi awan nasional bersama investor global mengumumkan penyelesaian fase pertama pembangunan data center khusus beban kerja Kecerdasan Buatan (AI) di kawasan Cikarang, Jawa Barat, dengan total investasi mencapai US$3,2 miliar.",
+                    "Fasilitas data center ini dirancang khusus untuk mendukung pelatihan model AI skala besar (Large Language Model) dan memiliki kapabilitas efisiensi energi berstandar global dengan memanfaatkan sumber energi terbarukan seperti PLTS dan hidro.",
+                    "Menteri Komunikasi dan Digital menyambut positif investasi ini, menegaskan bahwa ketersediaan infrastruktur komputasi lokal berkecepatan tinggi sangat vital untuk menjaga kedaulatan data nasional serta mendorong ekosistem startup berbasis teknologi tinggi di Indonesia.",
+                    "Proyek ini ditargetkan menyerap ribuan tenaga kerja terampil di bidang rekayasa perangkat keras, sistem jaringan cerdas, dan keamanan siber hingga tahun 2028."
                 ]
             },
-            {
+            4: {
                 id: 4,
-                category: "dunia",
-                categoryLabel: "Dunia",
-                title: "KTT Energi Terbarukan ASEAN Hasilkan Kesepakatan Jaringan Listrik Lintas Negara",
-                author: "Budi Santoso",
-                role: "Koresponden Luar Negeri",
-                date: "Rabu, 25 Maret 2026 - 05:15 WIB",
-                timeAgo: "4 jam lalu",
-                image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800",
-                caption: "Instalasi turbin angin modern dalam proyek percontohan interkoneksi jaringan listrik antar-negara ASEAN.",
-                summary: "KTT ASEAN di Manila menghasilkan kesepakatan bersejarah integrasi transmisi energi bersih antar-negara anggota mulai 2027.",
-                content: [
-                    "MANILA — Para pemimpin negara anggota ASEAN menandatangani kesepakatan integrasi jaringan listrik terbarukan kawasan (ASEAN Power Grid Initiative). Langkah ini menjadi tonggak sejarah transisi energi bersih di Asia Tenggara.",
-                    "Proyek senilai puluhan miliar dolar ini memungkinkan pertukaran pasokan energi hijau seperti hidro, surya, dan geotermal secara real-time antar negara anggota guna menjaga keandalan pasokan energi regional.",
-                    "Indonesia berperan penting sebagai pemasok utama daya hidro dan geotermal, sementara Singapura dan Malaysia berkomitmen menyediakan investasi infrastruktur kabel bawah laut frekuensi tinggi.",
-                    "Kesepakatan ini ditargetkan mulai beroperasi secara parsial pada 2027 dan diproyeksikan mampu mengurangi ketergantungan pada bahan bakar fosil hingga 40 persen pada akhir dekade ini."
+                title: "KTT Iklim Global Sepakati Dana Retribusi Karbon Lintas Negara",
+                category: "Dunia",
+                time: "5 jam lalu",
+                author: "Helena Wijaya, Koresponden Luar Negeri",
+                image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+                paragraphs: [
+                    "Delegasi dari lebih 190 negara dalam sidang penutupan KTT Iklim Perserikatan Bangsa-Bangsa resmi meratifikasi kesepakatan bersejarah terkait skema pendanaan transisi energi dan retribusi karbon bagi sektor industri emisi tinggi.",
+                    "Kesepakatan ini mengamanatkan alokasi dana khusus hingga US$100 miliar per tahun yang dihimpun dari negara-negara industri maju untuk mendukung pembiayaan mitigasi bencana iklim dan proyek energi bersih di negara-negara berkembang.",
+                    "Perwakilan diplomasi Indonesia menegaskan pentingnya implementasi transparansi dan akses modal yang adil agar negara-negara kaya sumber daya alam seperti Indonesia dapat mempercepat penghentian penggunaan batubara.",
+                    "Kesepakatan ini akan mulai diterapkan secara bertahap pada kuartal ketiga tahun depan setelah melewati tahap harmonisasi regulasi perdagangan karbon di masing-masing negara anggota."
                 ]
             },
-            {
+            5: {
                 id: 5,
-                category: "olahraga",
-                categoryLabel: "Olahraga",
-                title: "Timnas Indonesia Kunci Tiket Putaran Final Usai Kemenangan Dramatis di Jakarta",
-                author: "Farhan Alamsyah",
-                role: "Jurnalis Olahraga",
-                date: "Rabu, 25 Maret 2026 - 04:30 WIB",
-                timeAgo: "5 jam lalu",
-                image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800",
-                caption: "Sorak sorak suporter di Stadion Gelora Bung Karno merayakan kemenangan bersejarah Timnas Indonesia.",
-                summary: "Kemenangan 2-1 atas rival sengit memastikan langkah Skuad Garuda melaju ke panggung sepak bola internasional tertinggi.",
-                content: [
-                    "JAKARTA — Stadion Utama Gelora Bung Karno menjadi saksi sejarah baru sepak bola Indonesia. Tim Nasional Indonesia berhasil mengunci kemenangan 2-1 lewat gol di menit-menit akhir babak kedua.",
-                    "Pertandingan berlangsung seru dan penuh tensi tinggi sejak peluit awal. Gol penentu diraih melalui skema serangan balik cepat yang diselesaikan dengan tembakan terukur penyerang muda berbakat Indonesia.",
-                    "Pelatih kepala mengungkapkan rasa bangganya terhadap kedisiplinan dan mental bertanding para pemain yang tidak patah semangat meskipun sempat tertinggal di awal pertandingan.",
-                    "Kemenangan ini sekaligus memastikan tempat Indonesia di putaran final turnamen internasional, memicu perayaan meriah para pecinta sepak bola di seluruh penjuru tanah air."
+                title: "Timnas Garuda Tembus Peringkat 85 FIFA Usai Kemenangan Beruntun di Kualifikasi",
+                category: "Olahraga",
+                time: "6 jam lalu",
+                author: "Doni Prasetyo, Desk Olahraga",
+                image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=800&auto=format&fit=crop",
+                paragraphs: [
+                    "Tim Nasional Sepak Bola Indonesia melesat tajam dalam rilis peringkat resmi FIFA terbaru, menembus posisi 85 dunia. Lonjakan drastis ini diraih usai mengantongi dua kemenangan beruntun pada laga babak kualifikasi Piala Dunia.",
+                    "Kemenangan atas tim unggulan kawasan Asia tersebut menambah poin signifikan bagi skuad Merah Putih, menandai posisi tertinggi Indonesia dalam kurun waktu dua dekade terakhir.",
+                    "Pelatih kepala memuji kedisiplinan taktik para pemain serta integrasi yang solid antara pemain muda berbakat dan pemain berpengalaman. Dukungan penuh dari jutaan suporter di stadion juga menjadi kunci motivasi bertanding tim.",
+                    "Persatuan Sepakbola Seluruh Indonesia (PSSI) berkomitmen untuk terus memperkuat program pemusatan latihan dan uji coba internasional demi menjaga konsistensi performa di level Asia."
                 ]
             },
-            {
+            6: {
                 id: 6,
-                category: "nasional",
-                categoryLabel: "Nasional",
-                title: "Restorasi Ekosistem Mangrove Nasional Mencapai Target 600 Ribu Hektar",
-                author: "Dewi Lestari",
-                role: "Editor Lingkungan & Sains",
-                date: "Rabu, 25 Maret 2026 - 03:20 WIB",
-                timeAgo: "6 jam lalu",
-                image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=800",
-                caption: "Kawasan hutan mangrove restorasi di pesisir utara Jawa yang telah pulih dan menopang biota laut lokal.",
-                summary: "Program rehabilitasi lahan pesisir Indonesia berhasil mengembalikan fungsi ekologis mangrove dan meningkatkan ketahanan iklim.",
-                content: [
-                    "BALI — Program Restorasi Mangrove Nasional yang digalakkan sejak lima tahun lalu akhirnya melampaui target capaian 600.000 hektar pesisir pantai terintervensi positif.",
-                    "Kementerian Lingkungan Hidup melaporkan bahwa keberhasilan ini dicapai berkat partisipasi aktif masyarakat lokal, lembaga swadaya masyarakat, serta pendanaan skema nilai ekonomi karbon.",
-                    "Selain menahan abrasi pantai dari gelombang ekstrem, pemulihan kawasan mangrove ini terbukti meningkatkan populasi komoditas perikanan tangkap warga pesisir hingga 30 persen.",
-                    "Badan Lingkungan Internasional memberikan apresiasi tinggi kepada Indonesia sebagai contoh sukses negara kepulauan dalam memanfaatkan solusi berbasis alam (nature-based solutions) untuk mitigasi krisis iklim."
+                title: "Riset Startup Lokal: Integrasi AI pada Pertanian Tingkatkan Hasil Panen 35%",
+                category: "Teknologi",
+                time: "7 jam lalu",
+                author: "Dewi Lestari, Reporter Sains & Inovasi",
+                image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?q=80&w=800&auto=format&fit=crop",
+                paragraphs: [
+                    "Penerapan teknologi pertanian presisi berbasis sensor Internet of Things (IoT) dan visi komputer berhasil meningkatkan efisiensi dan produktivitas hasil panen padi hingga 35% pada lahan uji coba seluas 5.000 hektar di 12 provinsi.",
+                    "Sistem pintar ini secara konsisten menganalisis kadar kelembaban tanah, nutrisi NPK, serta mendeteksi gejala serangan hama tanaman melalui citra kamera drone secara real-time langsung ke smartphone para petani.",
+                    "Penggunaan pupuk dan pestisida terbukti lebih hemat hingga 25% karena pemberian cairan dilakukan secara presisi sesuai kebutuhan riil riwayat spesifik tiap bagian lahan pertanian.",
+                    "Kementerian Pertanian berencana memperluas dukungan insentif perangkat IoT ini ke koperasi tani daerah untuk memperkuat ketahanan pangan nasional."
                 ]
             },
-            {
+            7: {
                 id: 7,
-                category: "teknologi",
-                categoryLabel: "Teknologi",
-                title: "Ekosistem Chip Semikonduktor Lokal Memulai Produksi Komersial Pertama",
-                author: "Michael Tan",
-                role: "Jurnalis Industri & Sains",
-                date: "Rabu, 25 Maret 2026 - 02:10 WIB",
-                timeAgo: "7 jam lalu",
-                image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800",
-                caption: "Proses fabrikasi mikroprosesor desain lokal dalam ruang bersih berteknologi tinggi di Bandung.",
-                summary: "Fasilitas perakitan chip semikonduktor dalam negeri resmi mengirimkan pesanan perdana untuk kebutuhan perangkat IoT domestik.",
-                content: [
-                    "BANDUNG — Industri teknologi nasional mencetak sejarah baru dengan dimulainya pengiriman komersial perdana mikronip semikonduktor hasil desain dan fabrikasi anak bangsa.",
-                    "Chip mikroprosesor berdaya rendah ini dirancang khusus untuk memenuhi kebutuhan perangkat internet-of-things (IoT), kwh meter pintar, dan komponen otomotif lokal.",
-                    "Ketua konsorsium manufaktur semikonduktor Indonesia menjelaskan bahwa keberhasilan ini merupakan hasil kolaborasi panjang riset universitas nasional dan investasi sektor swasta.",
-                    "Langkah ini diharapkan dapat mengurangi ketergantungan impor komponen elektronik dan memperkuat ketahanan rantai pasok industri manufaktur nasional di masa mendatang."
-                ]
-            },
-            {
-                id: 8,
-                category: "ekonomi",
-                categoryLabel: "Ekonomi",
-                title: "Hilirisasi Komoditas Pertanian Mampu Naikkan Nilai Ekspor Indonesia Hingga 35%",
-                author: "Siti Rahmawati",
-                role: "Editor Ekonomi Agro",
-                date: "Rabu, 25 Maret 2026 - 01:00 WIB",
-                timeAgo: "8 jam lalu",
-                image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=800",
-                caption: "Fasilitas pengolahan hasil komoditas perkebunan bernilai tambah tinggi sebelum dikirim ke pasar ekspor.",
-                summary: "Fokus pemerintah pada pengolahan produk pertanian dan perkebunan olahan terbukti melipatgandakan devisa ekspor nasional.",
-                content: [
-                    "SURABAYA — Kebijakan hilirisasi produk pertanian dan perkebunan menunjukkan hasil konkret dalam peningkatan nilai tambah ekspor Indonesia tahun ini.",
-                    "Data Badan Pusat Statistik menyebutkan ekspor komoditas turunan seperti olahan kakao, minyak atsiri, dan rempah siap konsumsi melonjak 35 persen dibanding periode tahun sebelumnya.",
-                    "Menteri Perdagangan menegaskan bahwa Indonesia secara bertahap mulai menghentikan ekspor mentah bahan pertanian dan beralih penuh pada produk akhir olahan industri menengah.",
-                    "Kebijakan ini terbukti berdampak langsung pada peningkatan pendapatan petani lokal serta pembukaan ratusan ribu lapangan kerja baru di pusat pengolahan daerah."
+                title: "Ekspor Komoditas Olahan Pertambangan Naik 18% di Kuartal Pertama",
+                category: "Ekonomi",
+                time: "8 jam lalu",
+                author: "Hendrik Kurniawan, Pengamat Industri",
+                image: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=800&auto=format&fit=crop",
+                paragraphs: [
+                    "Kementerian Perdagangan mencatat nilai ekspor komoditas hasil olahan tambang Indonesia mengalami pertumbuhan sebesar 18% secara tahunan (YoY) pada kuartal pertama tahun ini, didorong oleh peningkatan volume pengapalan katoda tembaga dan produk turunan nikel.",
+                    "Program hilirisasi industri mineral yang konsisten dijalankan kini mulai menunjukkan dampak nyata pada neraca perdagangan nasional yang mencatatkan surplus selama 48 bulan berturut-turut.",
+                    "Permintaan tinggi dari negara-negara pembuat kendaraan listrik dan industri energi terbarukan di Asia dan Eropa menjadi penggerak utama lonjakan angka ekspor barang olahan bernilai tambah tinggi tersebut.",
+                    "Pemerintah optimistis target penerimaan negara dari sektor hilirisasi pertambangan akan melampaui target yang telah ditetapkan dalam APBN."
                 ]
             }
-        ];
+        };
 
-        // POPULAR ARTICLES LIST DATA
-        const popularNews = [
-            { id: 3, title: "Bank Indonesia Pertahankan Suku Bunga Utama di 6,00% Untuk Jaga Stabilitas Rupiah" },
-            { id: 4, title: "KTT Energi ASEAN Sepakati Pembentukan Regional Power Grid 2027" },
-            { id: 2, title: "Peluncuran Pusat Etika AI Nasional Dorong Kedaulatan Data Digital" },
-            { id: 7, title: "Uji Coba Perdana Chip Semikonduktor Buatan Dalam Negeri Berhasil" },
-            { id: 8, title: "Rekor Ekspor Hasil Hilirisasi Pertanian Tembus USD 14 Miliar" }
-        ];
-
-        let currentCategory = 'semua';
-
-        // RENDER NEWS GRID
-        function renderArticles(items) {
-            const grid = document.getElementById('news-grid');
-            const countLabel = document.getElementById('news-count');
-            grid.innerHTML = '';
-            
-            countLabel.innerText = `Menampilkan ${items.length} Artikel`;
-
-            if (items.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full py-12 text-center text-editorial-muted">
-                        <p class="font-serif text-lg">Tidak ada berita yang ditemukan untuk kategori atau pencarian ini.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            items.forEach(article => {
-                const card = document.createElement('article');
-                card.className = "cursor-pointer group border-b border-editorial-border pb-6 flex flex-col justify-between";
-                card.onclick = () => openModal(article.id);
-
-                card.innerHTML = `
-                    <div>
-                        <div class="relative overflow-hidden mb-3 bg-slate-100 aspect-[16/10]">
-                            <img src="${article.image}" 
-                                 alt="${article.title}" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                                 onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';">
-                            <span class="absolute top-2 left-2 bg-editorial-dark text-white text-[9px] font-bold uppercase tracking-widest px-2 py-0.5">
-                                ${article.categoryLabel}
-                            </span>
-                        </div>
-                        <div class="flex items-center text-[11px] text-editorial-muted space-x-2 mb-1.5 font-medium">
-                            <span>${article.author}</span>
-                            <span>•</span>
-                            <span>${article.timeAgo}</span>
-                        </div>
-                        <h4 class="font-serif text-lg font-bold leading-snug text-editorial-dark group-hover:text-editorial-red transition mb-2">
-                            ${article.title}
-                        </h4>
-                        <p class="text-xs text-editorial-muted line-clamp-3 leading-relaxed mb-3">
-                            ${article.summary}
-                        </p>
-                    </div>
-                    <span class="inline-flex items-center text-[11px] font-bold uppercase text-editorial-red group-hover:underline">
-                        Baca Selengkapnya →
-                    </span>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        // RENDER POPULAR LIST
-        function renderPopular() {
-            const container = document.getElementById('popular-list');
-            container.innerHTML = '';
-
-            popularNews.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = "flex items-start space-x-4 cursor-pointer group border-b border-editorial-border/60 pb-3";
-                div.onclick = () => openModal(item.id);
-
-                div.innerHTML = `
-                    <span class="font-serif text-2xl font-black text-editorial-red leading-none min-w-[28px]">
-                        0${index + 1}
-                    </span>
-                    <h5 class="font-serif text-sm font-bold leading-tight text-editorial-dark group-hover:text-editorial-red transition">
-                        ${item.title}
-                    </h5>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        // FILTER BY CATEGORY
-        function filterCategory(cat) {
-            currentCategory = cat;
-            
-            // Update active button state
-            document.querySelectorAll('#category-filters button').forEach(btn => {
-                btn.classList.remove('active', 'text-editorial-red', 'border-b-2', 'border-editorial-red');
-                btn.classList.add('text-editorial-muted');
-            });
-            
-            event.target.classList.add('active', 'text-editorial-red', 'border-b-2', 'border-editorial-red');
-            event.target.classList.remove('text-editorial-muted');
-
-            const categoryTitle = document.getElementById('category-title');
-            categoryTitle.innerText = cat === 'semua' ? 'Berita Terkini' : `Kategori: ${cat.toUpperCase()}`;
-
-            if (cat === 'semua') {
-                renderArticles(articles);
-            } else {
-                const filtered = articles.filter(a => a.category === cat);
-                renderArticles(filtered);
-            }
-        }
-
-        // SEARCH FUNCTIONALITY
-        function handleSearch() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const filtered = articles.filter(a => 
-                a.title.toLowerCase().includes(query) || 
-                a.summary.toLowerCase().includes(query) ||
-                a.categoryLabel.toLowerCase().includes(query)
-            );
-            renderArticles(filtered);
-        }
-
-        // OPEN READER MODAL
+        // Modal Functionality
         function openModal(id) {
-            const article = articles.find(a => a.id === id);
-            if (!article) return;
-
-            document.getElementById('modal-category').innerText = article.categoryLabel;
-            document.getElementById('modal-title').innerText = article.title;
-            document.getElementById('modal-summary').innerText = article.summary;
-            document.getElementById('modal-author').innerText = `Oleh: ${article.author}`;
-            document.getElementById('modal-role').innerText = article.role;
-            document.getElementById('modal-date').innerText = article.date;
-            document.getElementById('modal-image').src = article.image;
-            document.getElementById('modal-caption').innerText = article.caption;
-
+            const data = articles[id] || articles[1];
+            
+            document.getElementById('modal-category').textContent = data.category;
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-author').textContent = 'Oleh: ' + data.author;
+            document.getElementById('modal-time').textContent = data.time;
+            
+            const imgElem = document.getElementById('modal-image');
+            imgElem.src = data.image;
+            imgElem.onerror = function() {
+                this.onerror = null;
+                this.src = 'https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';
+            };
+            
             const contentContainer = document.getElementById('modal-content');
             contentContainer.innerHTML = '';
-            article.content.forEach(para => {
+            data.paragraphs.forEach(pText => {
                 const p = document.createElement('p');
-                p.className = "leading-relaxed text-editorial-dark font-sans";
-                p.innerText = para;
+                p.className = 'text-editorial-text text-base leading-relaxed mb-4';
+                p.textContent = pText;
                 contentContainer.appendChild(p);
             });
-
+            
             const modal = document.getElementById('article-modal');
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
-        // CLOSE MODAL
         function closeModal() {
             const modal = document.getElementById('article-modal');
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
 
-        // SHARE ARTICLE ALERT
-        function shareArticle() {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Tautan artikel berhasil disalin ke clipboard!");
-            } else {
-                alert("Membagikan artikel: Jurnal Nusantara 2026");
+        // Close Modal on Outside Click
+        document.getElementById('article-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
             }
+        });
+
+        // Close Modal on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Category Filter Functionality
+        function filterCategory(categoryName) {
+            // Update Active Nav Button
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('text-editorial-red', 'border-editorial-red');
+                btn.classList.add('border-transparent');
+            });
+
+            const activeBtn = document.getElementById('cat-' + categoryName);
+            if (activeBtn) {
+                activeBtn.classList.remove('border-transparent');
+                activeBtn.classList.add('text-editorial-red', 'border-editorial-red');
+            }
+
+            // Filter Grid Items
+            const items = document.querySelectorAll('.news-item');
+            items.forEach(item => {
+                const itemCat = item.getAttribute('data-category');
+                if (categoryName === 'semua' || itemCat === categoryName) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
 
-        // CLOSE MODAL ON ESC KEY
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-
-        // INIT ON LOAD
-        document.addEventListener('DOMContentLoaded', () => {
-            renderArticles(articles);
-            renderPopular();
-        });
+        // Share Article Toast Simulation
+        function shareArticle() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
     </script>
-
 <script data-cfasync="false" src="https://bicea.org/14/a0801fd15cbc56cba8df4502e6f9dd85"></script></body>
 </html>
