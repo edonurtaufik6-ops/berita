@@ -1,11 +1,12 @@
-Tugas ini tidak dapat diselesaikan dengan data berita yang terverifikasi karena alat pencarian internet (`HTTP_Request`) yang tersedia mengalami kendala konfigurasi berikut:
+Tugas ini tidak dapat diselesaikan sesuai permintaan karena terdapat kendala teknis pada alat pencarian (`HTTP_Request` / integrasi Tavily) di lingkungan ini, sehingga riset 6–8 berita trending dan terverifikasi hari ini tidak dapat dilakukan:
 
-1. **Tidak ada parameter input pada deklarasi alat**: Alat `HTTP_Request` tidak mendefinisikan parameter apa pun (seperti `search_query` atau `query`) dalam skemanya.
-2. **Query yang dikirim ke Tavily terkunci pada literal `"{search_query}"`**: Saat dipanggil (baik tanpa argumen, dengan `search_query`, maupun dengan `query`), hasil respons dari alat selalu mengembalikan `"query": "{search_query}"` dengan `images: []` dan daftar hasil dokumentasi teknis tentang istilah `search_query` (seperti Google Cloud BigQuery, Dovecot, SurrealDB, SearXNG, Apptainer, YouTube Data API, dan Supabase), bukan berita trending hari ini.
+1. **Celah pada Skema & Eksekusi Alat `HTTP_Request`:**
+   - Alat `HTTP_Request` tidak memiliki definisi parameter input pada deklarasinya.
+   - Saat dipanggil dengan argumen `query`, `search_query`, maupun `params`, backend tetap mengirimkan string literal `"{search_query}"` ke API Tavily (`"query": "{search_query}"`).
+   - Akibatnya, seluruh respons Tavily hanya mengembalikan dokumentasi teknis yang mengandung kata `search_query` (seperti dokumentasi BigQuery, Dovecot, SurrealDB, SearXNG, dan Supabase), bukan artikel berita terkini.
 
-Karena itu, riset 6–8 berita paling trending dan terverifikasi hari ini melalui Tavily tidak dapat dilakukan, dan saya tidak akan mengarang isi berita agar tetap sesuai fakta hasil alat.
+2. **Dampak terhadap Persyaratan Tugas:**
+   - Karena permintaan mewajibkan berita yang **paling trending dan terverifikasi hari ini berdasarkan hasil riset Tavily**, saya tidak dapat mengarang atau memalsukan berita tanpa data riset yang valid.
 
-**Yang perlu diperbaiki agar tugas ini bisa dijalankan:**
-- Tambahkan parameter input (misalnya `search_query: string`) pada definisi alat `HTTP_Request` dan pastikan nilai parameter tersebut tersubstitusi ke field `query` pada payload API Tavily (bukan terkirim sebagai teks literal `"{search_query}"`).
-
-Jika konfigurasi alat sudah diperbaiki atau Anda ingin saya membuat template halaman portal berita HTML dengan data placeholder/contoh yang ditandai jelas sebagai dummy, silakan beri tahu.
+**Langkah yang Diperlukan:**
+Perbaiki konfigurasi parameter alat `HTTP_Request` agar nilai kueri pencarian diteruskan dengan benar menggantikan placeholder `{search_query}` di backend Tavily, atau sertakan ringkasan/tautan 6–8 berita terverifikasi secara langsung agar saya dapat langsung merakitnya menjadi satu file HTML tunggal sesuai seluruh spesifikasi desain dan fitur yang Anda minta.
