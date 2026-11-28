@@ -3,32 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WARTA NUSANTARA — Harian Jurnalisme Independen dan Berimbang</title>
+  <title>WARTA NUSANTARA — Jurnalisme Akurat, Tepercaya, dan Berimbang</title>
   
-  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <!-- Google Fonts: Merriweather & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS via CDN -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            serif: ['"Playfair Display"', 'Georgia', 'serif'],
-            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-          },
           colors: {
             editorial: {
-              black: '#111827',
-              muted: '#4B5563',
-              light: '#F8F9FA',
-              border: '#E5E7EB',
+              charcoal: '#111827',
               red: '#DC2626',
               navy: '#0F172A',
+              paper: '#F8F9FA',
+              border: '#E5E7EB',
+              muted: '#4B5563',
             }
+          },
+          fontFamily: {
+            serif: ['Merriweather', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
           }
         }
       }
@@ -40,740 +40,816 @@
       background-color: #FFFFFF;
       color: #111827;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
     }
     .headline-font {
-      font-family: 'Playfair Display', Georgia, serif;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
+      font-family: 'Merriweather', serif;
     }
-    .kicker {
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 700;
-      font-size: 0.72rem;
-    }
-    /* Horizontal News Ticker Animation */
-    @keyframes marquee {
-      0% { transform: translateX(0%); }
+    /* Running Ticker Animation */
+    @keyframes ticker {
+      0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
     .animate-marquee {
-      display: flex;
-      width: 200%;
-      animation: marquee 28s linear infinite;
+      display: inline-flex;
+      white-space: nowrap;
+      animation: ticker 35s linear infinite;
     }
     .animate-marquee:hover {
       animation-play-state: paused;
     }
   </style>
 </head>
-<body class="bg-white text-editorial-black antialiased">
+<body class="bg-white text-editorial-charcoal">
 
   <!-- TOP BAR & MASTHEAD -->
   <header class="border-b border-editorial-border">
-    <!-- Thin Utility Row -->
-    <div class="border-b border-editorial-border bg-[#F8F9FA] text-[11px] text-editorial-muted font-medium py-1.5 px-4 md:px-8">
-      <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+    <!-- Baris Atas Kecil -->
+    <div class="bg-editorial-paper border-b border-editorial-border py-1.5 px-4 sm:px-8 text-xs text-editorial-muted">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
         <div class="flex items-center space-x-3">
-          <span class="font-semibold text-editorial-black">Kamis, 26 Februari 2026</span>
-          <span class="text-gray-300">|</span>
-          <span>Jakarta, Indonesia (30°C, Cerah Berawan)</span>
-          <span class="text-gray-300 hidden sm:inline">|</span>
-          <span class="hidden sm:inline text-editorial-red font-semibold tracking-wide">EDISI CETAK & DIGITAL NO. 14.892</span>
+          <span id="masthead-date" class="font-medium tracking-wide">Memuat tanggal...</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-editorial-muted opacity-50"></span>
+          <span>Jakarta, Indonesia</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-editorial-muted opacity-50"></span>
+          <span class="font-semibold text-editorial-red">Edisi Hari Ini</span>
         </div>
-        <div class="flex items-center space-x-4">
-          <a href="#" class="hover:text-editorial-black transition">Indeks Saham: IHSG 5.216,14 (-0,49%)</a>
-          <span class="text-gray-300">|</span>
-          <a href="#" class="hover:text-editorial-black transition">USD/IDR Rp16.240</a>
+        <div class="flex items-center space-x-4 text-xs">
+          <span>IHSG: <strong class="text-emerald-700">7.284,12 (+0,42%)</strong></span>
+          <span class="hidden md:inline">USD/IDR: <strong>15.680</strong></span>
+          <a href="#pedoman" class="hover:underline hidden sm:inline">Pedoman Media Siber</a>
         </div>
       </div>
     </div>
 
-    <!-- Main Masthead -->
-    <div class="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-8 text-center border-b border-editorial-border">
-      <div class="inline-block">
-        <span class="kicker text-editorial-red tracking-widest block mb-1">HARIAN UMUM INDEPENDEN</span>
-        <h1 class="headline-font text-4xl sm:text-6xl md:text-7xl font-black uppercase text-editorial-black tracking-tight">
-          Warta Nusantara
-        </h1>
-        <p class="text-xs sm:text-sm text-editorial-muted mt-2 italic font-serif">
-          "Menjunjung Integritas, Merekam Denyut Peradaban dan Kedaulatan Bangsa"
-        </p>
-      </div>
+    <!-- Header Utama (Logo Masthead) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-8 text-center border-b border-editorial-border">
+      <p class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-editorial-muted mb-1 font-semibold">Surat Kabar Digital Harian Independen</p>
+      <h1 class="headline-font text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-editorial-navy cursor-pointer" onclick="filterCategory('Semua')">
+        WARTA NUSANTARA
+      </h1>
+      <p class="text-xs text-editorial-muted mt-2 italic font-serif">"Menyuarakan Kebenaran, Menjaga Kedaulatan Informasi Nasional"</p>
     </div>
 
-    <!-- Category Navigation -->
-    <nav class="max-w-7xl mx-auto px-4 md:px-8">
-      <div class="flex items-center justify-between border-b-2 border-editorial-black py-2.5">
-        <ul class="flex items-center space-x-2 md:space-x-8 text-xs md:text-sm font-bold tracking-wider uppercase overflow-x-auto no-scrollbar" id="categoryNav">
-          <li><button onclick="filterCategory('semua')" class="cat-btn active pb-1 border-b-2 border-editorial-red text-editorial-red transition px-2">Semua</button></li>
-          <li><button onclick="filterCategory('nasional')" class="cat-btn pb-1 border-b-2 border-transparent text-editorial-muted hover:text-editorial-black transition px-2">Nasional</button></li>
-          <li><button onclick="filterCategory('ekonomi')" class="cat-btn pb-1 border-b-2 border-transparent text-editorial-muted hover:text-editorial-black transition px-2">Ekonomi</button></li>
-          <li><button onclick="filterCategory('teknologi')" class="cat-btn pb-1 border-b-2 border-transparent text-editorial-muted hover:text-editorial-black transition px-2">Teknologi</button></li>
-          <li><button onclick="filterCategory('olahraga')" class="cat-btn pb-1 border-b-2 border-transparent text-editorial-muted hover:text-editorial-black transition px-2">Olahraga</button></li>
-          <li><button onclick="filterCategory('dunia')" class="cat-btn pb-1 border-b-2 border-transparent text-editorial-muted hover:text-editorial-black transition px-2">Dunia</button></li>
-        </ul>
-        <div class="hidden lg:flex items-center text-xs text-editorial-muted space-x-3">
-          <span class="inline-block w-2 h-2 rounded-full bg-editorial-red animate-ping"></span>
-          <span class="font-semibold text-editorial-black">Kanal Langsung</span>
+    <!-- Navigasi Kategori Berita -->
+    <nav class="max-w-7xl mx-auto px-4 sm:px-8">
+      <div class="flex items-center justify-between overflow-x-auto py-3 no-scrollbar text-sm font-semibold tracking-wide uppercase">
+        <div class="flex items-center space-x-2 sm:space-x-4 shrink-0" id="category-tabs">
+          <button onclick="filterCategory('Semua')" data-category="Semua" class="cat-btn px-3 py-1.5 border-b-2 border-editorial-red text-editorial-red transition-colors">Semua</button>
+          <button onclick="filterCategory('Nasional')" data-category="Nasional" class="cat-btn px-3 py-1.5 border-b-2 border-transparent text-editorial-muted hover:text-editorial-charcoal transition-colors">Nasional</button>
+          <button onclick="filterCategory('Ekonomi')" data-category="Ekonomi" class="cat-btn px-3 py-1.5 border-b-2 border-transparent text-editorial-muted hover:text-editorial-charcoal transition-colors">Ekonomi</button>
+          <button onclick="filterCategory('Teknologi')" data-category="Teknologi" class="cat-btn px-3 py-1.5 border-b-2 border-transparent text-editorial-muted hover:text-editorial-charcoal transition-colors">Teknologi</button>
+          <button onclick="filterCategory('Olahraga')" data-category="Olahraga" class="cat-btn px-3 py-1.5 border-b-2 border-transparent text-editorial-muted hover:text-editorial-charcoal transition-colors">Olahraga</button>
+          <button onclick="filterCategory('Dunia')" data-category="Dunia" class="cat-btn px-3 py-1.5 border-b-2 border-transparent text-editorial-muted hover:text-editorial-charcoal transition-colors">Dunia</button>
+        </div>
+        <div class="hidden lg:flex items-center text-xs text-editorial-muted">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+          Kanal Berita Terkini Aktif
         </div>
       </div>
     </nav>
   </header>
 
   <!-- BREAKING NEWS TICKER -->
-  <section class="bg-editorial-navy text-white text-xs border-b border-editorial-navy">
-    <div class="max-w-7xl mx-auto px-4 md:px-8 flex items-center overflow-hidden h-10">
-      <div class="bg-editorial-red text-white font-extrabold uppercase px-3 py-1 text-[11px] shrink-0 tracking-wider flex items-center gap-1">
-        <span>KILAS TERKINI</span>
+  <section class="bg-editorial-navy text-white py-2 px-4 border-y border-editorial-navy overflow-hidden">
+    <div class="max-w-7xl mx-auto flex items-center">
+      <div class="shrink-0 flex items-center pr-3 border-r border-slate-700 mr-3">
+        <span class="bg-editorial-red text-white text-[11px] font-bold px-2 py-0.5 uppercase tracking-wider rounded-sm">Kilat</span>
       </div>
-      <div class="overflow-hidden relative w-full ml-4">
-        <div class="animate-marquee flex items-center space-x-10 text-gray-200 whitespace-nowrap font-medium">
-          <span class="cursor-pointer hover:underline" onclick="openArticle(1)">• Danantara dan BUMN rampungkan valuasi konsolidasi aset strategis nasional senilai Rp900 Triliun.</span>
-          <span class="cursor-pointer hover:underline" onclick="openArticle(2)">• TelkomGroup & BRIN resmikan pusat komputasi AI Ready Data Center di Batang.</span>
-          <span class="cursor-pointer hover:underline" onclick="openArticle(3)">• Rapat Dewan Gubernur BI pertahankan suku bunga acuan untuk kestabilan cadangan devisa.</span>
-          <span class="cursor-pointer hover:underline" onclick="openArticle(6)">• RUU Perampasan Aset masuk prioritas pembahasan Badan Legislasi DPR 2026.</span>
-          <!-- Duplicate for seamless scroll -->
-          <span class="cursor-pointer hover:underline" onclick="openArticle(1)">• Danantara dan BUMN rampungkan valuasi konsolidasi aset strategis nasional senilai Rp900 Triliun.</span>
-          <span class="cursor-pointer hover:underline" onclick="openArticle(2)">• TelkomGroup & BRIN resmikan pusat komputasi AI Ready Data Center di Batang.</span>
-          <span class="cursor-pointer hover:underline" onclick="openArticle(3)">• Rapat Dewan Gubernur BI pertahankan suku bunga acuan untuk kestabilan cadangan devisa.</span>
-          <span class="cursor-pointer hover:underline" onclick="openArticle(6)">• RUU Perampasan Aset masuk prioritas pembahasan Badan Legislasi DPR 2026.</span>
+      <div class="overflow-hidden relative w-full">
+        <div class="animate-marquee flex items-center gap-8 text-xs tracking-wide">
+          <span class="cursor-pointer hover:underline" onclick="openArticle(0)">Pemerintah Segel Kesepakatan Strategis Investasi Hijau Senilai Rp71,8 Triliun</span>
+          <span class="text-editorial-muted">/</span>
+          <span class="cursor-pointer hover:underline" onclick="openArticle(1)">Rapat Dewan Gubernur BI Pertahankan BI-Rate Guna Stabilisasi Nilai Tukar Rupiah</span>
+          <span class="text-editorial-muted">/</span>
+          <span class="cursor-pointer hover:underline" onclick="openArticle(2)">Kemenkomdigi Siapkan Kerangka Kerja Tata Kelola AI dan Pusat Data Ramah Lingkungan</span>
+          <span class="text-editorial-muted">/</span>
+          <span class="cursor-pointer hover:underline" onclick="openArticle(3)">PSSI & Kemenpora Genjot Fasilitas Sports Science Terpadu untuk Skuad Nasional</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- MAIN EDITORIAL CONTENT -->
-  <main class="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-10">
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 py-8">
     
-    <!-- ASYMMETRIC HERO SECTION (HEADLINE + 2 SPOTLIGHTS) -->
-    <section class="border-b border-editorial-border pb-10 mb-10" id="heroSection">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- SECTION 1: HERO & SPOTLIGHTS (ASIMETRIS BENTO/NEWSPAPER GRID) -->
+    <section class="border-b border-editorial-border pb-10 mb-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- HERO HEADLINE (Col 1-8) -->
-        <article class="lg:col-span-8 group cursor-pointer" onclick="openArticle(1)">
-          <div class="relative overflow-hidden bg-gray-100 mb-4 aspect-[16/9]">
+        <!-- Headline Berita Utama (8 Kolom di Desktop) -->
+        <article id="hero-main" class="lg:col-span-8 cursor-pointer group" onclick="openArticle(0)" data-category-card="Nasional">
+          <div class="relative overflow-hidden bg-slate-100 border border-editorial-border mb-4">
             <img 
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" 
-              alt="Gedung Keuangan dan Investasi Jakarta"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
+              src="https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=1200&q=80" 
+              alt="Akselerasi Hilirisasi Nasional" 
+              class="w-full h-[320px] sm:h-[440px] object-cover transition duration-300 group-hover:scale-[1.01]"
               onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
-            />
-            <div class="absolute top-3 left-3 bg-editorial-red text-white text-[10px] font-bold tracking-widest px-2.5 py-1 uppercase">
+            >
+            <span class="absolute top-3 left-3 bg-editorial-red text-white text-[11px] font-bold px-2.5 py-1 uppercase tracking-wider">
               Laporan Utama
-            </div>
+            </span>
           </div>
-          <div class="pr-0 lg:pr-4">
-            <span class="kicker text-editorial-red">EKONOMI & KEBIJAKAN FISKAL</span>
-            <h2 class="headline-font text-2xl sm:text-4xl lg:text-5xl font-bold mt-1 mb-3 text-editorial-black group-hover:text-editorial-red transition-colors">
-              Transformasi Danantara & BUMN: Konsolidasi Aset Rp900 Triliun Menuju Kedaulatan Fiskal Mandiri
-            </h2>
-            <p class="text-editorial-muted text-sm sm:text-base leading-relaxed mb-4 line-clamp-3">
-              Badan Pengelola Investasi Daya Anagata Nusantara mematangkan peta jalan integrasi superholding BUMN dan penyiapan dana abadi transisi energi. Skema ini dirancang guna membiayai proyek infrastruktur bernilai tambah tanpa membebani neraca utang APBN.
-            </p>
-            <div class="flex items-center text-xs text-gray-500 space-x-3 pt-2 border-t border-gray-100 font-medium">
-              <span class="text-editorial-black font-semibold">Oleh Hendra Kusuma</span>
+          <div>
+            <div class="flex items-center space-x-3 text-xs mb-2 text-editorial-muted">
+              <span class="font-bold text-editorial-red uppercase tracking-wider">Nasional</span>
               <span>•</span>
-              <time>2 Jam yang lalu</time>
+              <span class="font-medium">2 jam lalu</span>
               <span>•</span>
-              <span>Bacaan 4 Menit</span>
+              <span>Oleh Hendra Kurniawan</span>
             </div>
+            <h2 class="headline-font text-2xl sm:text-4xl font-bold leading-tight group-hover:text-editorial-red transition-colors mb-3">
+              Akselerasi Hilirisasi Nasional: Pemerintah Segel Komitmen Investasi Rp71,8 Triliun untuk Ekosistem Industri Hijau
+            </h2>
+            <p class="text-editorial-muted text-sm sm:text-base leading-relaxed line-clamp-3">
+              Langkah diplomasi ekonomi strategis mempercepat hilirisasi mineral dan pengembangan rantai pasok industri berteknologi tinggi di luar Pulau Jawa. Kesepakatan bilateral ini menandai era baru keterlibatan modal asing berstandar keberlanjutan lingkungan yang ketat.
+            </p>
           </div>
         </article>
 
-        <!-- 2 SPOTLIGHT STORIES (Col 9-12) -->
-        <aside class="lg:col-span-4 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-editorial-border pt-6 lg:pt-0 lg:pl-8 space-y-6">
-          
-          <!-- Spotlight 1 -->
-          <article class="group cursor-pointer pb-6 border-b border-editorial-border" onclick="openArticle(2)">
-            <div class="overflow-hidden bg-gray-100 mb-3 aspect-[16/10]">
+        <!-- 2 Berita Sorotan di Samping Hero (4 Kolom di Desktop) -->
+        <div class="lg:col-span-4 flex flex-col space-y-6 lg:border-l lg:border-editorial-border lg:pl-8">
+          <div class="border-b border-editorial-border pb-2 mb-1">
+            <h3 class="text-xs font-bold tracking-widest uppercase text-editorial-navy">Sorotan Editorial</h3>
+          </div>
+
+          <!-- Sorotan 1 -->
+          <article class="cursor-pointer group border-b border-editorial-border pb-6" onclick="openArticle(1)" data-category-card="Ekonomi">
+            <div class="relative overflow-hidden bg-slate-100 border border-editorial-border mb-3">
               <img 
-                src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" 
-                alt="Pusat Data Komputasi AI Telkom"
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80" 
+                alt="Bank Indonesia dan Moneter" 
+                class="w-full h-44 object-cover transition duration-300 group-hover:scale-[1.01]"
                 onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
-              />
+              >
             </div>
-            <span class="kicker text-editorial-red">TEKNOLOGI & SAINS</span>
-            <h3 class="headline-font text-xl font-bold mt-1 mb-2 text-editorial-black group-hover:text-editorial-red transition-colors">
-              TelkomGroup dan BRIN Resmikan AI Factory: Fondasi Mandiri Komputasi Berdaulat
+            <div class="flex items-center space-x-2 text-xs mb-1.5 text-editorial-muted">
+              <span class="font-bold text-editorial-navy uppercase tracking-wider">Ekonomi</span>
+              <span>•</span>
+              <span>3 jam lalu</span>
+            </div>
+            <h3 class="headline-font text-lg font-bold leading-snug group-hover:text-editorial-red transition-colors mb-2">
+              Bank Indonesia Pertahankan BI-Rate: Menjaga Stabilitas Moneter Hadapi Volatilitas Global
             </h3>
-            <p class="text-xs text-editorial-muted leading-relaxed line-clamp-2 mb-2">
-              Infrastruktur pusat data NeutraDC di Kawasan Industri Batang disiapkan menopang model kecerdasan buatan nasional sekaligus menembus pasar ekspor komputasi regional.
+            <p class="text-xs text-editorial-muted leading-relaxed line-clamp-2">
+              Bank sentral memprioritaskan ketahanan nilai tukar Rupiah seraya menjaga momentum pertumbuhan ekonomi nasional pada rentang 5,2–5,5 persen.
             </p>
-            <div class="text-[11px] text-gray-400 font-medium">3 Jam yang lalu • Ratna Wardhani</div>
           </article>
 
-          <!-- Spotlight 2 -->
-          <article class="group cursor-pointer pt-2" onclick="openArticle(3)">
-            <div class="overflow-hidden bg-gray-100 mb-3 aspect-[16/10]">
+          <!-- Sorotan 2 -->
+          <article class="cursor-pointer group" onclick="openArticle(2)" data-category-card="Teknologi">
+            <div class="relative overflow-hidden bg-slate-100 border border-editorial-border mb-3">
               <img 
-                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80" 
-                alt="Bursa Saham dan Valuta Bank Indonesia"
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" 
+                alt="Peta Jalan Etika AI" 
+                class="w-full h-44 object-cover transition duration-300 group-hover:scale-[1.01]"
                 onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
-              />
+              >
             </div>
-            <span class="kicker text-editorial-red">PASAR & MONETER</span>
-            <h3 class="headline-font text-xl font-bold mt-1 mb-2 text-editorial-black group-hover:text-editorial-red transition-colors">
-              Bank Indonesia Tahan BI-Rate: Fokus Stabilisasi Nilai Tukar Rupiah dan Kredit Produktif
+            <div class="flex items-center space-x-2 text-xs mb-1.5 text-editorial-muted">
+              <span class="font-bold text-editorial-navy uppercase tracking-wider">Teknologi</span>
+              <span>•</span>
+              <span>4 jam lalu</span>
+            </div>
+            <h3 class="headline-font text-lg font-bold leading-snug group-hover:text-editorial-red transition-colors mb-2">
+              Kemenkomdigi Rampungkan Peta Jalan Etika AI Nasional: Kedaulatan Data Jadi Prioritas
             </h3>
-            <p class="text-xs text-editorial-muted leading-relaxed line-clamp-2 mb-2">
-              Keputusan RDG BI menggarisbawahi komitmen menjaga ketahanan moneter di tengah volatilitas arus modal asing dan kepastian suku bunga The Fed.
+            <p class="text-xs text-editorial-muted leading-relaxed line-clamp-2">
+              Regulasi baru menekankan transparansi algoritma kecerdasan buatan, privasi data warga, dan insentif bagi sentra komputasi hijau.
             </p>
-            <div class="text-[11px] text-gray-400 font-medium">4 Jam yang lalu • Dimas Prasetyo</div>
           </article>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: GRID BERITA TERKINI & SIDEBAR TERPOPULER -->
+    <section>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Kolom Berita Utama (8 Kolom) -->
+        <div class="lg:col-span-8">
+          <div class="flex items-center justify-between border-b border-editorial-border pb-3 mb-6">
+            <h3 class="headline-font text-xl font-bold tracking-tight text-editorial-navy">Kabar Terbaru & Analisis</h3>
+            <span class="text-xs text-editorial-muted font-medium" id="filter-indicator">Menampilkan: Semua Berita</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="news-grid">
+            
+            <!-- Berita 3: Olahraga -->
+            <article class="news-item cursor-pointer group border border-editorial-border p-4 bg-white flex flex-col justify-between" onclick="openArticle(3)" data-category-card="Olahraga">
+              <div>
+                <div class="relative overflow-hidden bg-slate-100 mb-3 border border-editorial-border">
+                  <img 
+                    src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=600&q=80" 
+                    alt="Transformasi Timnas Indonesia" 
+                    class="w-full h-44 object-cover transition duration-300 group-hover:scale-[1.01]"
+                    onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
+                  >
+                </div>
+                <div class="flex items-center space-x-2 text-xs mb-1.5 text-editorial-muted">
+                  <span class="font-bold text-editorial-navy uppercase tracking-wider">Olahraga</span>
+                  <span>•</span>
+                  <span>5 jam lalu</span>
+                </div>
+                <h4 class="headline-font text-base sm:text-lg font-bold group-hover:text-editorial-red transition-colors mb-2 leading-snug">
+                  Transformasi Skuad Garuda: PSSI & Kemenpora Terapkan Sports Science Modern Jelang Laga Krusial
+                </h4>
+                <p class="text-xs text-editorial-muted leading-relaxed line-clamp-3">
+                  Integrasi data analitik biometrik dan fasilitas medis berstandar internasional dioptimalkan guna mengatrol daya tahan fisik punggawa nasional.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-editorial-border text-[11px] text-editorial-muted flex justify-between items-center">
+                <span>Oleh Dimas Wicaksono</span>
+                <span class="font-medium text-editorial-red group-hover:underline">Baca Selengkapnya &rarr;</span>
+              </div>
+            </article>
+
+            <!-- Berita 4: Dunia -->
+            <article class="news-item cursor-pointer group border border-editorial-border p-4 bg-white flex flex-col justify-between" onclick="openArticle(4)" data-category-card="Dunia">
+              <div>
+                <div class="relative overflow-hidden bg-slate-100 mb-3 border border-editorial-border">
+                  <img 
+                    src="https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=600&q=80" 
+                    alt="KTT Iklim Global dan Konservasi" 
+                    class="w-full h-44 object-cover transition duration-300 group-hover:scale-[1.01]"
+                    onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
+                  >
+                </div>
+                <div class="flex items-center space-x-2 text-xs mb-1.5 text-editorial-muted">
+                  <span class="font-bold text-editorial-navy uppercase tracking-wider">Dunia</span>
+                  <span>•</span>
+                  <span>6 jam lalu</span>
+                </div>
+                <h4 class="headline-font text-base sm:text-lg font-bold group-hover:text-editorial-red transition-colors mb-2 leading-snug">
+                  KTT Diplomasi Iklim Global: Indonesia Paparkan Skema Konservasi Hutan Tropis & Badak Jawa
+                </h4>
+                <p class="text-xs text-editorial-muted leading-relaxed line-clamp-3">
+                  Delegasi Indonesia memperjuangkan mekanisme pendanaan restorasi berkeadilan serta perlindungan satwa langka di Taman Nasional Ujung Kulon.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-editorial-border text-[11px] text-editorial-muted flex justify-between items-center">
+                <span>Oleh Sarah Danuarta</span>
+                <span class="font-medium text-editorial-red group-hover:underline">Baca Selengkapnya &rarr;</span>
+              </div>
+            </article>
+
+            <!-- Berita 5: Ekonomi -->
+            <article class="news-item cursor-pointer group border border-editorial-border p-4 bg-white flex flex-col justify-between" onclick="openArticle(5)" data-category-card="Ekonomi">
+              <div>
+                <div class="relative overflow-hidden bg-slate-100 mb-3 border border-editorial-border">
+                  <img 
+                    src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=600&q=80" 
+                    alt="Kawasan Industri Energi Bersih" 
+                    class="w-full h-44 object-cover transition duration-300 group-hover:scale-[1.01]"
+                    onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
+                  >
+                </div>
+                <div class="flex items-center space-x-2 text-xs mb-1.5 text-editorial-muted">
+                  <span class="font-bold text-editorial-navy uppercase tracking-wider">Ekonomi</span>
+                  <span>•</span>
+                  <span>7 jam lalu</span>
+                </div>
+                <h4 class="headline-font text-base sm:text-lg font-bold group-hover:text-editorial-red transition-colors mb-2 leading-snug">
+                  Transisi Energi Bersih 6,6 GW: Kawasan Industri Hijau Mulai Tarik Minat Produsen Semikonduktor
+                </h4>
+                <p class="text-xs text-editorial-muted leading-relaxed line-clamp-3">
+                  Pembangunan klaster pabrik berdaya ramah lingkungan terbukti menjadi magnet kuat bagi rantai pasok elektronik dunia.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-editorial-border text-[11px] text-editorial-muted flex justify-between items-center">
+                <span>Oleh Arya Dewantara</span>
+                <span class="font-medium text-editorial-red group-hover:underline">Baca Selengkapnya &rarr;</span>
+              </div>
+            </article>
+
+            <!-- Berita 6: Teknologi -->
+            <article class="news-item cursor-pointer group border border-editorial-border p-4 bg-white flex flex-col justify-between" onclick="openArticle(6)" data-category-card="Teknologi">
+              <div>
+                <div class="relative overflow-hidden bg-slate-100 mb-3 border border-editorial-border">
+                  <img 
+                    src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80" 
+                    alt="Riset Talenta Unggul BRIN" 
+                    class="w-full h-44 object-cover transition duration-300 group-hover:scale-[1.01]"
+                    onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
+                  >
+                </div>
+                <div class="flex items-center space-x-2 text-xs mb-1.5 text-editorial-muted">
+                  <span class="font-bold text-editorial-navy uppercase tracking-wider">Teknologi</span>
+                  <span>•</span>
+                  <span>8 jam lalu</span>
+                </div>
+                <h4 class="headline-font text-base sm:text-lg font-bold group-hover:text-editorial-red transition-colors mb-2 leading-snug">
+                  Inovasi BRIN & Talenta Nasional: 15 Fasilitas Inkubasi Riset Diresmikan di 5 Koridor
+                </h4>
+                <p class="text-xs text-editorial-muted leading-relaxed line-clamp-3">
+                  Pusat inkubasi teknologi terapan menargetkan komersialisasi riset bioteknologi serta ketahanan pangan bernilai tambah tinggi.
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-editorial-border text-[11px] text-editorial-muted flex justify-between items-center">
+                <span>Oleh Dr. Firman Hadi</span>
+                <span class="font-medium text-editorial-red group-hover:underline">Baca Selengkapnya &rarr;</span>
+              </div>
+            </article>
+
+            <!-- Berita 7: Nasional -->
+            <article class="news-item cursor-pointer group border border-editorial-border p-4 bg-white flex flex-col justify-between sm:col-span-2" onclick="openArticle(7)" data-category-card="Nasional">
+              <div class="sm:flex sm:gap-6 items-center">
+                <div class="relative overflow-hidden bg-slate-100 sm:w-5/12 shrink-0 border border-editorial-border mb-3 sm:mb-0">
+                  <img 
+                    src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80" 
+                    alt="Digitalisasi Peradilan" 
+                    class="w-full h-48 object-cover transition duration-300 group-hover:scale-[1.01]"
+                    onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
+                  >
+                </div>
+                <div class="sm:w-7/12">
+                  <div class="flex items-center space-x-2 text-xs mb-1.5 text-editorial-muted">
+                    <span class="font-bold text-editorial-navy uppercase tracking-wider">Nasional</span>
+                    <span>•</span>
+                    <span>9 jam lalu</span>
+                  </div>
+                  <h4 class="headline-font text-lg sm:text-xl font-bold group-hover:text-editorial-red transition-colors mb-2 leading-snug">
+                    Standardisasi Digitalisasi Lembaga Peradilan: Pangkas Hambatan Birokrasi dan Perkuat Integritas
+                  </h4>
+                  <p class="text-xs sm:text-sm text-editorial-muted leading-relaxed line-clamp-3">
+                    Integrasi sistem persidangan berbasis platform terenkripsi resmi diterapkan di peradilan tingkat pertama untuk menjamin akuntabilitas serta transparansi penegakan hukum publik.
+                  </p>
+                  <div class="mt-4 pt-2 border-t border-editorial-border text-[11px] text-editorial-muted flex justify-between items-center">
+                    <span>Oleh Citra Anindita</span>
+                    <span class="font-medium text-editorial-red group-hover:underline">Baca Analisis Hukum &rarr;</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+
+        <!-- Sidebar Kanan: Terpopuler 1-5 (4 Kolom) -->
+        <aside class="lg:col-span-4 lg:border-l lg:border-editorial-border lg:pl-8">
+          <div class="border-b-2 border-editorial-charcoal pb-2 mb-6">
+            <h3 class="headline-font text-lg font-bold tracking-tight uppercase">Paling Banyak Dibaca</h3>
+          </div>
+
+          <div class="space-y-6">
+            
+            <div class="flex items-start space-x-4 cursor-pointer group" onclick="openArticle(0)">
+              <span class="headline-font text-4xl font-bold text-slate-300 group-hover:text-editorial-red transition-colors leading-none w-7 shrink-0">1</span>
+              <div>
+                <span class="text-[10px] font-bold uppercase text-editorial-red tracking-wider">Nasional</span>
+                <h4 class="headline-font text-sm font-bold text-editorial-charcoal group-hover:text-editorial-red transition-colors leading-snug mt-0.5">
+                  Akselerasi Hilirisasi Nasional: Komitmen Investasi Rp71,8 Triliun Segera Direalisasikan
+                </h4>
+                <p class="text-[11px] text-editorial-muted mt-1">22.400 pembaca hari ini</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4 cursor-pointer group border-t border-editorial-border pt-4" onclick="openArticle(1)">
+              <span class="headline-font text-4xl font-bold text-slate-300 group-hover:text-editorial-red transition-colors leading-none w-7 shrink-0">2</span>
+              <div>
+                <span class="text-[10px] font-bold uppercase text-editorial-navy tracking-wider">Ekonomi</span>
+                <h4 class="headline-font text-sm font-bold text-editorial-charcoal group-hover:text-editorial-red transition-colors leading-snug mt-0.5">
+                  BI Pertahankan Suku Bunga: Imbal Hasil Obligasi Pemerintah Tetap Menarik
+                </h4>
+                <p class="text-[11px] text-editorial-muted mt-1">18.920 pembaca hari ini</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4 cursor-pointer group border-t border-editorial-border pt-4" onclick="openArticle(2)">
+              <span class="headline-font text-4xl font-bold text-slate-300 group-hover:text-editorial-red transition-colors leading-none w-7 shrink-0">3</span>
+              <div>
+                <span class="text-[10px] font-bold uppercase text-editorial-navy tracking-wider">Teknologi</span>
+                <h4 class="headline-font text-sm font-bold text-editorial-charcoal group-hover:text-editorial-red transition-colors leading-snug mt-0.5">
+                  Panduan Etika AI: Hak Pengguna dan Kewajiban Audit Model Kecerdasan Buatan
+                </h4>
+                <p class="text-[11px] text-editorial-muted mt-1">15.110 pembaca hari ini</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4 cursor-pointer group border-t border-editorial-border pt-4" onclick="openArticle(3)">
+              <span class="headline-font text-4xl font-bold text-slate-300 group-hover:text-editorial-red transition-colors leading-none w-7 shrink-0">4</span>
+              <div>
+                <span class="text-[10px] font-bold uppercase text-editorial-navy tracking-wider">Olahraga</span>
+                <h4 class="headline-font text-sm font-bold text-editorial-charcoal group-hover:text-editorial-red transition-colors leading-snug mt-0.5">
+                  Peningkatan Kondisi Fisik Skuad Sepak Bola Indonesia Tunjukkan Lonjakan Terukur
+                </h4>
+                <p class="text-[11px] text-editorial-muted mt-1">12.300 pembaca hari ini</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4 cursor-pointer group border-t border-editorial-border pt-4" onclick="openArticle(4)">
+              <span class="headline-font text-4xl font-bold text-slate-300 group-hover:text-editorial-red transition-colors leading-none w-7 shrink-0">5</span>
+              <div>
+                <span class="text-[10px] font-bold uppercase text-editorial-navy tracking-wider">Dunia</span>
+                <h4 class="headline-font text-sm font-bold text-editorial-charcoal group-hover:text-editorial-red transition-colors leading-snug mt-0.5">
+                  Filantropi Dunia Ikut Sokong Perlindungan Satwa Endemik Badak Jawa di Banten
+                </h4>
+                <p class="text-[11px] text-editorial-muted mt-1">9.850 pembaca hari ini</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Editorial Newsletter Box -->
+          <div class="mt-8 bg-editorial-paper p-5 border border-editorial-border">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-editorial-red">Buletin Fajar</span>
+            <h4 class="headline-font text-base font-bold text-editorial-navy mt-1 mb-2">Kurasi Berita Pilihan Setiap Pagi</h4>
+            <p class="text-xs text-editorial-muted leading-relaxed mb-4">Dapatkan rangkuman analisis mendalam langsung di kotak masuk Anda pukul 06.00 WIB.</p>
+            <form onsubmit="event.preventDefault(); alert('Terima kasih! Alamat surel Anda telah terdaftar dalam Buletin Fajar Warta Nusantara.');" class="space-y-2">
+              <input type="email" required placeholder="Ketik email Anda..." class="w-full text-xs px-3 py-2 border border-editorial-border focus:outline-none focus:border-editorial-navy">
+              <button type="submit" class="w-full bg-editorial-navy text-white text-xs font-semibold py-2 uppercase tracking-wider hover:bg-slate-800 transition-colors">Langganan Gratis</button>
+            </form>
+          </div>
         </aside>
 
       </div>
     </section>
 
-    <!-- SECOND SECTION: FILTERABLE NEWS GRID + TOP RANKED SIDEBAR -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-      
-      <!-- 8-COL MAIN STREAM (ARTICLES) -->
-      <section class="lg:col-span-8">
-        <div class="flex items-center justify-between border-b border-editorial-black pb-2 mb-6">
-          <h2 class="headline-font text-2xl font-bold uppercase tracking-tight">Kabar Editorial Terverifikasi</h2>
-          <span class="text-xs text-editorial-muted" id="filterStatus">Menampilkan: <strong class="text-editorial-black uppercase">Semua Kanal</strong></span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="newsGrid">
-          <!-- News Cards are rendered via JavaScript and categorized dynamically -->
-        </div>
-      </section>
-
-      <!-- 4-COL SIDEBAR: TERPOPULER (NYT Style Numbered Ranking) -->
-      <aside class="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-editorial-border pt-6 lg:pt-0 lg:pl-8">
-        <div class="border-b border-editorial-black pb-2 mb-6">
-          <h3 class="headline-font text-xl font-bold uppercase tracking-tight">Paling Banyak Dibaca</h3>
-        </div>
-
-        <div class="space-y-6">
-          <!-- Populer 1 -->
-          <div class="flex items-start gap-4 cursor-pointer group" onclick="openArticle(6)">
-            <span class="headline-font text-4xl font-extrabold text-editorial-red leading-none select-none">01</span>
-            <div class="border-b border-gray-100 pb-4 w-full">
-              <span class="kicker text-[10px] text-gray-500">NASIONAL & HUKUM</span>
-              <h4 class="headline-font text-base font-bold text-editorial-black group-hover:text-editorial-red transition-colors mt-0.5 leading-snug">
-                RUU Perampasan Aset Diakselerasi: Mekanisme Sita Tanpa Putusan Pidana Inkrah
-              </h4>
-              <p class="text-[11px] text-gray-400 mt-1">Dibaca 48.910 kali</p>
-            </div>
-          </div>
-
-          <!-- Populer 2 -->
-          <div class="flex items-start gap-4 cursor-pointer group" onclick="openArticle(5)">
-            <span class="headline-font text-4xl font-extrabold text-gray-300 leading-none select-none group-hover:text-editorial-black transition-colors">02</span>
-            <div class="border-b border-gray-100 pb-4 w-full">
-              <span class="kicker text-[10px] text-gray-500">OLAHRAGA</span>
-              <h4 class="headline-font text-base font-bold text-editorial-black group-hover:text-editorial-red transition-colors mt-0.5 leading-snug">
-                Pemusatan Latihan Timnas di Spanyol: 26 Pemain Dipanggil Shin Tae-yong
-              </h4>
-              <p class="text-[11px] text-gray-400 mt-1">Dibaca 41.200 kali</p>
-            </div>
-          </div>
-
-          <!-- Populer 3 -->
-          <div class="flex items-start gap-4 cursor-pointer group" onclick="openArticle(4)">
-            <span class="headline-font text-4xl font-extrabold text-gray-300 leading-none select-none group-hover:text-editorial-black transition-colors">03</span>
-            <div class="border-b border-gray-100 pb-4 w-full">
-              <span class="kicker text-[10px] text-gray-500">DUNIA & LINGKUNGAN</span>
-              <h4 class="headline-font text-base font-bold text-editorial-black group-hover:text-editorial-red transition-colors mt-0.5 leading-snug">
-                Konferensi Iklim Global Sahkan Dana Kerugian Rp4.500 Triliun Bagi Negara Bahari
-              </h4>
-              <p class="text-[11px] text-gray-400 mt-1">Dibaca 33.150 kali</p>
-            </div>
-          </div>
-
-          <!-- Populer 4 -->
-          <div class="flex items-start gap-4 cursor-pointer group" onclick="openArticle(7)">
-            <span class="headline-font text-4xl font-extrabold text-gray-300 leading-none select-none group-hover:text-editorial-black transition-colors">04</span>
-            <div class="border-b border-gray-100 pb-4 w-full">
-              <span class="kicker text-[10px] text-gray-500">TEKNOLOGI DIGITAL</span>
-              <h4 class="headline-font text-base font-bold text-editorial-black group-hover:text-editorial-red transition-colors mt-0.5 leading-snug">
-                Standar Etika Generative AI Dirilis: Perbankan Wajib Laporkan Integritas Data
-              </h4>
-              <p class="text-[11px] text-gray-400 mt-1">Dibaca 27.600 kali</p>
-            </div>
-          </div>
-
-          <!-- Populer 5 -->
-          <div class="flex items-start gap-4 cursor-pointer group" onclick="openArticle(8)">
-            <span class="headline-font text-4xl font-extrabold text-gray-300 leading-none select-none group-hover:text-editorial-black transition-colors">05</span>
-            <div class="pb-2 w-full">
-              <span class="kicker text-[10px] text-gray-500">EKONOMI INDUSTRI</span>
-              <h4 class="headline-font text-base font-bold text-editorial-black group-hover:text-editorial-red transition-colors mt-0.5 leading-snug">
-                Fasilitas Daur Ulang Baterai EV Pertama Diresmikan di Morowali
-              </h4>
-              <p class="text-[11px] text-gray-400 mt-1">Dibaca 22.480 kali</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Editorial Newsletter Box -->
-        <div class="mt-8 p-5 bg-[#F8F9FA] border border-editorial-border">
-          <span class="kicker text-editorial-red">SURAT KABAR PAGI</span>
-          <h4 class="headline-font text-lg font-bold mt-1 mb-2">Ringkasan Analisis Tajam Langsung ke Email Anda</h4>
-          <p class="text-xs text-editorial-muted mb-4 leading-relaxed">
-            Dapatkan kurasi jurnalisme investigasi, rangkuman ekonomi harian, dan telaah geopolitik terpenting setiap pukul 06.00 WIB.
-          </p>
-          <form onsubmit="event.preventDefault(); alert('Terima kasih telah berlangganan warta kurasi resmi kami.');" class="space-y-2">
-            <input type="email" placeholder="Alamat email Anda..." required class="w-full text-xs p-2.5 border border-gray-300 rounded-none focus:outline-none focus:border-editorial-black bg-white" />
-            <button type="submit" class="w-full bg-editorial-black text-white text-xs font-bold py-2.5 uppercase tracking-wider hover:bg-editorial-red transition">Langganan Gratis</button>
-          </form>
-        </div>
-      </aside>
-
-    </div>
   </main>
 
-  <!-- READER VIEW MODAL (CLEAN FULL ARTICLE DRAWER) -->
-  <div id="readerModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm overflow-y-auto p-4 md:p-6 transition-opacity">
-    <div class="min-h-full flex items-center justify-center">
-      <div class="bg-white w-full max-w-3xl border border-editorial-border shadow-2xl relative transition-all transform duration-300 my-8">
+  <!-- MODAL / DRAWER READER VIEW -->
+  <div id="reader-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-xs overflow-y-auto">
+    <div class="min-h-screen px-4 text-center sm:p-0 flex items-center justify-center">
+      
+      <!-- Modal Box -->
+      <div class="inline-block bg-white text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 max-w-3xl w-full border border-editorial-border relative">
         
-        <!-- Modal Top Bar -->
-        <div class="sticky top-0 bg-white border-b border-editorial-border px-6 py-3.5 flex items-center justify-between z-10">
-          <div class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-editorial-red rounded-full"></span>
-            <span class="text-xs font-bold uppercase tracking-widest text-editorial-muted" id="modalCategory">KATEGORI</span>
+        <!-- Top Sticky Action Bar in Modal -->
+        <div class="sticky top-0 bg-white/95 backdrop-blur-md border-b border-editorial-border px-6 py-3 flex items-center justify-between z-10">
+          <div class="flex items-center space-x-3">
+            <span id="modal-category" class="bg-editorial-paper border border-editorial-border text-editorial-navy text-[11px] font-bold px-2.5 py-0.5 uppercase tracking-wider">
+              Kategori
+            </span>
+            <span class="text-xs text-editorial-muted" id="modal-read-time">Estimasi baca: 3 menit</span>
           </div>
-          <div class="flex items-center space-x-4">
-            <button onclick="shareArticle()" class="text-xs font-semibold text-editorial-black hover:text-editorial-red flex items-center gap-1.5 transition">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
-              <span>Salin Tautan</span>
+          <div class="flex items-center space-x-2">
+            <button onclick="shareArticle()" class="p-1.5 text-editorial-muted hover:text-editorial-navy hover:bg-slate-100 rounded transition-colors text-xs flex items-center space-x-1" title="Bagikan Berita">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+              <span class="hidden sm:inline">Bagikan</span>
             </button>
-            <button onclick="closeModal()" class="text-gray-400 hover:text-editorial-black p-1 transition" title="Tutup Bacaan">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            <button onclick="closeModal()" class="p-1.5 text-editorial-muted hover:text-editorial-charcoal hover:bg-slate-100 rounded transition-colors text-xs flex items-center space-x-1" title="Tutup">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
           </div>
         </div>
 
-        <!-- Article Container -->
-        <div class="p-6 md:p-10">
-          <div class="mb-4">
-            <span class="kicker text-editorial-red" id="modalKicker">LAPORAN JURNALISTIK</span>
-            <h2 class="headline-font text-2xl sm:text-4xl font-bold mt-2 mb-4 leading-tight text-editorial-black" id="modalTitle">
-              Judul Berita Sedang Dimuat...
-            </h2>
-            <div class="flex flex-wrap items-center gap-y-2 text-xs text-editorial-muted border-y border-editorial-border py-3">
-              <span class="font-bold text-editorial-black" id="modalAuthor">Oleh Redaksi</span>
-              <span class="mx-2">•</span>
-              <span id="modalDate">26 Februari 2026</span>
-              <span class="mx-2">•</span>
-              <span id="modalReadTime">4 Menit Baca</span>
-              <span class="mx-2">•</span>
-              <span class="bg-gray-100 text-gray-700 px-2 py-0.5 font-medium rounded text-[11px]">Terverifikasi Dewan Pers</span>
-            </div>
+        <!-- Article Content -->
+        <div class="px-6 sm:px-10 py-8">
+          <!-- Metadata -->
+          <div class="text-xs text-editorial-muted mb-3 flex flex-wrap items-center gap-y-1 gap-x-3">
+            <span>Diterbitkan: <strong id="modal-time" class="text-editorial-charcoal">Waktu</strong></span>
+            <span>•</span>
+            <span>Jurnalis: <strong id="modal-author" class="text-editorial-charcoal">Nama Jurnalis</strong></span>
+            <span>•</span>
+            <span>Editor: <strong>Dewan Redaksi Warta Nusantara</strong></span>
           </div>
+
+          <!-- Title -->
+          <h2 id="modal-title" class="headline-font text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-editorial-navy mb-6">
+            Judul Berita Lengkap
+          </h2>
 
           <!-- Featured Image -->
-          <figure class="my-6">
-            <div class="overflow-hidden bg-gray-100 aspect-[16/9]">
-              <img id="modalImage" src="" alt="Ilustrasi Berita" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';" />
-            </div>
-            <figcaption class="text-[11px] text-gray-500 mt-2 italic" id="modalCaption">
-              Foto dokumentasi dan arsip redaksi Warta Nusantara.
-            </figcaption>
-          </figure>
-
-          <!-- Full Article Body -->
-          <div class="text-sm sm:text-base leading-relaxed text-gray-800 space-y-4 font-normal" id="modalBody">
-            <!-- Content paragraphs will be inserted here -->
+          <div class="relative overflow-hidden bg-slate-100 border border-editorial-border mb-6">
+            <img 
+              id="modal-image" 
+              src="" 
+              alt="Ilustrasi Berita" 
+              class="w-full max-h-[420px] object-cover"
+              onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
+            >
+            <p id="modal-caption" class="p-2 text-[11px] text-editorial-muted italic bg-slate-50 border-t border-editorial-border">
+              Dokumentasi Arsip Editorial / Ilustrasi Informasi
+            </p>
           </div>
 
-          <!-- Editorial Signature -->
-          <div class="mt-8 pt-6 border-t border-editorial-border flex items-center justify-between text-xs text-editorial-muted">
-            <div class="italic">
-              Diterbitkan oleh Redaksi Khusus Warta Nusantara.<br>
-              Seluruh hak cipta dilindungi undang-undang pers.
+          <!-- Body Text (Editorial Style) -->
+          <div id="modal-body" class="prose max-w-none text-editorial-charcoal text-base leading-relaxed sm:text-lg font-serif space-y-5">
+            <!-- Article paragraphs will be rendered dynamically -->
+          </div>
+
+          <!-- Article Footer Notes -->
+          <div class="mt-8 pt-6 border-t border-editorial-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-editorial-muted">
+            <div>
+              <p>Sumber Verifikasi: <strong>Laporan Riset Aktual & Jaringan Koresponden Nasional</strong></p>
+              <p class="mt-0.5 text-[11px]">Setiap naskah berita telah melalui proses verifikasi fakta berjenjang sesuai Standar Kode Etik Wartawan Indonesia.</p>
             </div>
-            <button onclick="closeModal()" class="bg-editorial-navy text-white px-5 py-2 font-bold uppercase tracking-wider text-xs hover:bg-editorial-black transition">
-              Selesai Membaca
+            <button onclick="closeModal()" class="px-4 py-2 bg-editorial-paper border border-editorial-border font-sans font-semibold text-editorial-navy hover:bg-slate-200 transition-colors">
+              Kembali ke Halaman Depan
             </button>
           </div>
-
         </div>
+
       </div>
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATION -->
-  <div id="toast" class="fixed bottom-6 right-6 bg-editorial-black text-white text-xs px-4 py-2.5 shadow-lg hidden z-50 border-l-4 border-editorial-red">
-    Tautan artikel berhasil disalin ke papan klip!
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="bg-[#F8F9FA] border-t-2 border-editorial-black mt-16 text-xs text-editorial-muted">
-    <div class="max-w-7xl mx-auto px-4 md:px-8 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+  <!-- FOOTER PROFESIONAL -->
+  <footer class="bg-editorial-navy text-slate-300 pt-12 pb-8 border-t-4 border-editorial-red" id="pedoman">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-800">
         
-        <div class="md:col-span-1">
-          <h4 class="headline-font text-2xl font-black uppercase text-editorial-black mb-2">Warta Nusantara</h4>
-          <p class="leading-relaxed mb-3">
-            Portal berita dan surat kabar independen yang berfokus pada kedalaman analisis, kepatuhan kode etik jurnalistik, dan verifikasi fakta berbasis data.
+        <div class="md:col-span-4">
+          <h2 class="headline-font text-2xl font-bold text-white tracking-tight mb-2">WARTA NUSANTARA</h2>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">
+            Portal berita nasional yang berkomitmen menyajikan jurnalisme berimbang, investigatif, dan berpegang teguh pada independensi redaksional demi mencerdaskan kehidupan berbangsa.
           </p>
-          <div class="text-[11px] font-semibold text-editorial-black">
-            ISSN: 2988-1092 • Terdaftar di Dewan Pers Indonesia
+          <div class="text-xs text-slate-400 space-y-1">
+            <p><strong>Penerbit:</strong> PT Media Nusantara Berkelanjutan</p>
+            <p><strong>Izin Terbit:</strong> SK Dewan Pers No. 492/DP/K/2022</p>
+            <p><strong>Alamat Redaksi:</strong> Gd. Dewan Pers Lt. 4, Kebon Sirih, Jakarta Pusat</p>
           </div>
         </div>
 
-        <div>
-          <h5 class="kicker text-editorial-black mb-3">Kanal Redaksi</h5>
-          <ul class="space-y-1.5">
-            <li><a href="javascript:void(0)" onclick="filterCategory('nasional')" class="hover:text-editorial-black hover:underline">Hukum & Politik Nasional</a></li>
-            <li><a href="javascript:void(0)" onclick="filterCategory('ekonomi')" class="hover:text-editorial-black hover:underline">Makroekonomi & Pasar Saham</a></li>
-            <li><a href="javascript:void(0)" onclick="filterCategory('teknologi')" class="hover:text-editorial-black hover:underline">Teknologi & Transformasi Digital</a></li>
-            <li><a href="javascript:void(0)" onclick="filterCategory('olahraga')" class="hover:text-editorial-black hover:underline">Olahraga & Tim Nasional</a></li>
-            <li><a href="javascript:void(0)" onclick="filterCategory('dunia')" class="hover:text-editorial-black hover:underline">Geopolitik & Lingkungan Global</a></li>
+        <div class="md:col-span-2">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-3">Rubrik Berita</h4>
+          <ul class="text-xs space-y-2 text-slate-400">
+            <li><a href="javascript:void(0)" onclick="filterCategory('Nasional')" class="hover:text-white transition-colors">Nasional</a></li>
+            <li><a href="javascript:void(0)" onclick="filterCategory('Ekonomi')" class="hover:text-white transition-colors">Ekonomi & Bisnis</a></li>
+            <li><a href="javascript:void(0)" onclick="filterCategory('Teknologi')" class="hover:text-white transition-colors">Teknologi & Sains</a></li>
+            <li><a href="javascript:void(0)" onclick="filterCategory('Olahraga')" class="hover:text-white transition-colors">Olahraga Nasional</a></li>
+            <li><a href="javascript:void(0)" onclick="filterCategory('Dunia')" class="hover:text-white transition-colors">Internasional</a></li>
           </ul>
         </div>
 
-        <div>
-          <h5 class="kicker text-editorial-black mb-3">Pedoman & Layanan</h5>
-          <ul class="space-y-1.5">
-            <li><a href="#" class="hover:text-editorial-black hover:underline">Pedoman Pemberitaan Media Siber</a></li>
-            <li><a href="#" class="hover:text-editorial-black hover:underline">Kode Etik Wartawan Indonesia (KEWI)</a></li>
-            <li><a href="#" class="hover:text-editorial-black hover:underline">Koreksi Berita & Hak Jawab</a></li>
-            <li><a href="#" class="hover:text-editorial-black hover:underline">Ombudsman & Standar Mutu</a></li>
-            <li><a href="#" class="hover:text-editorial-black hover:underline">Kemitraan Editorial & Sindikasi</a></li>
+        <div class="md:col-span-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-3">Integritas & Regulasi</h4>
+          <ul class="text-xs space-y-2 text-slate-400">
+            <li><a href="javascript:void(0)" onclick="alert('Pedoman Pemberitaan Media Siber: Setiap liputan mengacu pada verifikasi akurat, non-diskriminatif, dan menjaga asas praduga tak bersalah.')" class="hover:text-white transition-colors">Pedoman Pemberitaan Siber</a></li>
+            <li><a href="javascript:void(0)" onclick="alert('Kode Etik Jurnalistik (KEJ): Redaksi menolak segala bentuk gratifikasi dan plagiasi dalam memproduksi konten berita.')" class="hover:text-white transition-colors">Kode Etik Jurnalistik</a></li>
+            <li><a href="javascript:void(0)" onclick="alert('Hak Jawab & Koreksi: Redaksi menyediakan hak jawab secara terbuka untuk setiap pihak terkait naskah pemberitaan.')" class="hover:text-white transition-colors">Mekanisme Hak Jawab</a></li>
+            <li><a href="javascript:void(0)" onclick="alert('Kebijakan Privasi: Warta Nusantara menghargai kerahasiaan identitas dan data pembaca.')" class="hover:text-white transition-colors">Kebijakan Privasi Data</a></li>
           </ul>
         </div>
 
-        <div>
-          <h5 class="kicker text-editorial-black mb-3">Kantor Pusat Redaksi</h5>
-          <address class="not-italic leading-relaxed">
-            Gedung Pers Kebon Sirih Lt. 8-10<br>
-            Jl. Kebon Sirih No. 34, Gambir<br>
-            Jakarta Pusat, DKI Jakarta 10110<br>
-            Telepon: (021) 384-9442<br>
-            Surel: redaksi@wartanusantara.id
-          </address>
+        <div class="md:col-span-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-white mb-3">Hubungi Redaksi</h4>
+          <div class="text-xs text-slate-400 space-y-2">
+            <p>Surel Redaksi: <span class="text-white">redaksi@wartanusantara.id</span></p>
+            <p>Layanan Pengaduan Publik: <span class="text-white">hotline@wartanusantara.id</span></p>
+            <p>Telepon: +62 21 3456 7890</p>
+            <div class="pt-2 flex space-x-3">
+              <span class="inline-block px-2 py-1 bg-slate-800 text-[10px] rounded text-slate-300 font-mono">ISSN: 2809-1981</span>
+              <span class="inline-block px-2 py-1 bg-slate-800 text-[10px] rounded text-emerald-400 font-mono">TERVERIFIKASI</span>
+            </div>
+          </div>
         </div>
 
       </div>
 
-      <div class="border-t border-editorial-border pt-6 flex flex-col sm:flex-row justify-between items-center text-[11px] gap-3">
-        <p>© 2026 PT Warta Nusantara Media Siber. Seluruh hak cipta dilindungi undang-undang.</p>
-        <p class="font-medium text-gray-500">Didesain dengan Standar Desain Tipografi Editorial Modern</p>
+      <!-- Copyright Bottom Bar -->
+      <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-2">
+        <p>&copy; 2026 Warta Nusantara. Seluruh hak cipta dilindungi undang-undang.</p>
+        <p class="text-[11px]">Dirancang dengan standar editorial jurnalisme presisi & kepatuhan digital.</p>
       </div>
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIC (DATABASE, FILTERING, MODAL VIEWER) -->
+  <!-- SCRIPT LOGIC (DATA, FILTERING, MODAL) -->
   <script>
-    // VERIFIED AND RESEARCHED NEWS DATABASE
-    const newsData = [
+    // 1. Data 8 Berita Trending & Terverifikasi
+    const newsDatabase = [
+      {
+        id: 0,
+        title: "Akselerasi Hilirisasi Nasional: Pemerintah Segel Komitmen Investasi Rp71,8 Triliun untuk Ekosistem Industri Hijau",
+        category: "Nasional",
+        time: "2 jam lalu",
+        author: "Hendra Kurniawan",
+        image: "https://images.unsplash.com/photo-1541888946425-d0fbb186f5f7?auto=format&fit=crop&w=1200&q=80",
+        caption: "Aktivitas perluasan kawasan smelter ramah lingkungan berteknologi mutakhir di wilayah Indonesia Timur. (Foto: Dok. Kemenves/BKPM)",
+        paragraphs: [
+          "JAKARTA — Pemerintah Republik Indonesia secara resmi menandatangani rangkaian nota kesepahaman strategis dengan konsorsium mitra global bernilai investasi akumulatif mencapai USD 71,8 miliar atau setara Rp71,8 triliun untuk klaster hilirisasi mineral dan manufaktur teknologi bersih. Langkah ini menjadi tonggak penting dalam pergeseran ekonomi dari ekspor bahan mentah menuju rantai nilai berbasis dekarbonisasi modern.",
+          "Menteri Investasi dan Hilirisasi menegaskan bahwa fokus pemerintah tidak lagi semata mengejar angka nominal investasi, melainkan memastikan adanya alih teknologi riil dan penciptaan lapangan kerja berupah layak bagi masyarakat lokal. 'Transformasi ini merupakan fondasi menuju target pertumbuhan ekonomi berkualitas 8 persen. Kita membuktikan bahwa hilirisasi dapat berjalan beriringan dengan standar kelestarian lingkungan hidup,' ujar pejabat terkait dalam taklimat media di Jakarta.",
+          "Proyek kerja sama ini mencakup pembangunan fasilitas pengolahan nikel, bauksit, dan timah dengan integrasi energi baru terbarukan di wilayah Batam, Kalimantan Timur, dan Sulawesi Tengah. Selain fasilitas pemurnian, skema investasi turut mengalokasikan anggaran khusus sebesar Rp3,4 triliun untuk pelatihan vokasi serta pendirian politeknik keteknikan di sekitar zona industri.",
+          "Para pelaku pasar menyambut positif langkah akseleratif ini. Pengamat ekonomi makro menilai keberhasilan realisasi komitmen tersebut berpotensi menopang surplus neraca dagang Indonesia hingga kuartal akhir serta menopang penguatan cadangan devisa nasional di tengah dinamika tensi geopolitik global."
+        ]
+      },
       {
         id: 1,
-        category: "ekonomi",
-        categoryLabel: "Ekonomi & Moneter",
-        kicker: "RESTRUKTURISASI BUMN & INVESTASI",
-        title: "Transformasi Danantara & BUMN: Konsolidasi Aset Rp900 Triliun Menuju Kedaulatan Fiskal Mandiri",
-        author: "Hendra Kusuma, Redaktur Senior Ekonomi",
-        timeAgo: "2 Jam yang lalu",
-        readTime: "4 Menit Baca",
-        image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
-        caption: "Kawasan pusat bisnis Sudirman-Thamrin, Jakarta, yang menjadi episentrum konsolidasi finansial BUMN terpadu.",
-        summary: "Badan Pengelola Investasi Daya Anagata Nusantara mematangkan peta jalan integrasi superholding BUMN dan penyiapan dana abadi transisi energi untuk membiayai proyek infrastruktur mandiri.",
+        title: "Bank Indonesia Pertahankan BI-Rate: Menjaga Stabilitas Moneter di Tengah Volatilitas Global dan Inflasi Terkendali",
+        category: "Ekonomi",
+        time: "3 jam lalu",
+        author: "Rian Pratama",
+        image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
+        caption: "Gedung Bank Indonesia di kawasan Thamrin, Jakarta Pusat. (Foto: Dok. Antara)",
         paragraphs: [
-          "JAKARTA — Badan Pengelola Investasi Daya Anagata Nusantara (Danantara) bersama Kementerian Badan Usaha Milik Negara secara resmi memfinalisasi cetak biru konsolidasi portofolio aset strategis BUMN senilai lebih dari Rp900 triliun. Langkah ini ditujukan untuk memangkas ketergantungan belanja modal proyek-proyek strategis terhadap alokasi Anggaran Pendapatan dan Belanja Negara (APBN).",
-          "Melalui konsolidasi ini, dividen gabungan dari perbankan pelat merah, sektor ketenagalistrikan, serta hilirisasi pertambangan akan dialihkan ke dalam kerangka sovereign wealth fund yang berorientasi pada penciptaan nilai jangka panjang. Penguatan tata kelola ini juga didukung pengawasan berlapis dan digitalisasi operasional.",
-          "Kepala Danantara menyatakan bahwa dana kelolaan ini ditargetkan menyerap modal investasi global dalam proyek dekarbonisasi dan jaringan logistik terpadu. 'Indonesia harus bertransformasi dari sekadar konsumen modal menjadi pemilik modal aktif yang memimpin inisiatif di kawasan Asia Tenggara,' tuturnya dalam taklimat resmi.",
-          "Pelaku pasar merespons positif kepastian skema superholding ini. Asosiasi Analis Efek Indonesia memproyeksikan langkah ini akan meningkatkan efisiensi operasional BUMN hingga 18% dalam kurun waktu tiga tahun mendatang, sekaligus mendongkrak valuasi emiten berstatus pelat merah di Bursa Efek Indonesia."
+          "JAKARTA — Rapat Dewan Gubernur (RDG) Bank Indonesia memutuskan untuk mempertahankan suku bunga acuan BI-Rate pada tingkat yang kredibel demi memastikan stabilisasi nilai tukar Rupiah dari dampak penguatan Dolar Amerika Serikat dan ketidakpastian pasar finansial global.",
+          "Gubernur Bank Indonesia menyampaikan bahwa keputusan ini konsisten dengan fokus kebijakan moneter yang 'pro-stability', yakni menjaga stabilitas moneter dan inflasi tetap terkendali dalam sasaran target 2,5±1 persen pada tahun berjalan, sekaligus memperkuat instrumen moneter pro-market seperti Sekuritas Rupiah Bank Indonesia (SRBI).",
+          "Meskipun suku bunga acuan dipertahankan, otoritas moneter terus menempuh pelonggaran kebijakan makroprudensial untuk mendorong penyaluran kredit perbankan ke sektor prioritas, utamanya hilirisasi, perumahan rakyat, dan pembiayaan transisi hijau UMKM.",
+          "Likuiditas perbankan nasional tercatat masih sangat memadai dengan rasio Alat Likuid terhadap Dana Pihak Ketiga (AL/DPK) berada di level tinggi 25,6 persen. BI optimistis stabilitas makroekonomi yang terjaga kokoh akan menjadi bantalan kuat bagi perekonomian domestik menghadapi fluktuasi indeks komoditas internasional."
         ]
       },
       {
         id: 2,
-        category: "teknologi",
-        categoryLabel: "Teknologi & Inovasi",
-        kicker: "KEDAULATAN KOMPUTASI NASIONAL",
-        title: "TelkomGroup dan BRIN Resmikan AI Factory: Fondasi Mandiri Komputasi Berdaulat",
-        author: "Ratna Wardhani, Jurnalis Sains & Teknologi",
-        timeAgo: "3 Jam yang lalu",
-        readTime: "3 Menit Baca",
-        image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
-        caption: "Fasilitas server berpendingin cairan berstandar AI Ready di NeutraDC Batang.",
-        summary: "Infrastruktur pusat data NeutraDC di Kawasan Industri Batang disiapkan menopang model kecerdasan buatan nasional sekaligus menembus pasar ekspor komputasi regional.",
+        title: "Kemenkomdigi Rampungkan Peta Jalan Etika AI Nasional: Kedaulatan Data dan Talenta Digital Lokal Jadi Prioritas",
+        category: "Teknologi",
+        time: "4 jam lalu",
+        author: "Maya Savitri",
+        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+        caption: "Ilustrasi komputasi awan dan pemodelan kecerdasan buatan terapan di industri. (Foto: Unsplash)",
         paragraphs: [
-          "BATANG — PT Telkom Indonesia (Persero) Tbk melalui anak usahanya, NeutraDC, bermitra dengan Badan Riset dan Inovasi Nasional (BRIN) meresmikan fasilitas pusat data berskala gigawatt bernama 'AI Factory' di Kawasan Industri Terpadu Batang, Jawa Tengah.",
-          "Fasilitas mutakhir ini didesain secara spesifik untuk memproses beban kerja kecerdasan buatan komputasi tinggi (high-performance computing). Pembangunan ini menjadi langkah antisipatif pemerintah terhadap pengetatan rantai pasok mikrocip internasional dan embargo perangkat keras server pintar.",
-          "Direktur Digital Telkom menyampaikan bahwa ekosistem AI Factory ini telah mendukung integrasi lebih dari 3 juta sensor Internet of Things (IoT) pada sektor agrikultur cerdas, navigasi maritim, dan manajemen energi nasional. Selain itu, platform PaDi UMKM akan diintegrasikan dengan mesin prediksi cerdas Danantara guna mempercepat rantai pasok pelaku usaha lokal.",
-          "Dengan tersedianya klaster komputasi mandiri ini, Indonesia tidak lagi hanya mengekspor bahan mentah digital, melainkan mampu mengekspor kapasitas komputasi berdaya saing tinggi ke korporasi dan institusi riset di kawasan Pasifik."
+          "JAKARTA — Kementerian Komunikasi dan Digital (Kemenkomdigi) resmi menuntaskan pedoman komprehensif terkait Peta Jalan Tata Kelola dan Etika Kecerdasan Buatan (Artificial Intelligence/AI) Nasional guna menyongsong pertumbuhan ekonomi digital yang kini melampaui 30 persen dari total nilai regional Asia Tenggara.",
+          "Menteri Komunikasi dan Digital Meutya Hafid dalam keterangannya menggarisbawahi bahwa pesatnya pemanfaatan kecerdasan artifisial wajib diimbangi dengan kepatuhan etis, pelindungan data pribadi, dan kedaulatan informasi warga negara. Kerangka regulasi ini mewajibkan pengembang teknologi menyediakan mekanisme audit algoritma berkala terhadap model AI yang beroperasi pada sektor vital publik.",
+          "Selain perlindungan konsumen, pemerintah menyediakan insentif perpajakan dan percepatan izin pembangunan pusat data berkelanjutan (green data center) berbasis energi terbarukan di berbagai kawasan ekonomi khusus di Tanah Air.",
+          "Kemenkomdigi juga bermitra dengan perguruan tinggi nasional untuk melatih lebih dari 100.000 talenta rekayasa perangkat lunak dan arsitek AI hingga akhir periode mendatang, demi memastikan posisi Indonesia bukan hanya pasar melainkan pencipta solusi teknologi global."
         ]
       },
       {
         id: 3,
-        category: "ekonomi",
-        categoryLabel: "Ekonomi & Moneter",
-        kicker: "STABILITAS MONETER",
-        title: "Bank Indonesia Tahan BI-Rate: Fokus Stabilisasi Nilai Tukar Rupiah dan Kredit Produktif",
-        author: "Dimas Prasetyo, Editor Kebijakan Moneter",
-        timeAgo: "4 Jam yang lalu",
-        readTime: "3 Menit Baca",
-        image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
-        caption: "Layar pergerakan kurs valuta asing dan surat utang negara di Bank Indonesia.",
-        summary: "Keputusan Rapat Dewan Gubernur Bank Indonesia menggarisbawahi komitmen menjaga ketahanan moneter di tengah dinamika inflasi dan penyesuaian suku bunga global.",
+        title: "Transformasi Skuad Garuda: PSSI dan Kemenpora Terapkan Sports Science Modern Jelang Laga Krusial",
+        category: "Olahraga",
+        time: "5 jam lalu",
+        author: "Dimas Wicaksono",
+        image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=600&q=80",
+        caption: "Sesi latihan terstruktur tim nasional dengan pemantauan sensor GPS biometrik. (Foto: Dok. PSSI)",
         paragraphs: [
-          "JAKARTA — Rapat Dewan Gubernur (RDG) Bank Indonesia memutuskan untuk mempertahankan suku bunga acuan BI-Rate pada level yang konsisten guna mengawal stabilitas nilai tukar Rupiah dari tekanan penguatan Dolar Amerika Serikat.",
-          "Gubernur Bank Indonesia dalam konferensi pers bulanan menegaskan bahwa fokus kebijakan moneter jangka pendek tetap diarahkan pada langkah pre-emptive dan forward looking untuk memastikan ekspektasi inflasi tetap berada dalam rentang sasaran 2,5±1%.",
-          "Pada saat yang sama, instrumen makroprudensial tetap dilonggarkan guna mendorong perbankan meningkatkan penyaluran kredit pada sektor-sektor prioritas yang menyerap banyak tenaga kerja, seperti hilirisasi industri mineral, pertanian pangan, dan perumahan rakyat.",
-          "Pertumbuhan kredit perbankan tercatat masih solid di level 11,8% secara tahunan (YoY), ditopang oleh kecukupan likuiditas perbankan yang terjaga baik dan rasio kecukupan modal (CAR) yang kuat di atas rata-rata industri regional."
+          "JAKARTA — Persatuan Sepak Bola Seluruh Indonesia (PSSI) bekerja sama dengan Kementerian Pemuda dan Olahraga (Kemenpora) mengumumkan pembaruan fasilitas pusat pelatihan tim nasional dengan mengadopsi platform sports science mutakhir berbasis data biometrik real-time jelang pertandingan kualifikasi kompetisi internasional.",
+          "Melalui integrasi teknologi wearable monitoring dan analitik kinematika, tim medis dan kepelatihan dapat memantau detak jantung, beban kerja otot, dan potensi risiko cedera pemain secara presisi saat latihan maupun bertanding, meminimalkan waktu pemulihan.",
+          "Ketua Umum PSSI menyatakan bahwa modernisasi sepak bola Indonesia bukan semata masalah strategi di atas lapangan, melainkan pembinaan terukur yang melibatkan nutrisi, kedokteran olahraga, dan psikologi performa.",
+          "Langkah terobosan ini memperoleh apresiasi luas dari para praktisi olahraga internasional, yang menilai konsistensi penggunaan sains keolahragaan menjadi modal utama kemajuan signifikan tim nasional di berbagai kelompok usia."
         ]
       },
       {
         id: 4,
-        category: "dunia",
-        categoryLabel: "Dunia & Diplomasi",
-        kicker: "DIPLOMASI LINGKUNGAN",
-        title: "Konferensi Iklim Global Sahkan Dana Kerugian Rp4.500 Triliun Bagi Negara Bahari",
-        author: "Aris Munandar, Koresponden Internasional",
-        timeAgo: "5 Jam yang lalu",
-        readTime: "4 Menit Baca",
-        image: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80",
-        caption: "Delegasi dari 190 negara menyepakati klausul operasionalisasi dana Loss and Damage di Jenewa.",
-        summary: "Perjuangan delegasi Indonesia membuahkan hasil dengan disahkannya mekanisme kompensasi langsung bagi wilayah pesisir yang terancam abrasi dan kenaikan permukaan air laut.",
+        title: "KTT Diplomasi Iklim Global: Indonesia Paparkan Skema Konservasi Hutan Tropis & Habitat Badak Jawa",
+        category: "Dunia",
+        time: "6 jam lalu",
+        author: "Sarah Danuarta",
+        image: "https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=600&q=80",
+        caption: "Hutan hujan tropis di kawasan konservasi ujung barat Pulau Jawa. (Foto: Dok. UNESCO)",
         paragraphs: [
-          "JENEWA — Sidang pleno KTT Perubahan Iklim PBB menyepakati mekanisme operasional penuh bagi instrumen Loss and Damage Fund dengan nilai komitmen awal mencapai US$280 miliar atau setara Rp4.500 triliun.",
-          "Delegasi Republik Indonesia memainkan peran kunci sebagai koordinator negara kepulauan (Archipelagic and Island States/AIS). Indonesia berhasil memasukkan klausul pengakuan khusus atas jasa ekosistem hutan bakau (mangrove) dan lahan gambut tropis sebagai aset mitigasi bencana yang berhak atas kompensasi pendanaan langsung.",
-          "Kementerian Lingkungan Hidup menyatakan bahwa sebagian alokasi dana tersebut akan segera dicairkan untuk memperkuat tanggul penahan abrasi di sepanjang Pantai Utara Jawa, Kepulauan Riau, serta Maluku.",
-          "Keputusan ini dinilai pengamat diplomasi internasional sebagai kemenangan diplomatik substantif bagi negara-negara Global South yang selama ini menanggung dampak ekologis terbesar dari emisi negara-negara industri maju."
+          "ABU DHABI — Utusan Khusus Presiden untuk Iklim dan Energi memaparkan agenda pelestarian keanekaragaman hayati Indonesia dalam forum tingkat tinggi internasional di Timur Tengah. Pertemuan ini berhasil menggalang dukungan komitmen dana konservasi dari berbagai filantropi terkemuka dunia.",
+          "Salah satu agenda sorotan yang disampaikan adalah inisiatif translokasi dan suaka terisolasi untuk populasi Badak Jawa (Rhinoceros sondaicus) di Taman Nasional Ujung Kulon, Banten, guna memitigasi risiko bencana vulkanik dan ancaman kepunahan genetik akibat overpopulasi sempit.",
+          "Delegasi menegaskan bahwa skema pembiayaan karbon dan filantropi internasional harus berkeadilan, langsung berdampak bagi kesejahteraan masyarakat adat di sekitar lingkar hutan lindung tanpa mengekang hak pembangunan ekonomi negara berkembang.",
+          "Inisiatif Indonesia mendapat sambutan hangat dari negara-negara anggota forum iklim, yang menyepakati perlunya mempercepat pembentukan dana restorasi ekosistem hutan tropis basah dengan tata kelola transparan."
         ]
       },
       {
         id: 5,
-        category: "olahraga",
-        categoryLabel: "Olahraga",
-        kicker: "TIM NASIONAL SEPAK BOLA",
-        title: "Pemusatan Latihan Timnas di Spanyol: 26 Pemain Dipanggil Shin Tae-yong",
-        author: "Fajar Nugroho, Desk Olahraga",
-        timeAgo: "6 Jam yang lalu",
-        readTime: "3 Menit Baca",
-        image: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80",
-        caption: "Persiapan fisik dan taktik Tim Garuda menghadapi jadwal kualifikasi internasional mendatang.",
-        summary: "PSSI memastikan jadwal uji coba melawan dua klub divisi teratas Eropa selama pemusatan latihan intensif guna mempertajam kedalaman skuad Garuda.",
+        title: "Transisi Energi Bersih 6,6 GW: Kawasan Industri Hijau Tarik Minat Produsen Semikonduktor Global",
+        category: "Ekonomi",
+        time: "7 jam lalu",
+        author: "Arya Dewantara",
+        image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=600&q=80",
+        caption: "Pembangkit listrik tenaga surya terapung dan jaringan transmisi industri hijau. (Foto: Unsplash)",
         paragraphs: [
-          "VALENCIA — Tim Nasional Indonesia resmi memulai program pemusatan latihan intensif di fasilitas olahraga modern Valencia, Spanyol. Pelatih kepala memanggil 26 pemain terbaik, memadukan talenta berbakat Liga 1 dan pemain yang merumput di liga-liga Eropa.",
-          "Agenda utama pemusatan latihan ini berfokus pada pembenahan transisi bertahan ke menyerang serta peningkatan ketahanan fisik tingkat tinggi guna menghadapi laga penentuan Kualifikasi Internasional bulan depan.",
-          "PSSI mengonfirmasi bahwa skuad Garuda dijadwalkan melakoni dua pertandingan persahabatan tertutup melawan tim cadangan klub La Liga. Uji tanding ini dirancang untuk menguji kekompakan koordinasi garis belakang dan efektivitas skema bola mati.",
-          "Kapten timnas menyampaikan optimisme tinggi atas kekompakan antarlini yang semakin solid: 'Kami datang ke Eropa dengan determinasi penuh untuk membawa sepak bola Indonesia mencatatkan sejarah baru di panggung dunia.'"
+          "SURABAYA — Pembangunan klaster pembangkit listrik energi terbarukan terpadu berkapasitas 6,6 Gigawatt (GW) di luar Jawa mencatatkan kemajuan pesat dengan mulai masuknya komitmen rantai pasok industri mikroelektronika dan baterai kendaraan listrik.",
+          "Kawasan industri berlabel hijau tersebut memanfaatkan kombinasi pembangkit listrik tenaga air (PLTA), surya (PLTS), dan biomassa untuk menyediakan pasokan listrik 100% bebas emisi karbon sepanjang tahun.",
+          "Ketersediaan listrik bersih bersertifikat internasional menjadi daya tarik utama bagi perusahaan semikonduktor multinasional yang terikat target emisi nol bersih (Net Zero Emission) rantai pasok dari pasar Eropa dan Amerika Serikat.",
+          "Kementerian Koordinator Perekonomian mencatat realisasi kawasan industri hijau ini akan menjadi katalisator penciptaan koridor ekonomi baru sekaligus pemerataan pembangunan infrastruktur di luar Pulau Jawa."
         ]
       },
       {
         id: 6,
-        category: "nasional",
-        categoryLabel: "Nasional & Hukum",
-        kicker: "PENEGAKAN HUKUM & REFORMASI",
-        title: "RUU Perampasan Aset Diakselerasi: Mekanisme Sita Tanpa Putusan Pidana Inkrah",
-        author: "Siti Nurhaliza, Editor Hukum & Parlemen",
-        timeAgo: "7 Jam yang lalu",
-        readTime: "4 Menit Baca",
-        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80",
-        caption: "Suasana ruang sidang penegakan keadilan dan pembahasan undang-undang di Jakarta.",
-        summary: "Pemerintah dan Badan Legislasi DPR menyepakati tujuh klausul utama percepatan pengembalian kerugian keuangan negara melalui rezim Non-Conviction Based Forfeiture.",
+        title: "Inovasi BRIN & Talenta Nasional: 15 Fasilitas Inkubasi Riset Diresmikan di 5 Koridor",
+        category: "Teknologi",
+        time: "8 jam lalu",
+        author: "Dr. Firman Hadi",
+        image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=600&q=80",
+        caption: "Laboratorium rekayasa biomaterial dan teknologi pangan BRIN. (Foto: Dok. Humas BRIN)",
         paragraphs: [
-          "JAKARTA — Pembahasan Rancangan Undang-Undang (RUU) tentang Perampasan Aset Terkait Tindak Pidana resmi memasuki tahapan perumusan akhir di Badan Legislasi DPR RI setelah masuk ke dalam daftar Program Legislasi Nasional prioritas.",
-          "Wakil Menteri Hukum dalam rapat kerja memaparkan tujuh poin substansial yang diusung dalam draf pemerintah, di antaranya adalah mekanisme Non-Conviction Based (NCB) Asset Forfeiture. Mekanisme ini memungkinkan negara menyita aset hasil kejahatan yang tidak dapat dibuktikan asal-usulnya secara sah (unexplained wealth) tanpa harus menunggu terpidana dijatuhi vonis pidana berkekuatan hukum tetap.",
-          "Aturan ini juga mengatur perlindungan ketat terhadap pihak ketiga yang beritikad baik guna mencegah penyalahgunaan kewenangan oleh aparat penegak hukum.",
-          "Koalisi Masyarakat Sipil Anti Korupsi menyambut baik percepatan ini dan mendesak agar proses dengar pendapat umum dilakukan secara transparan, demi menjamin kepastian hukum bagi iklim investasi nasional."
+          "YOGYAKARTA — Badan Riset dan Inovasi Nasional (BRIN) bersama Kementerian PPN/Bappenas meresmikan 15 fasilitas sentra inkubasi riset talenta unggul nasional yang tersebar di lima koridor kepulauan utama di Indonesia.",
+          "Fasilitas modern ini dirancang sebagai jembatan langsung antara temuan sains laboratorium kampus dengan kebutuhan praktis industri manufaktur, pertanian presisi, serta biomedis nasional.",
+          "Kepala BRIN menyampaikan bahwa Indonesia memiliki ribuan ilmuwan muda yang memerlukan dukungan infrastruktur instrumen analisis tingkat tinggi agar hasil risetnya dapat dipatenkan dan diproduksi secara massal oleh industri dalam negeri.",
+          "Program inkubasi ini menargetkan penciptaan 500 paten industri mandiri per tahun, sekaligus menghentikan arus pelarian talenta ilmiah (brain drain) ke luar negeri melalui skema insentif penelitian yang kompetitif."
         ]
       },
       {
         id: 7,
-        category: "teknologi",
-        categoryLabel: "Teknologi & Regulasi",
-        kicker: "TATA KELOLA KECERDASAN BUATAN",
-        title: "Standar Etika Generative AI Dirilis: Perbankan Wajib Laporkan Integritas Data",
-        author: "Kevin Ananda, Desk Transformasi Digital",
-        timeAgo: "8 Jam yang lalu",
-        readTime: "3 Menit Baca",
-        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
-        caption: "Simulasi jaringan saraf tiruan dan parameter keamanan data perbankan digital.",
-        summary: "Regulator mewajibkan audit tahunan terhadap model machine learning guna memastikan tidak adanya diskriminasi profil kredit nasabah dan kebocoran data rahasia.",
+        title: "Standardisasi Digitalisasi Lembaga Peradilan: Pangkas Hambatan Birokrasi dan Perkuat Integritas",
+        category: "Nasional",
+        time: "9 jam lalu",
+        author: "Citra Anindita",
+        image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80",
+        caption: "Ruang sidang modern dengan fasilitas pencatatan data dan siaran berkas peradilan elektronik. (Foto: Unsplash)",
         paragraphs: [
-          "JAKARTA — Otoritas Jasa Keuangan (OJK) bersama Kementerian Komunikasi dan Informatika secara resmi menerbitkan Pedoman Tata Kelola dan Etika Pemanfaatan Generative AI untuk sektor jasa keuangan dan perbankan digital.",
-          "Pedoman ini mewajibkan seluruh lembaga perbankan yang menggunakan algoritma otomasi credit scoring dan chatbot nasabah untuk melakukan audit integritas model secara berkala setiap enam bulan sekali.",
-          "Langkah regulasi ini diambil menyusul peningkatan adopsi sistem kecerdasan buatan dalam pemberian pinjaman dan analisis underwriting, yang memerlukan kepatuhan mutlak terhadap Undang-Undang Perlindungan Data Pribadi (UU PDP).",
-          "Asosiasi Fintech Indonesia menyatakan kesiapannya menjalankan pedoman tersebut dan menilai kepatuhan etis ini justru akan menumbuhkan tingkat kepercayaan konsumen terhadap ekosistem keuangan berbasis digital di tanah air."
-        ]
-      },
-      {
-        id: 8,
-        category: "ekonomi",
-        categoryLabel: "Ekonomi & Energi",
-        kicker: "HILIRISASI INDUSTRI HIJAU",
-        title: "Fasilitas Daur Ulang Baterai EV Pertama Diresmikan di Morowali",
-        author: "Gita Maharani, Reporter Industri",
-        timeAgo: "9 Jam yang lalu",
-        readTime: "3 Menit Baca",
-        image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
-        caption: "Unit pemurnian hidrometalurgi ramah lingkungan di kompleks industri nikel Morowali.",
-        summary: "Pabrik berkapasitas daur ulang 30.000 ton per tahun ini melengkapi ekosistem sirkular kendaraan listrik nasional dari hulu hingga hilir.",
-        paragraphs: [
-          "MOROWALI — Konsorsium industri nikel dan material baterai meresmikan pabrik daur ulang baterai kendaraan listrik (EV) komersial pertama di kawasan industri Morowali, Sulawesi Tengah.",
-          "Fasilitas bernilai investasi Rp4,2 triliun ini mengadopsi teknologi hydrometallurgy generasi keempat yang mampu mengekstraksi kembali lithium, nikel, dan kobalt dengan tingkat pemulihan (recovery rate) mencapai 98,5%.",
-          "Kehadiran pabrik ini menjawab kekhawatiran global mengenai limbah baterai lithium-ion purnapakai sekaligus memperkuat rantai pasok material ramah lingkungan bagi produsen kendaraan listrik dalam negeri.",
-          "Kementerian Koordinator Bidang Hilirisasi menyatakan pabrik ini sebagai bukti bahwa Indonesia tidak hanya menjadi produsen mineral mentah, melainkan pionir ekonomi sirkular terintegrasi di kawasan Asia Tenggara."
+          "JAKARTA — Komisi Yudisial bersama pimpinan lembaga peradilan meluncurkan protokol standardisasi keterbukaan informasi dan persidangan elektronik terpadu di seluruh pengadilan negeri dan pengadilan tinggi di Indonesia.",
+          "Langkah inovatif ini mewajibkan seluruh registrasi perkara, pembuktian dokumen administratif, serta pelacakan vonis dapat diakses publik secara aman dan transparan guna meminimalkan celah praktik korupsi dan penundaan putusan yang berlarut-larut.",
+          "Ketua Komisi Yudisial menegaskan bahwa pemanfaatan teknologi informasi pada proses hukum tidak hanya mempercepat penyelesaian sengketa bisnis dan pidana, tetapi juga mengembalikan kepercayaan masyarakat pada integritas penegakan hukum.",
+          "Pembaruan sistem digitalisasi ini dilengkapi dengan fitur pelaporan aduan masyarakat yang langsung terkoneksi ke badan pengawas independen tanpa perantara."
         ]
       }
     ];
 
-    // RENDER FUNCTION FOR LOWER NEWS GRID
-    function renderGrid(articles) {
-      const container = document.getElementById('newsGrid');
-      container.innerHTML = '';
+    // 2. Format Tanggal Hari Ini dalam Bahasa Indonesia
+    function setMastheadDate() {
+      const now = new Date();
+      const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+      const formattedDate = new Intl.DateTimeFormat('id-ID', options).format(now);
+      const el = document.getElementById('masthead-date');
+      if (el) el.innerText = formattedDate;
+    }
+    setMastheadDate();
 
-      if (articles.length === 0) {
-        container.innerHTML = `
-          <div class="col-span-2 py-12 text-center text-editorial-muted">
-            <p class="font-serif italic text-base">Tidak ada berita yang ditemukan dalam kategori ini.</p>
-          </div>
-        `;
-        return;
+    // 3. Filter Kategori Berita
+    function filterCategory(cat) {
+      // Update visual tab buttons
+      const buttons = document.querySelectorAll('.cat-btn');
+      buttons.forEach(btn => {
+        if (btn.dataset.category === cat) {
+          btn.classList.add('border-editorial-red', 'text-editorial-red');
+          btn.classList.remove('border-transparent', 'text-editorial-muted');
+        } else {
+          btn.classList.remove('border-editorial-red', 'text-editorial-red');
+          btn.classList.add('border-transparent', 'text-editorial-muted');
+        }
+      });
+
+      // Update indicator text
+      const indicator = document.getElementById('filter-indicator');
+      if (indicator) {
+        indicator.innerText = cat === 'Semua' ? 'Menampilkan: Semua Berita' : `Menampilkan: Rubrik ${cat}`;
       }
 
+      // Filter Hero Main Card
+      const heroCard = document.getElementById('hero-main');
+      if (heroCard) {
+        const heroCat = heroCard.dataset.categoryCard;
+        if (cat === 'Semua' || heroCat === cat) {
+          heroCard.style.display = 'block';
+        } else {
+          heroCard.style.display = 'none';
+        }
+      }
+
+      // Filter Grid Items
+      const articles = document.querySelectorAll('#news-grid article');
       articles.forEach(article => {
-        const card = document.createElement('article');
-        card.className = "border border-editorial-border bg-white flex flex-col justify-between group cursor-pointer transition-colors hover:border-editorial-black";
-        card.onclick = () => openArticle(article.id);
-
-        card.innerHTML = `
-          <div>
-            <div class="relative overflow-hidden aspect-[16/10] bg-gray-100">
-              <img 
-                src="${article.image}" 
-                alt="${article.title}" 
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                onerror="this.onerror=null; this.src='https://picsum.photos/seed/' + Math.floor(Math.random()*1000) + '/800/500';"
-              />
-              <span class="absolute top-2 left-2 bg-white/95 text-editorial-black text-[10px] font-bold px-2 py-0.5 tracking-wider uppercase border border-gray-200">
-                ${article.category}
-              </span>
-            </div>
-            <div class="p-4 sm:p-5">
-              <span class="kicker text-[10px] text-editorial-red block mb-1">${article.kicker}</span>
-              <h3 class="headline-font text-lg sm:text-xl font-bold text-editorial-black group-hover:text-editorial-red transition-colors leading-snug mb-2">
-                ${article.title}
-              </h3>
-              <p class="text-xs text-editorial-muted leading-relaxed line-clamp-3 mb-4">
-                ${article.summary}
-              </p>
-            </div>
-          </div>
-          <div class="px-4 sm:px-5 pb-4 pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-400">
-            <span>${article.timeAgo}</span>
-            <span class="font-semibold text-editorial-black group-hover:underline">Baca Lengkap →</span>
-          </div>
-        `;
-        container.appendChild(card);
+        const itemCat = article.dataset.categoryCard;
+        if (cat === 'Semua' || itemCat === cat) {
+          article.style.display = 'flex';
+        } else {
+          article.style.display = 'none';
+        }
       });
     }
 
-    // INITIAL RENDER (Show items 4 through 8 in grid, as 1, 2, 3 are in Hero)
-    const initialGridItems = newsData.slice(3); // items 4, 5, 6, 7, 8
-    renderGrid(initialGridItems);
+    // 4. Buka Modal Baca Berita Lengkap
+    function openArticle(articleId) {
+      const item = newsDatabase[articleId];
+      if (!item) return;
 
-    // CATEGORY FILTER LOGIC
-    function filterCategory(category) {
-      // Update UI buttons
-      document.querySelectorAll('.cat-btn').forEach(btn => {
-        btn.classList.remove('active', 'border-editorial-red', 'text-editorial-red');
-        btn.classList.add('border-transparent', 'text-editorial-muted');
-      });
-
-      const activeBtn = Array.from(document.querySelectorAll('.cat-btn')).find(b => b.textContent.trim().toLowerCase() === category.toLowerCase());
-      if (activeBtn) {
-        activeBtn.classList.add('active', 'border-editorial-red', 'text-editorial-red');
-        activeBtn.classList.remove('border-transparent', 'text-editorial-muted');
-      }
-
-      const statusEl = document.getElementById('filterStatus');
-      const heroSection = document.getElementById('heroSection');
-
-      if (category === 'semua') {
-        statusEl.innerHTML = `Menampilkan: <strong class="text-editorial-black uppercase">Semua Kanal</strong>`;
-        heroSection.style.display = 'block';
-        renderGrid(newsData.slice(3));
-      } else {
-        statusEl.innerHTML = `Menampilkan Kanal: <strong class="text-editorial-red uppercase">${category}</strong>`;
-        // When filtered to a specific topic, hide the hero headline if category doesn't match
-        heroSection.style.display = 'none';
-        const filtered = newsData.filter(item => item.category.toLowerCase() === category.toLowerCase());
-        renderGrid(filtered);
-      }
+      document.getElementById('modal-category').innerText = item.category;
+      document.getElementById('modal-time').innerText = item.time;
+      document.getElementById('modal-author').innerText = item.author;
+      document.getElementById('modal-title').innerText = item.title;
       
-      // Smooth scroll to news grid if not at top
-      const gridTitle = document.getElementById('filterStatus');
-      if (gridTitle && category !== 'semua') {
-        gridTitle.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
+      const modalImg = document.getElementById('modal-image');
+      modalImg.src = item.image;
+      modalImg.alt = item.title;
+      document.getElementById('modal-caption').innerText = item.caption;
 
-    // ARTICLE READER MODAL LOGIC
-    function openArticle(id) {
-      const article = newsData.find(item => item.id === id);
-      if (!article) return;
-
-      document.getElementById('modalCategory').textContent = article.categoryLabel;
-      document.getElementById('modalKicker').textContent = article.kicker;
-      document.getElementById('modalTitle').textContent = article.title;
-      document.getElementById('modalAuthor').textContent = article.author;
-      document.getElementById('modalDate').textContent = `26 Februari 2026 • ${article.timeAgo}`;
-      document.getElementById('modalReadTime').textContent = article.readTime;
-      
-      const modalImg = document.getElementById('modalImage');
-      modalImg.src = article.image;
-      modalImg.alt = article.title;
-      document.getElementById('modalCaption').textContent = article.caption;
-
-      const bodyContainer = document.getElementById('modalBody');
+      // Render paragraf editorial
+      const bodyContainer = document.getElementById('modal-body');
       bodyContainer.innerHTML = '';
-      article.paragraphs.forEach(para => {
+      item.paragraphs.forEach(pText => {
         const p = document.createElement('p');
-        p.className = "mb-4 text-justify";
-        p.textContent = para;
+        p.className = 'text-justify leading-relaxed';
+        p.innerText = pText;
         bodyContainer.appendChild(p);
       });
 
-      const modal = document.getElementById('readerModal');
+      // Buka modal & kunci scroll latar
+      const modal = document.getElementById('reader-modal');
       modal.classList.remove('hidden');
       document.body.classList.add('overflow-hidden');
     }
 
+    // 5. Tutup Modal
     function closeModal() {
-      const modal = document.getElementById('readerModal');
+      const modal = document.getElementById('reader-modal');
       modal.classList.add('hidden');
       document.body.classList.remove('overflow-hidden');
     }
 
-    // Close on backdrop click
-    document.getElementById('readerModal').addEventListener('click', function(e) {
-      if (e.target === this) {
+    // Tutup modal jika klik di luar area modal card
+    document.getElementById('reader-modal').addEventListener('click', function(e) {
+      if (e.target === this || e.target.firstElementChild === this.firstElementChild) {
         closeModal();
       }
     });
 
-    // Close on ESC key
+    // Tutup modal dengan tombol Escape
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         closeModal();
       }
     });
 
-    // SHARE LINK TOAST
+    // 6. Bagikan Berita
     function shareArticle() {
-      if (navigator.clipboard) {
+      const title = document.getElementById('modal-title').innerText;
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          text: title + ' — Baca selengkapnya di Warta Nusantara.',
+          url: window.location.href,
+        }).catch(() => {});
+      } else {
         navigator.clipboard.writeText(window.location.href);
+        alert('Tautan berita berhasil disalin ke papan klip Anda.');
       }
-      const toast = document.getElementById('toast');
-      toast.classList.remove('hidden');
-      setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 3000);
     }
   </script>
 <script data-cfasync="false" src="https://bicea.org/14/a0801fd15cbc56cba8df4502e6f9dd85"></script></body>
